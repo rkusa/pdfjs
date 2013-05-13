@@ -1,0 +1,26 @@
+{
+  "name": "pdf",
+  "author": {
+    "name": "Markus Ast",
+    "email": "npm.m@rkusa.st"
+  },
+  "version": "0.1.0",
+  "homepage": "https://github.com/rkusa/pdf",
+  "scripts": {
+    "test": "mocha"
+  },
+  "dependencies": {
+  },
+  "devDependencies": {
+    "mocha": "1.9.x",
+    "should": "1.2.x"
+  },
+  "bugs": "https://github.com/rkusa/pdf/issues",
+  "repository" : {
+    "type" : "git",
+    "url" : "git://github.com/rkusa/pdf.git"
+  },
+  "engines": {
+    "node": ">=0.8"
+  }
+}
