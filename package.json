@@ -1,11 +1,12 @@
 {
-  "name": "pdf",
+  "name": "pdfjs",
   "author": {
     "name": "Markus Ast",
     "email": "npm.m@rkusa.st"
   },
   "version": "0.1.0",
-  "homepage": "https://github.com/rkusa/pdf",
+  "homepage": "https://github.com/rkusa/pdfjs",
+  "main": "lib/document",
   "scripts": {
     "test": "mocha"
   },
@@ -15,10 +16,10 @@
     "mocha": "1.9.x",
     "should": "1.2.x"
   },
-  "bugs": "https://github.com/rkusa/pdf/issues",
+  "bugs": "https://github.com/rkusa/pdfjs/issues",
   "repository" : {
     "type" : "git",
-    "url" : "git://github.com/rkusa/pdf.git"
+    "url" : "git://github.com/rkusa/pdfjs.git"
   },
   "engines": {
     "node": ">=0.8"
