@@ -160,7 +160,7 @@ A Portable Document Format (PDF) generation library targeting both the server- a
 * **width** - 
 * **padding** - 
 * **borderWidth** - 
-* **colSpan** - 
+* **colspan** - 
 
 #### .addFont(font)
 
