@@ -16,6 +16,20 @@ A Portable Document Format (PDF) generation library targeting both the server- a
 
 ## API
 
+### Font
+
+#### new Font(path)
+#### new Font(opts)
+
+**Options:**
+
+* **normal** - 
+* **italic** - 
+* **bold** - 
+* **boldItalic** - 
+* **light** - 
+* **lightItalic** - 
+
 ### Document
 
 **Properties:**
@@ -26,149 +40,32 @@ A Portable Document Format (PDF) generation library targeting both the server- a
 * **innerHeight** - 
 * **padding** - 
 
-#### .addPage()
-
-#### .font(name)
+#### .text(fn)
 
 **Arguments:**
 
-* **name** - 
+* **fn** - 
+
+#### .text(text, opts)
+
+**Arguments:**
+
+* **text** - 
+* **opts** - 
+
+**Options:**
+
+* **bold** - 
+* **italic** - 
+* **light** - 
+* **align** - [left|right|center|justify]
+* **lineSpacing** - factor
+* **font** - 
+* **size** - 
 
 #### .toDataURL()
 
 #### .toString()
-
-### Page
-
-**Properties:**
-
-* **cursor** - 
-
-#### .beginText()
-
-#### .moveTextCursor(x, y)
-
-**Arguments:**
-
-* **x** - 
-* **y** - 
-
-#### .setFont(font, size)
-
-**Arguments:**
-
-* **font** - 
-* **size** - 
-
-#### .showText(text)
-
-**Arguments:**
-
-* **text** - 
-
-#### .setWordSpacing(wordSpacing)
-
-**Arguments:**
-
-* **wordSpacing** - 
-
-#### .endText()
-
-#### .setStrokeRGBColor(r, g, b)
-
-**Arguments:**
-
-* **r** - 
-* **g** - 
-* **b** - 
-
-#### .setLineWidth(width)
-
-**Arguments:**
-
-* **width** - 
-
-#### .stroke(from, to)
-
-**Arguments:**
-
-* **from** - 
-* **to** - 
-
-#### .text(text[, x, y][, options])
-
-**Arguments:**
-
-* **text** - 
-* **x** - 
-* **y** - 
-* **options** - 
-
-**Options:**
-
-* **width** - 
-* **font** - 
-* **size** - 
-* **align** - 
-* **text** - 
-* **text** - 
-
-#### .table(x, y, options, definition)
-
-**Arguments:**
-
-* **x** - 
-* **y** - 
-* **options** - 
-* **definition** - 
-
-**Options:**
-
-* **font** - 
-* **size** - 
-* **width** - 
-* **padding** - 
-* **borderWidth** - 
-
-#### .tr(options, definition)
-
-**Arguments:**
-
-* **options** - 
-* **definition** - 
-
-**Options:**
-
-* **font** - 
-* **size** - 
-* **width** - 
-* **padding** - 
-* **borderWidth** - 
-* **header** - 
-
-#### .td(text, options)
-
-**Arguments:**
-
-* **text** - 
-* **options** - 
-
-**Options:**
-
-* **font** - 
-* **size** - 
-* **width** - 
-* **padding** - 
-* **borderWidth** - 
-* **colspan** - 
-
-#### .addFont(font)
-
-**Arguments:**
-
-* **font** - 
-
-#### .break()
 
 ## MIT License
 Copyright (c) 2013 Markus Ast
