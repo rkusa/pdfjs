@@ -46,6 +46,12 @@ A Portable Document Format (PDF) generation library targeting both the server- a
 
 * **fn** - 
 
+**text**
+
+* **text** - 
+* **br** - 
+* **pageNumber** - 
+
 #### .text(text, opts)
 
 **Arguments:**
