@@ -4,17 +4,22 @@
     "name": "Markus Ast",
     "email": "npm.m@rkusa.st"
   },
-  "version": "0.1.0",
+  "version": "0.2.0",
   "homepage": "https://github.com/rkusa/pdfjs",
   "main": "lib/document",
   "scripts": {
-    "test": "mocha"
+    "test": "mocha",
+    "bundle": "browserify lib/document.js --standalone Pdfjs --detect-globals false  > pdfjs.js && npm run-script minify",
+    "minify": "uglifyjs -o pdfjs.min.js pdfjs.js"
   },
   "dependencies": {
+    "ttfjs": "0.1.x"
   },
   "devDependencies": {
     "mocha": "1.9.x",
-    "should": "1.2.x"
+    "chai": "1.7.x",
+    "browserify": "2.x.x",
+    "uglify-js": "1.x.x"
   },
   "bugs": "https://github.com/rkusa/pdfjs/issues",
   "repository" : {
