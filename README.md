@@ -3,7 +3,7 @@ A Portable Document Format (PDF) generation library targeting both the server- a
 
 ```json
 { "name": "pdfjs",
-  "version": "0.2.0" }
+  "version": "0.2.1" }
 ```
 
 ### Status
@@ -164,7 +164,7 @@ Returns the document as plain text.
 
 ```js
 var fs = require('fs')
-fs.writeFile(__dirname + '/test.pdf', doc.toString())
+fs.writeFile(__dirname + '/test.pdf', doc.toString(), 'ascii')
 ```
 
 ### Font
