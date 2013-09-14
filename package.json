@@ -6,6 +6,8 @@
   },
   "version": "0.2.0",
   "homepage": "https://github.com/rkusa/pdfjs",
+  "keywords": ["pdf", "generator"],
+  "license": "MIT",
   "main": "lib/document",
   "scripts": {
     "test": "mocha",
