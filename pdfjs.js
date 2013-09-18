@@ -446,9 +446,10 @@ var Text = module.exports.Text = function(doc, opts) {
 }
 
 Text.prototype.text = function text(str, opts) {
+  if (!str) return this.textFn
   opts = utils.extend(opts || {}, this.opts)
   var self = this, font = (opts.font ? this.doc.registerFont(opts.font) : this.doc.defaultFont).fromOpts(opts)
-  var words = str.replace(/\r\n/, '\n').split(/ +|^|$/mg)
+  var words = str.toString().replace(/\t/g, ' ').replace(/\r\n/g, '\n').split(/ +|^|$/mg)
   // if (words[0].match(/\.\!\?\,/) && this.contents.length)
   //   this.contents[this.contents.length - 1].content += words.shift()
   words.forEach(function(word) {
@@ -484,8 +485,14 @@ Text.prototype.render = function(page, width) {
       return word.height
     }))
     
+    // only a line break
+    if (line.length === 1 && line[0].word === '\n') {
+      page.cursor.y -= lineHeight * (self.opts.lineSpacing || 1)
+      return
+    }
+    
     // page break
-    if (page.spaceLeft < lineHeight) {
+    if (round(page.spaceLeft) < round(lineHeight)) {
       var left = page.cursor.x
       page = self.doc.pagebreak()
       page.cursor.x = left
@@ -521,6 +528,7 @@ Text.prototype.render = function(page, width) {
     page.contents.writeLine(left + ' ' + page.cursor.y + ' Td')
   
     line.forEach(function(word, i) {
+      if (word.word === '\n') return
       var str = (i > 0 && !word.isStartingWithPunctuation ? ' ' : '') + word.font.encode(word.word)
         , size = word.opts.size || 10
       if (lastFont !== word.font || lastSize !== size) {
@@ -549,6 +557,7 @@ Text.prototype.render = function(page, width) {
     
     if (word.word === '\n' || (line.length > 0 && spaceLeft - (wordWidth + wordSpacing) < 0)) {
       wordSpacing = 0
+      if (word.word === '\n') line.push(word)
       renderLine(line, width - spaceLeft, word.word === '\n')
       spaceLeft = width
       line = new Line
@@ -646,6 +655,10 @@ var Line = function() {
   })
   return line
 }
+
+function round(num) {
+  return Math.round(num * 100) / 100
+}
 },{"../objects/string":14,"../utils":17}],4:[function(require,module,exports){
 var PDFObject = require('./objects/object')
   , Pages     = require('./pages')
@@ -673,7 +686,7 @@ var Document = module.exports = function Document(font) {
   // the catalog and pages tree
   this.catalog = this.createObject('Catalog')
   this.pages   = new Pages(this)
-  this.catalog.addProperty('Pages', this.pages.toReference())
+  this.catalog.prop('Pages', this.pages.toReference())
   
   this.areas = { header: null, footer: null }
 }
@@ -748,8 +761,14 @@ Document.prototype.toDataURL = function() {
   return 'data:application/pdf;base64,' + Base64.encode(this.toString())
 }
 
+var PDFDictionary = require('./objects/dictionary')
+  , PDFArray      = require('./objects/array')
+  , PDFString     = require('./objects/string')
+
 Document.prototype.toString = function() {
   var self = this
+  this.objects = [this.catalog, this.pages.tree]
+  
   this.pagebreak()
   this.render()
   this.subsets.forEach(function(subset) {
@@ -786,11 +805,14 @@ Document.prototype.toString = function() {
   })
   
   // trailer
+  var id = (new PDFString(uuid4())).toHexString()
+    , trailer = new PDFDictionary({
+      Size: (this.objects.length + 1),
+      Root: this.catalog.toReference(),
+      ID:   new PDFArray([id, id])
+  })
   buf += 'trailer\n'
-  buf += '<<\n'
-  buf +=   '\t/Size ' + (this.objects.length + 1) + '\n'
-  buf +=   '\t/Root ' + this.catalog.toReference().toString() + '\n'
-  buf += '>>\n'
+  buf += trailer.toString() + '\n'
   buf += 'startxref\n'
   buf += startxref + '\n'
   buf += '%%EOF'
@@ -873,6 +895,11 @@ var Base64 = {
 
     for (var n = 0; n < string.length; n++) {
       var c = string.charCodeAt(n);
+      
+      // workaround to not encode UTF8 characters
+      // TODO: improve ...
+      // utftext += String.fromCharCode(Math.min(c, 0xff))
+      // continue
 
       if (c < 128) {
         utftext += String.fromCharCode(c);
@@ -891,7 +918,31 @@ var Base64 = {
     return utftext;
   }
 }
-},{"./font":5,"./fonts/ttf":6,"./fragment":7,"./objects/name":10,"./objects/object":11,"./pages":16,"./utils":17}],5:[function(require,module,exports){
+
+// UUID v4
+// source: https://gist.github.com/jed/982883
+function uuid4(
+  a                  // placeholder
+){
+  return a           // if the placeholder was passed, return
+    ? (              // a random number from 0 to 15
+      a ^            // unless b is 8,
+      Math.random()  // in which case
+      * 16           // a random number from
+      >> a/4         // 8 to 11
+      ).toString(16) // in hexadecimal
+    : (              // or otherwise a concatenated string:
+      [1e7] +        // 10000000 +
+      -1e3 +         // -1000 +
+      -4e3 +         // -4000 +
+      -8e3 +         // -80000000 +
+      -1e11          // -100000000000,
+      ).replace(     // replacing
+        /[018]/g,    // zeroes, ones, and eights with
+        uuid4        // random hex digits
+      )
+}
+},{"./font":5,"./fonts/ttf":6,"./fragment":7,"./objects/array":8,"./objects/dictionary":9,"./objects/name":10,"./objects/object":11,"./objects/string":14,"./pages":16,"./utils":17}],5:[function(require,module,exports){
 var TTFFont = require('./fonts/ttf')
   , PDFName = require('./objects/name')
   , fs = require('fs')
@@ -980,6 +1031,7 @@ TTFFont.Subset.prototype.embed = function(doc) {
   font.prop('Subtype', 'TrueType')
   font.prop('BaseFont', this.font.fontName)
   font.prop('Encoding', 'MacRomanEncoding')
+  doc.objects.push(font)
   
   // widths array
   var widths = doc.createObject(), metrics = [], codeMap = this.cmap()
@@ -1053,7 +1105,7 @@ TTFFont.Subset.prototype.embed = function(doc) {
   font.prop('ToUnicode', cmap.toReference())
   
   // font file
-  var data = this.font.save()
+  var data = this.save()
     , hex = asHex(data)
   
   var file = new PDFStream(doc.createObject())
@@ -1256,15 +1308,27 @@ var PDFName = module.exports = function(name) {
   if (!name) throw new Error('A Name cannot be undefined')
   
   if (name instanceof PDFName) return name
-  name = name.toString()
   
   // white-space characters are not allowed
-  if (name.match(/[\x00\x09\x0A\x0C\x0D\x20]/))
-    throw new Error('A Name mustn\'t contain white-space characters')
-
+  if (name.match(/[\x00]/))
+    throw new Error('A Name mustn\'t contain the null characters')
+    
   // delimiter characters are not allowed
   if (name.match(/[\(\)<>\[\]\{\}\/\%]/))
     throw new Error('A Name mustn\'t contain delimiter characters')
+
+  name = name.toString()
+  // Beginning with PDF 1.2, any character except null (character code 0)
+  // may be included in a name by writing its 2-digit hexadecimal code,
+  // preceded by the number sign character (#)
+  // ... it is recommended but not required for characters whose codes
+  // are outside the range 33 (!) to 126 (~)
+  name = name.replace(/[^\x21-\x7e]/g, function(c) {
+    var code = c.charCodeAt(0)
+    // replace unicode characters with `_`
+    if (code > 0xff) code = 0x5f
+    return '#' + code
+  })
   
   this.name = name
 }
@@ -1362,7 +1426,7 @@ PDFString.prototype.toHexString = function() {
 }
 
 PDFString.prototype.toString = function() {
-  return this.toHexString()
+  return this.toLiteralString()
 }
 },{}],15:[function(require,module,exports){
 var PDFStream     = require('./objects/stream')
@@ -1500,7 +1564,7 @@ var Directory = module.exports = new Struct({
 })
 },{"structjs":32}],20:[function(require,module,exports){
 var Subset = module.exports = function(font) {
-  this.font    = font
+  this.font    = font.clone()
   this.subset  = { '32': 32 }
   this.mapping = { '32': 32 }
   this.pos     = 33
@@ -1598,6 +1662,10 @@ Subset.prototype.embed = function() {
   this.font.tables.hhea.embed(oldIDs)
   this.font.tables.maxp.embed(oldIDs)
   this.font.tables.name.embed(cmap.charMap)
+}
+
+Subset.prototype.save = function() {
+  return this.font.save()
 }
 },{}],21:[function(require,module,exports){
 var Struct = require('structjs')
@@ -1771,6 +1839,12 @@ module.exports = function(loca) {
 var Glyf = function(loca) {
   this.loca  = loca
   this.cache = {}
+}
+
+Glyf.prototype.clone = function() {
+  var clone = new Glyf(this.loca)
+  clone.cache = this.cache
+  return clone
 }
 
 Glyf.prototype.embed = function(glyphs, mapping, old2new) {
@@ -2196,10 +2270,16 @@ var Directory = require('./directory')
 
 var TTFFont = module.exports = function(buffer) {
   var self = this
-  this.buffer = buffer = buffer instanceof ArrayBuffer ? buffer : toArrayBuffer(buffer)
+  this.buffer = buffer instanceof TTFFont
+                ? buffer.buffer
+                : buffer = buffer instanceof ArrayBuffer ? buffer : toArrayBuffer(buffer)
   
-  this.directory = new Directory()
-  this.directory.unpack(new DataView(buffer))
+  if (buffer instanceof TTFFont) {
+    this.directory = buffer.directory.clone()
+  } else {
+    this.directory = new Directory()
+    this.directory.unpack(new DataView(buffer))
+  }
   
   var scalerType = this.directory.scalerType.toString(16)
   if (scalerType !== '74727565' && scalerType !== '10000') {
@@ -2211,6 +2291,10 @@ var TTFFont = module.exports = function(buffer) {
     var name = table.replace(/[^a-z0-9]/ig, '').toLowerCase()
       , entry = self.directory.entries[table]
     if (!entry) return
+    if (buffer instanceof TTFFont) {
+      self.tables[name] = self.tables[table] = buffer.tables[table].clone()
+      return
+    }
     var Table = require('./table/' + name)
       , view  = new DataView(buffer, entry.offset, entry.length)
     if (args) Table = Table.apply(undefined, args)
@@ -2308,8 +2392,16 @@ TTFFont.prototype.subset = function() {
   return new Subset(this)
 }
 
+TTFFont.TABLES = ['cmap', 'glyf', 'loca', 'hmtx', 'hhea', 'maxp', 'post', 'name', 'head', 'OS/2']
+
+TTFFont.prototype.clone = function() {
+  var clone = new TTFFont(this)
+  clone.tables.glyf.view = this.tables.glyf.view
+  return clone
+}
+
 TTFFont.prototype.save = function() {
-  var self = this, tables = ['cmap', 'glyf', 'loca', 'hmtx', 'hhea', 'maxp', 'post', 'name', 'head', 'OS/2']
+  var self = this, tables = TTFFont.TABLES
   for (var name in this.directory.entries) {
     if (!!!~tables.indexOf(name)) delete this.directory.entries[name]
   }
@@ -2328,7 +2420,7 @@ TTFFont.prototype.save = function() {
   // prepare head
   this.tables.head.checkSumAdjustment = 0
   
-  var view = new DataView(new ArrayBuffer(size + 1000))
+  var view = new DataView(new ArrayBuffer(size))
 
   tables.forEach(function(name) {
     if (!(name in self.directory.entries)) return
@@ -2400,13 +2492,13 @@ var Struct = module.exports = function(definition, opts) {
     })
     
     for (var key in values) {
-      if (key in definition) this[key] = values[key]
+      if (key in definition) this[key] = cloneValue(values[key])
     }
     
     var self = this
     extensions.forEach(function(extension) {
       for (var key in values) {
-        if (key in extension.extension) self[key] = values[key]
+        if (key in extension.extension) self[key] = cloneValue(values[key])
       }
     })
   }
@@ -2496,7 +2588,7 @@ var Struct = module.exports = function(definition, opts) {
         if (type.external || type.storage) continue
         var value = self[prop]
         if (typeof type.$packing === 'function')
-          value = self[prop] = type.$packing.call(self, value)
+          value = type.$packing.call(self, value)
         if (type instanceof StructNumber)
           type.write(view, offset, value)
         offset += type.lengthFor(self, true) * type.sizeFor(self, true)
@@ -2552,6 +2644,12 @@ var Struct = module.exports = function(definition, opts) {
     })
     return size
   }
+  
+  StructType.prototype.clone = function() {
+    var clone = new StructType(this)
+    if (typeof clone.$unpacked === 'function') clone.$unpacked()
+    return clone
+  }
 
   return StructType
 }
@@ -2584,6 +2682,25 @@ Struct.Reference = Struct.Ref = function(prop) {
 Struct.Storage = function(path, opts) {
   return new StructStorage(path, opts)
 }
+
+// Helper
+
+function cloneValue(val) {
+  if (val === undefined) {
+    return undefined
+  } else if (typeof val.clone === 'function') {
+    return val.clone()
+  } else if (Array.isArray(val)) {
+    return [].concat(val)
+  } else if (typeof val === 'object') {
+    var clone = {}
+    for (key in val)
+      clone[key] = cloneValue(val[key])
+    return clone
+  } else {
+    return val
+  }
+}
 },{"./types/array":33,"./types/hash":34,"./types/number":35,"./types/reference":36,"./types/storage":37,"./types/string":38,"./utils":39}],33:[function(require,module,exports){
 var utils = require('../utils')
   , StructReference = require('./reference')
@@ -2615,7 +2732,7 @@ StructArray.prototype.read = function read(buffer, offset) {
 StructArray.prototype.write = function write(buffer, offset, arr) {
   var parent = write.caller.parent, child
   this.setLength(this.lengthFor(parent, true), parent)
-  for (var i = 0, len = this.lengthFor(parent); i < len; ++i) {
+  for (var i = 0, len = this.lengthFor(parent, true); i < len; ++i) {
     if ((child = arr[i]) === undefined) break
     if (typeof this.struct === 'function') {
       child.pack(buffer, offset)
@@ -2646,6 +2763,9 @@ StructArray.prototype.lengthFor = function(parent, writing) {
 StructArray.prototype.setLength = function(value, parent) {
   if (this._length instanceof StructReference)
     parent[this._length.prop] = value
+  else if (typeof this._length === 'function') {
+    return
+  } 
   else this._length = value
 }
 },{"../utils":39,"./reference":36}],34:[function(require,module,exports){

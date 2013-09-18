@@ -3,7 +3,7 @@ A Portable Document Format (PDF) generation library targeting both the server- a
 
 ```json
 { "name": "pdfjs",
-  "version": "0.2.1" }
+  "version": "0.2.2" }
 ```
 
 ### Status

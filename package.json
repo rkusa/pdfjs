@@ -4,7 +4,7 @@
     "name": "Markus Ast",
     "email": "npm.m@rkusa.st"
   },
-  "version": "0.2.1",
+  "version": "0.2.2",
   "homepage": "https://github.com/rkusa/pdfjs",
   "keywords": ["pdf", "generator"],
   "license": "MIT",
@@ -15,7 +15,7 @@
     "minify": "uglifyjs -o pdfjs.min.js pdfjs.js"
   },
   "dependencies": {
-    "ttfjs": "0.1.x"
+    "ttfjs": "0.2.x"
   },
   "devDependencies": {
     "mocha": "1.9.x",
