@@ -4,7 +4,7 @@
     "name": "Markus Ast",
     "email": "npm.m@rkusa.st"
   },
-  "version": "0.2.2",
+  "version": "0.2.3",
   "homepage": "https://github.com/rkusa/pdfjs",
   "keywords": ["pdf", "generator"],
   "license": "MIT",

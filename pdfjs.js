@@ -161,6 +161,11 @@ Object.defineProperties(Row.prototype, {
 })
 
 Row.prototype.td = function(text, opts) {
+  if (typeof text === 'object') {
+    var fn = opts
+    opts = text
+    text = fn
+  }
   var cell = new Cell(this, text, opts)
   this.cells.push(cell)
   return cell
@@ -667,7 +672,7 @@ var PDFObject = require('./objects/object')
   , PDFName   = require('./objects/name')
   , utils = require('./utils')
 
-var Document = module.exports = function Document(font) {
+var Document = module.exports = function Document(font, opts) {
   this.version = 1.7
   
   // list of all objects in this document
@@ -680,8 +685,8 @@ var Document = module.exports = function Document(font) {
   this.defaultFont = this.registerFont(font)
   
   // call parents constructor
-  Document.super_.call(this, this)
-  this.height = 792
+  Document.super_.call(this, this, opts)
+  this.height = this.opts.height || 792
   
   // the catalog and pages tree
   this.catalog = this.createObject('Catalog')
@@ -1146,7 +1151,7 @@ var Fragment = module.exports = function(doc, opts) {
   
   this.doc = doc
   
-  this.width   = this.opts.width   || 612
+  this.width   = this.opts.width || 612
   if (!this.opts.padding) this.opts.padding = { top: 20, right: 40, bottom: 20, left: 40 }
   this.padding = new Padding(this)
   
@@ -1204,7 +1209,7 @@ Object.defineProperties(Fragment.prototype, {
   maxWidth: {
     enumerable: true,
     get: function() {
-      return Math.max.apply(Math, this.contents.map(function(content) {
+      return this.opts.width || Math.max.apply(Math, this.contents.map(function(content) {
         return content.maxWidth
       }))
     }
@@ -1224,10 +1229,16 @@ Fragment.prototype.pagebreak = function() {
 }
 
 Fragment.prototype.render = function(page, width) {
-  var self = this
+  if ('top' in this.opts && ((this.doc.height - this.opts.top) < this.doc.cursor.cursor.y || this.opts.position === 'force')) {
+    this.doc.cursor.cursor.y = this.doc.height - this.opts.top
+  }
+  var self = this, cursor = this.doc.cursor, y = cursor.cursor.y
   this.contents.forEach(function(content) {
     content.render(self.doc.cursor, width || self.innerWidth)
   })
+  if ('minHeight' in this.opts && this.doc.cursor === cursor && (y - this.opts.minHeight) < cursor.cursor.y) {
+    cursor.cursor.y = y - this.opts.minHeight
+  }
 }
 
 Fragment.prototype.registerFont = function(font) {
@@ -1250,7 +1261,7 @@ Fragment.prototype.fragment = function(opts, definition) {
     opts = {}
   }
   
-  var fragment = new Fragment(this, opts)
+  var fragment = new Fragment(this.doc, opts)
   definition.call(fragment, fragment)
   this.contents.push(fragment)
   
