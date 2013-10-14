@@ -1114,10 +1114,10 @@ TTFFont.Subset.prototype.embed = function(doc) {
     , hex = asHex(data)
   
   var file = new PDFStream(doc.createObject())
-  file.object.prop('Length', hex.length)
+  file.object.prop('Length', hex.length + 1)
   file.object.prop('Length1', data.byteLength)
   file.object.prop('Filter', 'ASCIIHexDecode')
-  file.content = hex + '\n'
+  file.content = hex + '>\n'
   descriptor.prop('FontFile2', file.toReference())
 }
 
