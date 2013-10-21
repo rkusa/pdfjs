@@ -100,7 +100,18 @@ this.text(function(text) {
 
 ![Result](https://dl.dropboxusercontent.com/u/6699613/Github/pdfjs-example1.png)
 
-#### .table([opts, ] definition)
+#### .table([opts, ] [definition])
+
+**Arguments:**
+
+* **opts** - table options
+* **definition** - an optional function that contains the table definition
+
+**Options:**
+
+* **borderWidth** - 
+* **width** - total width (absolute or relative) or an array of column widths
+* + Text Options
 
 **Example:**
 
