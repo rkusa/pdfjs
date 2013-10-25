@@ -6,26 +6,28 @@ A Portable Document Format (PDF) generation library targeting both the server- a
   "version": "0.3.1" }
 ```
 
-### Status
+#### Status
 
 Early development stage, i.e., not well tested.
 
 **Implemented:** Text, Tables, Header, Footer, Automatic page breaks  
 **Missing:** AFM Fonts, Graphics
 
-### Contents
-1. [API](#api)
-2. [License](#license)
+#### Contents
 
-## API
+1. [Document](#document)
+2. [Text](#text)
+3. [Table](#table)
+4. [Font](#font)
+5. [License](#license)
 
-### Document
+## Document
 
 ```js
 var Document = require('pdfjs')
 ```
 
-#### new Document(font)
+### new Document(font)
 
 **Arguments:**
 
@@ -41,7 +43,7 @@ fs.readFile('OpenSans-Regular.ttf', function(err, b) {
 })
 ```
 
-#### .text(text, opts)
+### .text(text[, opts])
 
 **Arguments:**
 
@@ -68,24 +70,20 @@ doc.text('Lorem ipsum dolor sit amet ...', {
 })
 ```
 
-#### .text(fn)
+### .text([definition])
 
-This text method can be used to render more advanced/complex text fragments. It allows to combine multiple text styles.
+This text method can be used to render more advanced/complex text fragments. It allows to combine multiple text styles. **Returns** a [Text](#text) function.
 
 **Arguments:**
 
-* **fn** - a function describing the text to be rendered; it gets the `text` function described below as an argument
-
-**text(text, opts)**  
-
-* **.br()** - line break
-* **.pageNumber()** - current page number
+* **definition** - a function describing the text to be rendered; it gets the `text` object described in [Text](#text)
 
 **Example:**
 
 ```js
-this.text(function(text) {
-  text.opts.size = 12
+doc.text(function(text) {
+  // this === text
+  this.opts.size = 12
   this.opts.lineSpacing = 1.35
   text('This is a header', { bold: true, size: 18 }).br()
   text('Content can be')('bold', { bold: true })
@@ -98,38 +96,42 @@ this.text(function(text) {
 })
 ```
 
-![Result](https://dl.dropboxusercontent.com/u/6699613/Github/pdfjs-example1.png)
+**Result:**
 
-#### .table([opts, ] [definition])
+![Result](https://raw.github.com/rkusa/pdfjs/gh-pages/images/text-example.png)
+
+### .table([opts, ] [definition])
+
+This method can be used to define tables. **Returns** a [Table](#table) object.
 
 **Arguments:**
 
 * **opts** - table options
-* **definition** - an optional function that contains the table definition
+* **definition** - a function that contains the table definition
 
 **Options:**
 
 * **borderWidth** - 
 * **width** - total width (absolute or relative) or an array of column widths
-* + Text Options
+* + [Text Options](#texttext-opts)
 
 **Example:**
 
 ```js
-doc.table({ header: true, size: 14 }, function() {
+doc.table({ header: true, size: 11 }, function() {
   this.tr({ bold: true, borderWidth: { bottom: 1.5 } }, function() {
     this.td('#')
     this.td('Unit')
     this.td('Subject')
-    this.td('Price')
-    this.td('Total')
+    this.td('Price', { align: 'right' })
+    this.td('Total', { align: 'right' })
   })
   this.tr({ borderWidth: { horizontal: 0.1 } }, function() {
     this.td('2')
     this.td('pc.')
     this.td(function() {
-      this.text('Article A', { size: 14, bold: true })
-      this.text('Lorem ipsum ...', { size: 12, align: 'justify' })
+      this.text('Article A', { size: 11, bold: true })
+      this.text('Lorem ipsum ...', { size: 9, align: 'justify' })
     })
     this.td('500.00€', { align: 'right' })
     this.td('1,000.00€', { align: 'right' })
@@ -138,8 +140,8 @@ doc.table({ header: true, size: 14 }, function() {
     this.td('1')
     this.td('pc.')
     this.td(function() {
-      this.text('Article B', { size: 14, bold: true })
-      this.text('Lorem ipsum ...', { size: 12, align: 'justify' })
+      this.text('Article B', { size: 11, bold: true })
+      this.text('Cum id fugiunt ...', { size: 9, align: 'justify' })
     })
     this.td('250.00€', { align: 'right' })
     this.td('250.00€', { align: 'right' })
@@ -151,7 +153,11 @@ doc.table({ header: true, size: 14 }, function() {
 })
 ```
 
-#### .toDataURL()
+**Result:**
+
+![Result](https://raw.github.com/rkusa/pdfjs/gh-pages/images/table-example.png)
+
+### .toDataURL()
 
 Returns the document as [data URL](https://developer.mozilla.org/en-US/docs/data_URIs).
 
@@ -167,7 +173,7 @@ document.querySelector('#preview')
         .setAttribute('src', doc.toDataURL())
 ```
 
-#### .toString()
+### .toString()
 
 Returns the document as plain text.
 
@@ -178,10 +184,132 @@ var fs = require('fs')
 fs.writeFile(__dirname + '/test.pdf', doc.toString(), 'ascii')
 ```
 
-### Font
+## Text
 
-#### new Font(path)
-#### new Font(opts)
+This is a function itself and an alias for `.text()`. It is used to define more complex/advanced text fragments. **Returns** itself.
+
+### .text()
+
+Same as [doc.text(text[, opts])](#texttext-opts)
+
+### .br()
+
+Line Break. Returns the [Text](#text) function.
+
+### .pageNumber()
+
+Print the page number the text fragment is rendered on. Returns the [Text](#text) function.
+
+**Example:**
+
+```js
+doc.text(function(text) {
+  text('Page').pageNumber()
+})
+```
+
+## Table
+
+This table object is used to define its rows and its behaviour on page breaks.
+
+### .tr([opts,] definition)
+
+This method is used to define a table row. **Returns** a [Table Row](#table-row) object.
+
+**Arguments:**
+
+* **opts** - row options
+* **definition** - a function that contains the row definition
+
+**Options:**
+
+* **borderWidth** - 
+* + [Text Options](#texttext-opts)
+
+### .beforeBreak([opts,] definition)
+
+Same as [.tr([opts,] definition)](#tropts-definition), but only rendered if the table is broken among two pages. This row is then rendered directly before the page break.
+
+```js
+table.beforeBreak(function() {
+  this.td('Subtotal:', { colspan: 4, align: 'right' })
+  this.td(function() {
+    this.text(function(text) {
+      this.opts.align = 'right'
+      this.opts.size  = 11
+      text(function() {
+        if (!this.table) return ''
+        return items.subtotalUntil(this.table.row)
+      })
+    })
+  })
+})
+```
+
+### .afterBreak([opts,] definition)
+
+Same as [.tr([opts,] definition)](#tropts-definition), but only rendered if the table is broken among two pages. This row is then rendered directly after the header on the new page.
+
+**Example:**
+
+```js
+table.afterBreak(function() {
+  this.td('Carryover:', { colspan: 4, align: 'right' })
+  this.td(function() {
+    this.text(function(text) {
+      this.opts.align = 'right'
+      this.opts.size  = 11
+      text(function() {
+        if (!this.table) return ''
+        return items.subtotalUntil(this.table.row)
+      })
+    })
+  })
+})
+```
+
+**Result:**
+
+![Result](https://raw.github.com/rkusa/pdfjs/gh-pages/images/table-pagebreak-example.png)
+
+## Table Row
+
+This table row object is used to define its cells.
+
+### .td(text[, opts])
+
+This method is used to define a cell of the row.
+
+**Arguments:**
+
+* **text** - the text contained in the cell
+* **opts** - cell options
+
+**Options:**
+
+* **borderWidth** - 
+* **colspan** - 
+* + [Text Options](#texttext-opts)
+
+### .td([opts,] definition)
+
+This method is used to define a cell of the row.
+
+**Arguments:**
+
+* **opts** - cell options
+* **definition** - a function that contains the cell definition
+
+**Options:**
+
+* **borderWidth** - 
+* **colspan** - 
+* + [Text Options](#texttext-opts)
+
+## Font
+
+### new Font(path)
+### new Font(opts)
 
 **Options:**
 
