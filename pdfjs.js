@@ -47,6 +47,7 @@ var Table = function(doc, opts, definition) {
   mergeOption(defaults, this.opts)
   
   this.rows = []
+  this._beforeBreak = this._afterBreak = null
   
   if (definition) definition.call(this, this)
 }
@@ -55,6 +56,14 @@ Table.prototype.tr = function(opts, definition) {
   var row = new Row(this, opts, definition)
   this.rows.push(row)
   return row
+}
+
+Table.prototype.beforeBreak = function(opts, definition) {
+  return this._beforeBreak = new Row(this, opts, definition)
+}
+
+Table.prototype.afterBreak = function(opts, definition) {
+  return this._afterBreak = new Row(this, opts, definition)
 }
 
 Table.prototype.render = function(page, width) {
@@ -122,14 +131,14 @@ Table.prototype.render = function(page, width) {
     }
   }
   
-  var left = page.cursor.x
+  var left = page.cursor.x, transactions = []
   for (var i = 0; i < this.rows.length; ++i) {
     var y = page.cursor.y
       , row = this.rows[i]
   
-    var transaction = this.doc.startTransaction()
+    var transaction = transactions[i] = this.doc.startTransaction()
     
-    var height = row.render(page, columns)
+    var height = row.render(page, columns, { table: { row: i }, doc: this.doc })
 
     if (height === false) {
       page.cursor.x = left
@@ -138,10 +147,43 @@ Table.prototype.render = function(page, width) {
       transaction.rollback()
       row.allowBreak = pagebreak = true
       --i
+
+      // before break
+      if (this._beforeBreak) {
+        while (height === false && i > 0) {
+          var attempt = this.doc.startTransaction()
+          height = this._beforeBreak.render(page, columns, { table: { row: i }, doc: this.doc })
+          if (height === false) {
+            page.cursor.x = left
+            page.cursor.y = y
+
+            attempt.rollback()
+            this.rows[i].allowBreak = false
+            transactions[i--].rollback()
+            this.rows[i].allowBreak = true
+          } else {
+            attempt.commit()
+          }
+        }
+      }
+
+      // break
+      page = this.doc.pagebreak()
+      y = page.cursor.y
+      height = 0
+      var context = { table: { row: i }, doc: this.doc }
+
+      // after break
+      if (this._afterBreak) {
+        page.cursor.x = left
+        height += this._afterBreak.render(page, columns, context)
+        page.cursor.y = y - height
+      }
+
+      // header
       if (this.opts.header === true) {
-        page = this.doc.pagebreak()
-        y = page.cursor.y
-        height = this.rows[0].render(page, columns)
+        page.cursor.x = left
+        height += this.rows[0].render(page, columns, context)
       }
     } else {
       transaction.commit()
@@ -195,7 +237,7 @@ Row.prototype.td = function(text, opts) {
   return cell
 }
 
-Row.prototype.render = function(page, columns) {
+Row.prototype.render = function(page, columns, context) {
   var left = page.cursor.x
     , y = page.cursor.y
     , heights = []
@@ -226,7 +268,7 @@ Row.prototype.render = function(page, columns) {
     page.cursor.x += paddingLeft
     page.cursor.y -= cell.borderTopWidth + cell.opts.padding.top // padding top
     var pageIndex = this.doc.pages.pages.indexOf(page)
-    cell.render(page, innerWidth) // below: padding bottom
+    cell.render(page, innerWidth, context) // below: padding bottom
     var height = pageIndex + 1 < this.doc.pages.count
         ? y - this.doc.padding.bottom
         : y - page.cursor.y + cell.opts.padding.bottom + cell.borderBottomWidth
@@ -281,8 +323,8 @@ var Cell = function(row, text, opts) {
     this.row.cells[this.row.cells.length - 1].isLastColumn = false
 }
 
-Cell.prototype.render = function(page, width) {
-  this.content.render(page, width)
+Cell.prototype.render = function(page, width, context) {
+  this.content.render(page, width, context)
 }
 
 Cell.prototype.drawBorder = function(page, x, y, width, height, splitBelow, splitAbove) {
@@ -479,14 +521,18 @@ Text.prototype.text = function text(str, opts) {
   if (!str) return this.textFn
   opts = utils.extend(opts || {}, this.opts)
   var self = this, font = (opts.font ? this.doc.registerFont(opts.font) : this.doc.defaultFont).fromOpts(opts)
-  var words = str.toString().replace(/\t/g, ' ').replace(/\r\n/g, '\n').split(/ +|^|$/mg)
-  // if (words[0].match(/\.\!\?\,/) && this.contents.length)
-  //   this.contents[this.contents.length - 1].content += words.shift()
-  words.forEach(function(word) {
-    if (!word.length) return
-    font.use(word)
-    self.contents.push(new Word(word, font, opts))
-  })
+  if (typeof str === 'function') {
+    this.contents.push(new Word(str, font, opts))
+  } else {
+    var words = str.toString().replace(/\t/g, ' ').replace(/\r\n/g, '\n').split(/ +|^|$/mg)
+    // if (words[0].match(/\.\!\?\,/) && this.contents.length)
+    //   this.contents[this.contents.length - 1].content += words.shift()
+    words.forEach(function(word) {
+      if (!word.length) return
+      font.use(word)
+      self.contents.push(new Word(word, font, opts))
+    })
+  }
   return this.textFn
 }
 
@@ -498,13 +544,14 @@ Text.prototype.text.br = function() {
 }
 
 Text.prototype.text.pageNumber = function() {
-  this.contents.push(new Word((function() {
-    return this.pages.count
-  }).bind(this.doc.doc || this.doc), this.opts.font ? this.doc.registerFont(opts.font) : this.doc.defaultFont.regular, {}))
+  this.text(function() {
+    if (!this.pages && !this.doc) return
+    return (this.pages || this.doc.pages).count
+  })
   return this.textFn
 }
 
-Text.prototype.render = function(page, width) {
+Text.prototype.render = function(page, width, context) {
   var self       = this
     , spaceLeft  = width
     , finishedAt = this.contents.length - 1
@@ -585,6 +632,7 @@ Text.prototype.render = function(page, width) {
   }
   
   this.contents.forEach(function(word, i) {
+    word.context = context || (self.doc.doc || self.doc)
     var wordWidth = word.width, wordSpacing = !line.length || word.isStartingWithPunctuation ? 0 : word.spacing
     
     if (word.word === '\n' || (line.length > 0 && spaceLeft - (wordWidth + wordSpacing) < 0)) {
@@ -630,6 +678,7 @@ var Word = function(word, font, opts) {
   this._word = word
   this.font = font
   this.opts = opts || {}
+  this.context = {}
   Object.defineProperty(this, 'word', {
     enumerable: true,
     get: function() {
@@ -660,6 +709,7 @@ Object.defineProperties(Word.prototype, {
   isStartingWithPunctuation: {
     enumerable: true,
     get: function() {
+      if (!this.word[0]) return false
       return this.word[0].match(/\.|\!|\?|,/) !== null
     }
   }
@@ -667,7 +717,7 @@ Object.defineProperties(Word.prototype, {
 
 Word.prototype.toString = function() {
   if (typeof this._word === 'function') {
-    var res = this._word().toString()
+    var res = (this._word.call(this.context) || '').toString()
     this.font.use(res)
     return res
   }
@@ -1263,7 +1313,7 @@ Fragment.prototype.pagebreak = function() {
   return page
 }
 
-Fragment.prototype.render = function(page, width) {
+Fragment.prototype.render = function(page, width, context) {
   var x = page.cursor.x
   page.cursor.x += this.padding.left
   if (width) width = width - this.padding.right - this.padding.left
@@ -1273,7 +1323,7 @@ Fragment.prototype.render = function(page, width) {
   }
   var self = this, y = page.cursor.y
   this.contents.forEach(function(content) {
-    content.render(self.doc.cursor, width || self.innerWidth)
+    content.render(self.doc.cursor, width || self.innerWidth, context)
   })
   if ('minHeight' in this.opts && this.doc.cursor === page && (y - this.opts.minHeight) < page.cursor.y) {
     page.cursor.y = y - this.opts.minHeight
