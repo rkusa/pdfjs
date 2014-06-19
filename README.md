@@ -1,16 +1,15 @@
 # pdfjs
+
 A Portable Document Format (PDF) generation library targeting both the server- and client-side.
 
-```json
-{ "name": "pdfjs",
-  "version": "0.3.1" }
-```
+[![NPM][npm]](https://npmjs.org/package/pdfjs)
+[![Dependency Status][deps]](https://david-dm.org/rkusa/pdfjs)
 
 #### Status
 
 Early development stage, i.e., not well tested.
 
-**Implemented:** Text, Tables, Header, Footer, Automatic page breaks  
+**Implemented:** Text, Tables, Header, Footer, Automatic page breaks
 **Missing:** AFM Fonts, Graphics
 
 #### Contents
@@ -111,7 +110,7 @@ This method can be used to define tables. **Returns** a [Table](#table) object.
 
 **Options:**
 
-* **borderWidth** - 
+* **borderWidth** -
 * **width** - total width (absolute or relative) or an array of column widths
 * + [Text Options](#texttext-opts)
 
@@ -223,7 +222,7 @@ This method is used to define a table row. **Returns** a [Table Row](#table-row)
 
 **Options:**
 
-* **borderWidth** - 
+* **borderWidth** -
 * + [Text Options](#texttext-opts)
 
 ### .beforeBreak([opts,] definition)
@@ -287,8 +286,8 @@ This method is used to define a cell of the row.
 
 **Options:**
 
-* **borderWidth** - 
-* **colspan** - 
+* **borderWidth** -
+* **colspan** -
 * + [Text Options](#texttext-opts)
 
 ### .td([opts,] definition)
@@ -302,8 +301,8 @@ This method is used to define a cell of the row.
 
 **Options:**
 
-* **borderWidth** - 
-* **colspan** - 
+* **borderWidth** -
+* **colspan** -
 * + [Text Options](#texttext-opts)
 
 ## Font
@@ -313,18 +312,21 @@ This method is used to define a cell of the row.
 
 **Options:**
 
-* **normal** - 
-* **italic** - 
-* **bold** - 
-* **boldItalic** - 
-* **light** - 
-* **lightItalic** - 
+* **normal** -
+* **italic** -
+* **bold** -
+* **boldItalic** -
+* **light** -
+* **lightItalic** -
 
 ## MIT License
-Copyright (c) 2013 Markus Ast
+Copyright (c) 2013-2014 Markus Ast
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
 
 The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 
 THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+
+[npm]: http://img.shields.io/npm/v/pdfjs.svg?style=flat
+[deps]: http://img.shields.io/gemnasium/rkusa/pdfjs.svg?style=flat
