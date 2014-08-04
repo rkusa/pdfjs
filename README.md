@@ -5,12 +5,17 @@ A Portable Document Format (PDF) generation library targeting both the server- a
 [![NPM][npm]](https://npmjs.org/package/pdfjs)
 [![Dependency Status][deps]](https://david-dm.org/rkusa/pdfjs)
 
-#### Status
+#### Features
 
-Early development stage, i.e., not well tested.
+- Text (+ formatting)
+- Tables
+- Header & Footer
+- Automatic page breaks
+- Font embedding (as CID font, i.e., does supports many characters)
 
-**Implemented:** Text, Tables, Header, Footer, Automatic page breaks
-**Missing:** AFM Fonts, Graphics
+#### Missing Features
+
+AFM fonts and graphics are currently not implemented. If you are missing a feature, feel free to ask or to submit a PR.
 
 #### Contents
 
