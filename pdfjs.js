@@ -22,7 +22,7 @@ module.exports = function(opts, definition) {
 }
 
 var utils = require('../utils')
-  
+
 var defaults = {
   size: 12,
   padding: {
@@ -40,15 +40,15 @@ var Table = function(doc, opts, definition) {
     definition = opts
     opts = {}
   }
-  
+
   this.doc  = doc.doc || doc
   this.opts = opts || {}
-  
+
   mergeOption(defaults, this.opts)
-  
+
   this.rows = []
   this._beforeBreak = this._afterBreak = null
-  
+
   if (definition) definition.call(this, this)
 }
 
@@ -68,7 +68,7 @@ Table.prototype.afterBreak = function(opts, definition) {
 
 Table.prototype.render = function(page, width) {
   var columns = [], self = this
-    , maxWidth = minWidth = width
+  var maxWidth = minWidth = width
 
   if (Array.isArray(this.opts.width)) {
     var widths = this.opts.width
@@ -97,47 +97,47 @@ Table.prototype.render = function(page, width) {
         return cell.width
       }).reduce(function(lhs, rhs) { return lhs + rhs }, 0)
     }))
-    
+
     if (highestRowWidth > maxWidth) {
       var widthPerCell = maxWidth / columns.length
-        , toShrink = []
-        , unused = 0
-      
+      var toShrink = []
+      var unused = 0
+
       for (var i = 0, len = columns.length; i < len; ++i) {
         if (columns[i] < widthPerCell) unused += widthPerCell - columns[i]
         else toShrink.push(i)
       }
-      
+
       widthPerCell += unused / toShrink.length
       toShrink.forEach(function(i) {
         columns[i] = widthPerCell
       })
     }
-    
+
     if (minWidth && highestRowWidth < minWidth) {
       var widthPerCell = minWidth / columns.length
-        , toExtend = []
-        , used = 0
-      
+      var toExtend = []
+      var used = 0
+
       for (var i = 0, len = columns.length; i < len; ++i) {
         if (columns[i] < widthPerCell) toExtend.push(i)
         used += columns[i]
       }
-      
+
       var add = (minWidth - used) / toExtend.length
       toExtend.forEach(function(i) {
         columns[i] += add
       })
     }
   }
-  
+
   var left = page.cursor.x, transactions = []
   for (var i = 0; i < this.rows.length; ++i) {
     var y = page.cursor.y
-      , row = this.rows[i]
-  
+    var row = this.rows[i]
+
     var transaction = transactions[i] = this.doc.startTransaction()
-    
+
     var height = row.render(page, columns, { table: { row: i }, doc: this.doc })
 
     if (height === false) {
@@ -199,15 +199,15 @@ var Row = function(table, opts, definition) {
     definition = opts
     opts = {}
   }
-  
+
   this.table = table
   this.doc   = table.doc
   this.opts  = mergeOption(table.opts, opts || {})
-  
+
   this.cells = []
 
   this.allowBreak = false
-  
+
   if (definition) definition.call(this, this)
 }
 
@@ -239,15 +239,15 @@ Row.prototype.td = function(text, opts) {
 
 Row.prototype.render = function(page, columns, context) {
   var left = page.cursor.x
-    , y = page.cursor.y
-    , heights = []
-    , borders = []
-    , pagebreak = false
-    , column = 0
-    
+  var y = page.cursor.y
+  var heights = []
+  var borders = []
+  var pagebreak = false
+  var column = 0
+
   for (var i = 0, len = this.cells.length; i < len; ++i) {
     var cell = this.cells[i]
-    
+
     var width = columns[column++]
     if (cell.opts.colspan > 1) {
       for (var j = column, count = column + cell.opts.colspan - 1; j < count; ++j) {
@@ -255,16 +255,16 @@ Row.prototype.render = function(page, columns, context) {
       }
       column += cell.opts.colspan - 1
     }
-    
+
     !function(x, y, width) {
       borders.push(function(height) {
         cell.drawBorder(page, x, y, width, height)
       })
     }(page.cursor.x, page.cursor.y, width)
-    
+
     var paddingLeft  = cell.borderLeftWidth + cell.opts.padding.left
-      , paddingRight = cell.opts.padding.right + cell.borderRightWidth
-      , innerWidth   = width - paddingLeft - paddingRight
+    var paddingRight = cell.opts.padding.right + cell.borderRightWidth
+    var innerWidth   = width - paddingLeft - paddingRight
     page.cursor.x += paddingLeft
     page.cursor.y -= cell.borderTopWidth + cell.opts.padding.top // padding top
     var pageIndex = this.doc.pages.pages.indexOf(page)
@@ -278,7 +278,7 @@ Row.prototype.render = function(page, columns, context) {
     heights.push(height)
     page.cursor.y = y
     page.cursor.x += innerWidth + paddingRight
-    
+
     if (this.doc.cursor !== page && !this.allowBreak) {
       return false
     }
@@ -288,20 +288,20 @@ Row.prototype.render = function(page, columns, context) {
   borders.forEach(function(border) {
     border(height)
   })
-  
+
   return height
 }
 
 var Text = require('./text').Text
-  , Fragment = require('../fragment')
+var Fragment = require('../fragment')
 
 var Cell = function(row, text, opts) {
   if (!opts) opts = {}
-  
+
   this.row  = row
   this.doc  = row.doc
   this.opts = mergeOption(row.opts, opts)
-  
+
   if (text instanceof Fragment) {
     this.content = text
     this.contents = text.prepared
@@ -313,10 +313,10 @@ var Cell = function(row, text, opts) {
       this.content.text(text, this.opts)
     }
   }
-  
+
   this.innerWidth  = this.content.maxWidth
   this.innerHeight = this.content.minHeight
-  
+
   this.isFirstColumn = this.row.cells.length === 0
   this.isLastColumn  = true
   if (!this.isFirstColumn)
@@ -345,8 +345,8 @@ Cell.prototype.drawBorder = function(page, x, y, width, height, splitBelow, spli
     }
     return
   }
-  
-  
+
+
   var border
   // border bottom
   if (this.borderBottomWidth > 0 && !splitBelow) {
@@ -360,18 +360,18 @@ Cell.prototype.drawBorder = function(page, x, y, width, height, splitBelow, spli
              [x - border / 2, y],
              [x + width, y])
   }
-    
+
   var downTo = y - height
   if (downTo < this.doc.padding.bottom)
     downTo = this.doc.padding.bottom
-  
+
   // border right
   if (this.borderRightWidth > 0) {
     drawLine(page, border = this.borderRightWidth,
              [x + width - border / 2, downTo],
              [x + width - border / 2, y - border / 2])
   }
-  
+
   // border left
   if (this.borderLeftWidth > 0) {
     drawLine(page, border = this.borderLeftWidth,
@@ -399,7 +399,7 @@ Object.defineProperties(Cell.prototype, {
     }
   }
 })
-  
+
 Object.defineProperties(Cell.prototype, {
   borderTopWidth: {
     enumerable: true,
@@ -465,7 +465,7 @@ function mergeOption(from, into) {
       }
       if (typeof val === 'object')
         into[key] = mergeOption(from[key], val)
-    } 
+    }
   }
   return into
 }
@@ -481,7 +481,7 @@ function expandOption(option, defaults) {
       return mergeOption(defaults, option)
     }
   } else {
-    return { top: option, right: option, bottom: option, left: option }    
+    return { top: option, right: option, bottom: option, left: option }
   }
 }
 
@@ -493,12 +493,12 @@ function drawLine(page, width, from, to) {
 }
 },{"../fragment":7,"../utils":17,"./text":3}],3:[function(require,module,exports){
 var PDFString = require('../objects/string')
-  , utils = require('../utils')
+var utils = require('../utils')
 
 module.exports = function(string, opts) {
   var text = new Text(this, opts)
   if (typeof string === 'function')
-    string.call(text, text.textFn) 
+    string.call(text, text.textFn)
   else
     text.text(string)
 
@@ -553,23 +553,23 @@ Text.prototype.text.pageNumber = function() {
 
 Text.prototype.render = function(page, width, context) {
   var self       = this
-    , spaceLeft  = width
-    , finishedAt = this.contents.length - 1
-    , line       = []
-    , self       = this
-    , lastFont, lastSize
-  
+  var spaceLeft  = width
+  var finishedAt = this.contents.length - 1
+  var line       = []
+  var self       = this
+  var lastFont, lastSize
+
   function renderLine(line, textWidth, isLastLine) {
     var lineHeight = Math.max.apply(Math, line.map(function(word) {
       return word.height
     }))
-    
+
     // only a line break
     if (line.length === 1 && line[0].word === '\n') {
       page.cursor.y -= lineHeight * (self.opts.lineSpacing || 1)
       return
     }
-    
+
     // page break
     if (round(page.spaceLeft) < round(lineHeight)) {
       var left = page.cursor.x
@@ -577,17 +577,17 @@ Text.prototype.render = function(page, width, context) {
       page.cursor.x = left
       lastFont = undefined
     }
-    
+
     page.cursor.y -= lineHeight
-    
+
     var spaceLeft = width - textWidth
-      , left = page.cursor.x
-      , wordCount = line.length
-      , toPrint = ''
+    var left = page.cursor.x
+    var wordCount = line.length
+    var toPrint = ''
 
     // begin text
     page.contents.writeLine('BT')
-    
+
     // alignement
     switch (self.opts.align) {
       case 'right':
@@ -602,14 +602,14 @@ Text.prototype.render = function(page, width, context) {
         // set word spacing
         page.contents.writeLine(wordSpacing + ' Tw')
     }
-  
+
     // position the text in user space
     page.contents.writeLine(left + ' ' + page.cursor.y + ' Td')
-  
+
     line.forEach(function(word, i) {
       if (word.word === '\n') return
       var str = (i > 0 && !word.isStartingWithPunctuation ? ' ' : '') + word.font.encode(word.word)
-        , size = word.opts.size || 10
+      var size = word.opts.size || 10
       if (lastFont !== word.font || lastSize !== size) {
         if (toPrint.length) {
           page.contents.writeLine((new PDFString(toPrint)).toHexString() + ' Tj')
@@ -625,16 +625,16 @@ Text.prototype.render = function(page, width, context) {
       page.contents.writeLine((new PDFString(toPrint)).toHexString() + ' Tj')
       toPrint = ''
     }
-  
+
     page.contents.writeLine('ET')
-    
+
     page.cursor.y -= lineHeight * ((self.opts.lineSpacing || 1) - 1)
   }
-  
+
   this.contents.forEach(function(word, i) {
     word.context = context || (self.doc.doc || self.doc)
     var wordWidth = word.width, wordSpacing = !line.length || word.isStartingWithPunctuation ? 0 : word.spacing
-    
+
     if (word.word === '\n' || (line.length > 0 && spaceLeft - (wordWidth + wordSpacing) < 0)) {
       wordSpacing = 0
       if (word.word === '\n') line.push(word)
@@ -643,11 +643,11 @@ Text.prototype.render = function(page, width, context) {
       line = new Line
       if (word.word === '\n') return
     }
-    
+
     spaceLeft -= wordWidth + wordSpacing
     line.push(word)
   })
-  
+
   if (line.length) {
     renderLine(line, width - spaceLeft, true)
   }
@@ -721,7 +721,7 @@ Word.prototype.toString = function() {
     this.font.use(res)
     return res
   }
-  
+
   return this._word
 }
 
@@ -743,34 +743,34 @@ function round(num) {
 }
 },{"../objects/string":14,"../utils":17}],4:[function(require,module,exports){
 var PDFObject = require('./objects/object')
-  , Pages     = require('./pages')
-  , Font      = require('./font')
-  , TTFFont   = require('./fonts/ttf')
-  , PDFName   = require('./objects/name')
-  , utils = require('./utils')
+var Pages     = require('./pages')
+var Font      = require('./font')
+var TTFFont   = require('./fonts/ttf')
+var PDFName   = require('./objects/name')
+var utils = require('./utils')
 
 var Document = module.exports = function Document(font, opts) {
   this.version = 1.7
-  
+
   // list of all objects in this document
   this.objects   = []
-  
+
   // list of all fonts in this document
   this.fonts       = []
   this.subsets     = []
   this.defaultFont = this.registerFont(font)
-  
+
   // call parents constructor
   if (!opts) opts = {}
   if (!opts.padding) opts.padding = { top: 20, right: 40, bottom: 20, left: 40 }
   Document.super_.call(this, this, opts)
   this.height = this.opts.height || 792
-  
+
   // the catalog and pages tree
   this.catalog = this.createObject('Catalog')
   this.pages   = new Pages(this)
   this.catalog.prop('Pages', this.pages.toReference())
-  
+
   this.areas = { header: null, footer: null }
 }
 
@@ -827,8 +827,8 @@ Document.prototype.pagebreak = function() {
   }
   if (this.areas.footer) {
     var footer = this.areas.footer
-      , transaction = this.startTransaction()
-      , y = page.cursor.y
+    var transaction = this.startTransaction()
+    var y = page.cursor.y
     footer.height = 0
     footer.render(page, this.width)
     var height = y - page.cursor.y
@@ -846,24 +846,24 @@ Document.prototype.toDataURL = function() {
 }
 
 var PDFDictionary = require('./objects/dictionary')
-  , PDFArray      = require('./objects/array')
-  , PDFString     = require('./objects/string')
+var PDFArray      = require('./objects/array')
+var PDFString     = require('./objects/string')
 
 Document.prototype.toString = function() {
   var self = this
   this.objects = [this.catalog, this.pages.tree]
-  
+
   this.pagebreak()
   this.render(this.cursor)
   this.subsets.forEach(function(subset) {
     subset.embed(self)
   })
-  
+
   var buf = '', xref = [], startxref
-  
+
   // header
   buf += '%PDF-' + this.version.toString() + '\n'
-  
+
   // The PDF format mandates that we add at least 4 commented binary characters
   // (ASCII value >= 128), so that generic tools have a chance to detect
   // that it's a binary file
@@ -874,13 +874,13 @@ Document.prototype.toString = function() {
   this.objects.forEach(function(obj, i) {
     obj.id = i + 1
   })
-  
+
   // body
   this.objects.forEach(function(object) {
     xref.push(buf.length)
     buf += object.toString() + '\n\n'
   })
-  
+
   // to support random access to individual objects, a PDF file
   // contains a cross-reference table that can be used to locate
   // and directly access pages and other important objects within the file
@@ -889,12 +889,12 @@ Document.prototype.toString = function() {
   buf += '0 ' + (this.objects.length + 1) + '\n'
   buf += '0000000000 65535 f \n'
   xref.forEach(function(ref) {
-    buf += '0000000000'.substr(ref.toString().length) + ref + ' 00000 n \n' 
+    buf += '0000000000'.substr(ref.toString().length) + ref + ' 00000 n \n'
   })
-  
+
   // trailer
   var id = (new PDFString(uuid4())).toHexString()
-    , trailer = new PDFDictionary({
+  var trailer = new PDFDictionary({
       Size: (this.objects.length + 1),
       Root: this.catalog.toReference(),
       ID:   new PDFArray([id, id])
@@ -904,7 +904,7 @@ Document.prototype.toString = function() {
   buf += 'startxref\n'
   buf += startxref + '\n'
   buf += '%%EOF'
-  
+
   return buf
 }
 
@@ -927,7 +927,7 @@ Transaction.prototype.rollback = function() {
   if (this.length < this.doc.cursor.contents.content.length) {
     this.doc.cursor.contents.content = this.doc.cursor.contents.content.slice(0, this.length)
   }
-  
+
   this.doc.cursor.cursor.y = this.y
 }
 
@@ -983,7 +983,7 @@ var Base64 = {
 
     for (var n = 0; n < string.length; n++) {
       var c = string.charCodeAt(n);
-      
+
       // workaround to not encode UTF8 characters
       // TODO: improve ...
       utftext += String.fromCharCode(Math.min(c, 0xff))
@@ -1032,8 +1032,8 @@ function uuid4(
 }
 },{"./font":5,"./fonts/ttf":6,"./fragment":7,"./objects/array":8,"./objects/dictionary":9,"./objects/name":10,"./objects/object":11,"./objects/string":14,"./pages":16,"./utils":17}],5:[function(require,module,exports){
 var TTFFont = require('./fonts/ttf')
-  , PDFName = require('./objects/name')
-  , fs = require('fs')
+var PDFName = require('./objects/name')
+var fs = require('fs')
 
 var TYPES = ['regular', 'italic', 'bold', 'boldItalic', 'light', 'lightItalic']
 
@@ -1111,18 +1111,18 @@ function typeFromOpts(opts) {
 var TTFFont = module.exports = require('ttfjs')
 
 var PDFArray  = require('../objects/array')
-  , PDFStream = require('../objects/stream')
+var PDFStream = require('../objects/stream')
 
 var embed = TTFFont.Subset.prototype.embed
 TTFFont.Subset.prototype.embed = function(doc) {
   embed.call(this)
-  
+
   var font = this.object
   font.prop('Subtype', 'TrueType')
   font.prop('BaseFont', this.font.fontName)
   font.prop('Encoding', 'MacRomanEncoding')
   doc.objects.push(font)
-  
+
   // widths array
   var widths = doc.createObject(), metrics = [], codeMap = this.cmap()
   for (var code in codeMap) {
@@ -1132,10 +1132,10 @@ TTFFont.Subset.prototype.embed = function(doc) {
   }
   widths.content = new PDFArray(metrics)
   font.prop('Widths', widths.toReference())
-  
+
   font.prop('FirstChar', 32)
   font.prop('LastChar', metrics.length > (222) ? 225 : metrics.length + 33 - 1)
-  
+
   // font descriptor
   var descriptor = doc.createObject('FontDescriptor')
   descriptor.prop('FontName', this.font.fontName)
@@ -1147,7 +1147,7 @@ TTFFont.Subset.prototype.embed = function(doc) {
   descriptor.prop('CapHeight', this.font.capHeight)
   descriptor.prop('StemV', this.font.stemV)
   font.prop('FontDescriptor', descriptor.toReference())
-  
+
   // unicode map
   var cmap = new PDFStream(doc.createObject())
   cmap.writeLine('/CIDInit /ProcSet findresource begin')
@@ -1163,7 +1163,7 @@ TTFFont.Subset.prototype.embed = function(doc) {
   cmap.writeLine('1 begincodespacerange')
   cmap.writeLine('<00><ff>')
   cmap.writeLine('endcodespacerange')
-  
+
   var codeMap = this.subset, lines = []
   for (var code in codeMap) {
     if (lines.length >= 100) {
@@ -1175,10 +1175,10 @@ TTFFont.Subset.prototype.embed = function(doc) {
       lines = []
     }
     var unicode = ('0000' + codeMap[code].toString(16)).slice(-4)
-      , code = (+code).toString(16)
+    var code = (+code).toString(16)
     lines.push('<' + code + '><' + unicode + '>')
   }
-  
+
   if (lines.length) {
     cmap.writeLine(lines.length + ' beginbfchar')
     lines.forEach(function(line) {
@@ -1186,18 +1186,18 @@ TTFFont.Subset.prototype.embed = function(doc) {
     })
     cmap.writeLine('endbfchar')
   }
-  
+
   cmap.writeLine('endcmap')
   cmap.writeLine('CMapName currentdict /CMap defineresource pop')
   cmap.writeLine('end')
   cmap.writeLine('end')
-  
+
   font.prop('ToUnicode', cmap.toReference())
-  
+
   // font file
   var data = this.save()
-    , hex = asHex(data)
-  
+  var hex = asHex(data)
+
   var file = new PDFStream(doc.createObject())
   file.object.prop('Length', hex.length + 1)
   file.object.prop('Length1', data.byteLength)
@@ -1233,15 +1233,15 @@ function asHex(ab) {
 },{"../objects/array":8,"../objects/stream":13,"ttfjs":31}],7:[function(require,module,exports){
 var Fragment = module.exports = function(doc, opts) {
   this.opts = opts || {}
-  
+
   this.doc = doc
-  
+
   this.width   = this.opts.width || 612
   if (!this.opts.padding) this.opts.padding = { top: 0, right: 0, bottom: 0, left: 0 }
   this.padding = new Padding(this)
-  
+
   this.defaultFont = this.doc.defaultFont
-  
+
   this.areas = {}
   this.contents = []
 }
@@ -1262,7 +1262,7 @@ Object.defineProperties(Padding.prototype, {
 })
 
 // <------- width ---------->
-// __________________________     
+// __________________________
 // | ______________________ |     ^
 // | |                 ^  | |     |
 // | |<-- innerWidth --|->| |     |
@@ -1319,7 +1319,7 @@ Fragment.prototype.render = function(page, width, context) {
   var x = page.cursor.x
   page.cursor.x += this.padding.left
   if (width) width = width - this.padding.right - this.padding.left
-  
+
   if ('top' in this.opts && ((this.doc.height - this.opts.top) < page.cursor.y || this.opts.position === 'force')) {
     page.cursor.y = this.doc.height - this.opts.top
   }
@@ -1330,7 +1330,7 @@ Fragment.prototype.render = function(page, width, context) {
   if ('minHeight' in this.opts && this.doc.cursor === page && (y - this.opts.minHeight) < page.cursor.y) {
     page.cursor.y = y - this.opts.minHeight
   }
-  
+
   page.cursor.x = x
 }
 
@@ -1353,11 +1353,11 @@ Fragment.prototype.fragment = function(opts, definition) {
     definition = opts
     opts = {}
   }
-  
+
   var fragment = new Fragment(this.doc, opts)
   definition.call(fragment, fragment)
   this.contents.push(fragment)
-  
+
   return this
 }
 },{"./content/operation":1,"./content/table":2,"./content/text":3}],8:[function(require,module,exports){
@@ -1371,7 +1371,7 @@ var PDFArray = module.exports = function(array) {
             }).join(' ') +
            ']'
   }
-  
+
   return array
 }
 
@@ -1410,13 +1410,13 @@ Object.defineProperty(PDFDictionary.prototype, 'length', {
 },{"./name":10}],10:[function(require,module,exports){
 var PDFName = module.exports = function(name) {
   if (!name) throw new Error('A Name cannot be undefined')
-  
+
   if (name instanceof PDFName) return name
-  
+
   // white-space characters are not allowed
   if (name.match(/[\x00]/))
     throw new Error('A Name mustn\'t contain the null characters')
-    
+
   // delimiter characters are not allowed
   if (name.match(/[\(\)<>\[\]\{\}\/\%]/))
     throw new Error('A Name mustn\'t contain delimiter characters')
@@ -1433,7 +1433,7 @@ var PDFName = module.exports = function(name) {
     if (code > 0xff) code = 0x5f
     return '#' + code
   })
-  
+
   this.name = name
 }
 
@@ -1446,7 +1446,7 @@ PDFName.prototype.toString = function() {
 // pdfjs just calls them `references`
 
 var PDFReference  = require('./reference')
-  , PDFDictionary = require('./dictionary')
+var PDFDictionary = require('./dictionary')
 
 var PDFObject = module.exports = function(id, rev) {
   this.id         = id || null
@@ -1466,7 +1466,7 @@ PDFObject.prototype.toReference = function() {
 
 PDFObject.prototype.toString = function() {
   var self = this
-  
+
   return this.id.toString() + ' ' + this.rev + ' obj\n' +
          (this.properties.length ? this.properties.toString() + '\n' : '') +
          (this.content !== null ? this.content.toString() + '\n' : '') +
@@ -1505,7 +1505,7 @@ PDFStream.prototype.toString = function() {
   return 'stream\n' +
          this.content +
          'endstream'
-         
+
 }
 },{"./name":10}],14:[function(require,module,exports){
 var PDFString = module.exports = function(str) {
@@ -1534,9 +1534,9 @@ PDFString.prototype.toString = function() {
 }
 },{}],15:[function(require,module,exports){
 var PDFStream     = require('./objects/stream')
-  , PDFDictionary = require('./objects/dictionary')
-  , PDFArray      = require('./objects/array')
-  , PDFName       = require('./objects/name')
+var PDFDictionary = require('./objects/dictionary')
+var PDFArray      = require('./objects/array')
+var PDFName       = require('./objects/name')
 
 var Page = module.exports = function(doc, parent) {
   this.doc        = doc
@@ -1544,12 +1544,12 @@ var Page = module.exports = function(doc, parent) {
   this.contents   = new PDFStream(doc.createObject())
   this.fonts      = new PDFDictionary({})
   this.pageNumber = 1
-  
+
   this.cursor = {
     y: this.doc.height - this.doc.opts.padding.top,
     x: 0
   }
-                    
+
   this.object.addProperty('Parent', parent.toReference())
   this.object.addProperty('Contents', this.contents.toReference())
   this.object.addProperty('Resources', new PDFDictionary({
@@ -1572,7 +1572,7 @@ Page.prototype.toReference = function() {
 }
 },{"./objects/array":8,"./objects/dictionary":9,"./objects/name":10,"./objects/stream":13}],16:[function(require,module,exports){
 var PDFArray = require('./objects/array')
-  , Page = require('./page')
+var Page = require('./page')
 
 var Pages = module.exports = function(doc) {
   this.doc   = doc
@@ -1597,11 +1597,11 @@ Pages.prototype.addPage = function() {
   this.pages.push(page)
   this.kids.push(page.toReference())
   this.tree.addProperty('Count', this.count)
-  
+
   this.doc.subsets.forEach(function(subset) {
     subset.addTo(page)
   })
-  
+
   return page
 }
 
@@ -1717,12 +1717,12 @@ Subset.prototype.glyphs = function() {
   var self = this, ids = [0]
   for (var pos in this.subset) {
     var code = this.subset[pos]
-      , val = this.font.codeMap[code]
+    var val = this.font.codeMap[code]
     if (val !== undefined && !!!~ids.indexOf(val))
       ids.push(val)
   }
   ids.sort()
-  
+
   // collect the actual glyphs
   function collect(ids) {
     var glyphs = {}
@@ -1738,28 +1738,28 @@ Subset.prototype.glyphs = function() {
     })
     return glyphs
   }
-  
+
   return collect(ids)
 }
 
 Subset.prototype.embed = function() {
   var cmap   = this.font.tables.cmap.embed(this.cmap())
-    , glyphs = this.glyphs()
-    
+  var glyphs = this.glyphs()
+
   this.font.tables.cmap.subtables = [cmap.subtable]
-  
+
   var old2new = { 0: 0 }
   for (var code in cmap.charMap) {
     var ids = cmap.charMap[code]
     old2new[ids.old] = ids.new
   }
-  
+
   var nextGlyphID = cmap.maxGlyphID
   for (var oldID in glyphs) {
     if (!(oldID in old2new))
       old2new[oldID] = nextGlyphID++
   }
-  
+
   var new2old = {}
   for (var id in old2new) {
     new2old[old2new[id]] = id
@@ -1770,7 +1770,7 @@ Subset.prototype.embed = function() {
   var oldIDs = newIDs.map(function(id) {
     return new2old[id]
   })
-  
+
   // encode the font tables
   var offsets = this.font.tables.glyf.embed(glyphs, oldIDs, old2new)
   this.font.tables.loca.embed(offsets)
@@ -1820,8 +1820,8 @@ Table.prototype.$unpacked = function() {
   this.codeMap = {}
   for (var i = 0, len = this.segCount; i < len; ++i) {
     var endCode = this.endCode[i], startCode = this.startCode[i]
-      , idDelta = this.idDelta[i], idRangeOffset = this.idRangeOffset[i]
-    
+    var idDelta = this.idDelta[i], idRangeOffset = this.idRangeOffset[i]
+
     for (var code = startCode; code <= endCode; ++code) {
       var id
       if (idRangeOffset === 0) id = code + idDelta
@@ -1830,7 +1830,7 @@ Table.prototype.$unpacked = function() {
         id = this.glyphIndexArray[index] || 0 // because some TTF fonts are broken
         if (id != 0) id += idDelta
       }
-      
+
       this.codeMap[code] = id & 0xFFFF
     }
   }
@@ -1865,7 +1865,7 @@ Cmap.prototype.embed = function(cmap) {
   var codes = Object.keys(cmap).sort(function(a, b) {
     return a - b
   })
-  
+
   var nextId = 0, map = {}, charMap = {}, last = diff = null, endCodes = [], startCodes = []
   codes.forEach(function(code) {
     var old = cmap[code]
@@ -1879,36 +1879,36 @@ Cmap.prototype.embed = function(cmap) {
     }
     last = code
   })
-  
+
   if (last) endCodes.push(last)
   endCodes.push(0xFFFF)
   startCodes.push(0xFFFF)
-  
+
   var segCount      = startCodes.length
-    , segCountX2    = segCount * 2
-    , searchRange   = 2 * Math.pow(Math.log(segCount) / Math.LN2, 2)
-    , entrySelector = Math.log(searchRange / 2) / Math.LN2
-    , rangeShift    = 2 * segCount - searchRange
-  
+  var segCountX2    = segCount * 2
+  var searchRange   = 2 * Math.pow(Math.log(segCount) / Math.LN2, 2)
+  var entrySelector = Math.log(searchRange / 2) / Math.LN2
+  var rangeShift    = 2 * segCount - searchRange
+
   var deltas = []
-    , rangeOffsets = []
-    , glyphIDs = []
-  
+  var rangeOffsets = []
+  var glyphIDs = []
+
   for (var i = 0, len = startCodes.length; i < len; ++i) {
     var startCode = startCodes[i]
-      , endCode = endCodes[i]
-      
+    var endCode = endCodes[i]
+
     if (startCode === 0xFFFF) {
       deltas.push(0)
       rangeOffsets.push(0)
       break
     }
-    
+
     var startGlyph = charMap[startCode].new
     if (startCode - startGlyph >= 0x8000) {
       deltas.push(0)
       rangeOffsets.push(2 * (glyphIDs.length + segCount - i))
-      
+
       for (var code = startCode; code < endCode; ++startCode) {
         glyphIDs.push(charMap[code].new)
       }
@@ -1917,7 +1917,7 @@ Cmap.prototype.embed = function(cmap) {
       rangeOffsets.push(0)
     }
   }
-  
+
   var subtable = new SubTable({
     platformID: 3,
     platformSpecificID: 1,
@@ -1938,7 +1938,7 @@ Cmap.prototype.embed = function(cmap) {
       glyphIndexArray: glyphIDs
     })
   })
-      
+
   return {
     charMap: charMap,
     subtable: subtable,
@@ -1980,10 +1980,10 @@ Glyf.prototype.embed = function(glyphs, mapping, old2new) {
 
 Glyf.prototype.for = function(id) {
   if (id in this.cache) return this.cache[id]
-  
+
   var index  = this.loca.indexOf(id)
-    , length = this.loca.lengthOf(id)
-    
+  var length = this.loca.lengthOf(id)
+
   if (length === 0) return this.cache[id] = null
   return this.cache[id] = (new Glyph()).unpack(new DataView(this.view.buffer, this.view.byteOffset + index, length))
 }
@@ -2018,11 +2018,11 @@ Glyf.prototype.sizeFor = function() {
 }
 
 var ARG_1_AND_2_ARE_WORDS    = 0x0001
-  , WE_HAVE_A_SCALE          = 0x0008
-  , MORE_COMPONENTS          = 0x0020
-  , WE_HAVE_AN_X_AND_Y_SCALE = 0x0040
-  , WE_HAVE_A_TWO_BY_TWO     = 0x0080
-  , WE_HAVE_INSTRUCTIONS     = 0x0100
+var WE_HAVE_A_SCALE          = 0x0008
+var MORE_COMPONENTS          = 0x0020
+var WE_HAVE_AN_X_AND_Y_SCALE = 0x0040
+var WE_HAVE_A_TWO_BY_TWO     = 0x0080
+var WE_HAVE_INSTRUCTIONS     = 0x0100
 
 // Currently, it is all about being able to create font subsets.
 // Therefore, it is not necessary to actually decompose the glyph
@@ -2034,7 +2034,7 @@ var Glyph = function() {
 Glyph.prototype.unpack = function(view) {
   this.view = view
   this.isCompound = view.getInt16(0) === -1
-  
+
   if (this.isCompound) {
     this.ids = []
     this.offsets = []
@@ -2043,23 +2043,23 @@ Glyph.prototype.unpack = function(view) {
     // thanks to https://github.com/prawnpdf/ttfunk
     while(true) {
       var flags = this.view.getInt16(offset)
-        , id    = this.view.getInt16(offset + 2)
+      var id    = this.view.getInt16(offset + 2)
       this.ids.push(id)
       this.offsets.push(offset + 2)
-      
+
       if (!(flags & MORE_COMPONENTS)) break
-      
+
       offset += 4
-      
+
       if (flags & ARG_1_AND_2_ARE_WORDS) offset += 4
       else                               offset += 2
-      
+
       if (flags & WE_HAVE_A_TWO_BY_TWO)          offset += 8
       else if (flags & WE_HAVE_AN_X_AND_Y_SCALE) offset += 4
       else if (flags & WE_HAVE_A_SCALE)          offset += 2
     }
   }
-  
+
   return this
 }
 
@@ -2146,7 +2146,7 @@ module.exports = function(numOfLongHorMetrics, numGlyphs) {
     hMetrics:        Struct.Array(AdvanceWidth, numOfLongHorMetrics),
     leftSideBearing: Struct.Array(Struct.Uint16, numGlyphs - numOfLongHorMetrics)
   })
-  
+
   Hmtx.prototype.$unpacked = function() {
     var metrics = this.metrics = []
     this.hMetrics.forEach(function(e) {
@@ -2157,29 +2157,29 @@ module.exports = function(numOfLongHorMetrics, numGlyphs) {
       metrics.push(last)
     })
   }
-  
+
   Hmtx.prototype.for = function(id) {
     if (id in this.hMetrics) return this.hMetrics[id]
-    
+
     return new AdvanceWidth({
       advanceWidth:    this.hMetrics[this.hMetrics.length - 1].advance,
       leftSideBearing: this.leftSideBearing[id - this.hMetrics.length]
     })
   }
-  
+
   Hmtx.prototype.embed = function(ids) {
     var self = this, metrics = []
     ids.forEach(function(id) {
       metrics.push(self.for(id))
     })
-    
+
     this.hMetrics = metrics
     this.leftSideBearing = []
-    
+
     this._definition.hMetrics._length = ids.length
     this._definition.leftSideBearing._length = 0
   }
-  
+
   return Hmtx
 }
 
@@ -2210,7 +2210,7 @@ module.exports = function(indexToLocFormat, numGlyphs) {
       })
       break
   }
-  
+
   Loca.prototype.indexOf = function(id) {
     return this.offsets[id]
   }
@@ -2218,12 +2218,12 @@ module.exports = function(indexToLocFormat, numGlyphs) {
   Loca.prototype.lengthOf = function(id) {
     return this.offsets[id + 1] - this.offsets[id]
   }
-  
+
   Loca.prototype.embed = function(offsets) {
     this._definition.offsets._length = offsets.length
     this.offsets = offsets
   }
-  
+
   return Loca
 }
 },{"structjs":32}],27:[function(require,module,exports){
@@ -2300,7 +2300,7 @@ Name.prototype.embed = function(charMap) {
     offset: 0,
     string: "MARKUS+" + postscriptName
   }))
-  
+
   // sample text
   // var sample = this.records.filter(function(record) {
   //   return record.nameID === 19
@@ -2382,41 +2382,41 @@ var Post = module.exports = new Struct({
 })
 },{"structjs":32}],31:[function(require,module,exports){
 var Directory = require('./directory')
-  , Subset = require('./subset')
+var Subset = require('./subset')
 
 var TTFFont = module.exports = function(buffer) {
   var self = this
   this.buffer = buffer instanceof TTFFont
                 ? buffer.buffer
                 : buffer = buffer instanceof ArrayBuffer ? buffer : toArrayBuffer(buffer)
-  
+
   if (buffer instanceof TTFFont) {
     this.directory = buffer.directory.clone()
   } else {
     this.directory = new Directory()
     this.directory.unpack(new DataView(buffer))
   }
-  
+
   var scalerType = this.directory.scalerType.toString(16)
   if (scalerType !== '74727565' && scalerType !== '10000') {
     throw new Error('Not a TrueType font')
   }
-  
+
   this.tables = {}
   function unpackTable(table, args) {
     var name = table.replace(/[^a-z0-9]/ig, '').toLowerCase()
-      , entry = self.directory.entries[table]
+    var entry = self.directory.entries[table]
     if (!entry) return
     if (buffer instanceof TTFFont) {
       self.tables[name] = self.tables[table] = buffer.tables[table].clone()
       return
     }
     var Table = require('./table/' + name)
-      , view  = new DataView(buffer, entry.offset, entry.length)
+    var view  = new DataView(buffer, entry.offset, entry.length)
     if (args) Table = Table.apply(undefined, args)
     self.tables[name] = self.tables[table] = (typeof Table === 'function' ? new Table : Table).unpack(view)
   }
-  
+
   // workaround for browserify
   if (false) {
     require('./table/cmap')
@@ -2430,7 +2430,7 @@ var TTFFont = module.exports = function(buffer) {
     require('./table/post')
     require('./table/os2')
   }
-  
+
   unpackTable('cmap')
   for (var i = 0, len = this.tables.cmap.subtables.length; i < len; ++i) {
     var subtable = this.tables.cmap.subtables[i]
@@ -2453,14 +2453,14 @@ var TTFFont = module.exports = function(buffer) {
   // by setting version to 3.0, TODO: bother with it ...
   this.tables.post.version = 196608
   unpackTable('OS/2')
-  
+
   this.baseFont = this.tables.name.records.filter(function(record) {
     return record.nameID === 6
   })[0].string
   this.fontName = 'MARKUS+' + this.baseFont
-  
+
   this.scaleFactor = 1000.0 / this.tables.head.unitsPerEm
-  
+
   this.italicAngle = parseFloat(this.tables.post.italicAngleHi + '.' + this.tables.post.italicAngleLow)
   var os2 = this.tables.os2 || {}
   this.ascent      = Math.round((os2.sTypoAscender  || this.tables.hhea.ascent) * this.scaleFactor)
@@ -2471,9 +2471,9 @@ var TTFFont = module.exports = function(buffer) {
   this.bbox        = [this.tables.head.xMin, this.tables.head.yMin, this.tables.head.xMax, this.tables.head.yMax].map(function(val) {
     return Math.round(val * self.scaleFactor)
   })
-  
+
   var flags = 0, familyClass = (os2.sFamilyClass || 0) >> 8
-    , isSerif = !!~[1, 2, 3, 4, 5, 6, 7].indexOf(familyClass)
+  var isSerif = !!~[1, 2, 3, 4, 5, 6, 7].indexOf(familyClass)
   if (this.tables.post.isFixedPitch) flags |= 1 << 0
   if (isSerif)                       flags |= 1 << 1
   if (familyClass === 10)            flags |= 1 << 3
@@ -2521,7 +2521,7 @@ TTFFont.prototype.save = function() {
   for (var name in this.directory.entries) {
     if (!!!~tables.indexOf(name)) delete this.directory.entries[name]
   }
-  
+
   // calculate total size
   var size = offset = this.directory.lengthFor(this.directory, true) * this.directory.sizeFor(this.directory, true)
 
@@ -2532,10 +2532,10 @@ TTFFont.prototype.save = function() {
                        : self.directory.entries[name].length
     size += length + length % 4
   })
-  
+
   // prepare head
   this.tables.head.checkSumAdjustment = 0
-  
+
   var view = new DataView(new ArrayBuffer(size))
 
   tables.forEach(function(name) {
@@ -2550,31 +2550,31 @@ TTFFont.prototype.save = function() {
       entry.offset = offset
       entry.length = table.lengthFor(table, true) * table.sizeFor(table, true)
     }
-    
+
     // pad up to a length completely divisible by 4
     var padding = entry.length % 4, length = entry.length + padding
     for (var i = entry.offset + entry.length, to = i + padding; i < to; ++i)
       view.setInt8(i, 0)
-    
+
     // checksum
     var sum = 0
     for (var i = 0; i < length; i += 4)
       sum += view.getInt32(offset + i)
     entry.checkSum = sum
-    
+
     // update offset for the next table
     offset += length
   })
-  
+
   this.directory.pack(view, 0)
-  
+
   // file checksum
   var sum = 0
   for (var i = 0; i < size; i += 4)
     sum += view.getInt32(i)
   this.tables.head.checkSumAdjustment = 0xB1B0AFBA - sum
   this.tables.head.pack(view, this.directory.entries.head.offset)
-  
+
   return view.buffer
 }
 
@@ -2590,27 +2590,27 @@ function toArrayBuffer(buffer) {
 }
 },{"./directory":19,"./subset":20,"./table/cmap":21,"./table/glyf":22,"./table/head":23,"./table/hhea":24,"./table/hmtx":25,"./table/loca":26,"./table/maxp":27,"./table/name":28,"./table/os2":29,"./table/post":30}],32:[function(require,module,exports){
 var StructNumber    = require('./types/number')
-  , StructString    = require('./types/string')
-  , StructHash      = require('./types/hash')
-  , StructArray     = require('./types/array')
-  , StructReference = require('./types/reference')
-  , StructStorage   = require('./types/storage')
-  , utils           = require('./utils')
+var StructString    = require('./types/string')
+var StructHash      = require('./types/hash')
+var StructArray     = require('./types/array')
+var StructReference = require('./types/reference')
+var StructStorage   = require('./types/storage')
+var utils           = require('./utils')
 
 var Struct = module.exports = function(definition, opts) {
   if (!opts) opts = {}
-    
+
   var StructType = function(values) {
     Object.defineProperties(this, {
       _view:       { writable: true, value: null },
       _offset:     { writable: true, value: null },
       _definition: { writable: false, value: definition}
     })
-    
+
     for (var key in values) {
       if (key in definition) this[key] = cloneValue(values[key])
     }
-    
+
     var self = this
     extensions.forEach(function(extension) {
       for (var key in values) {
@@ -2636,11 +2636,11 @@ var Struct = module.exports = function(definition, opts) {
   StructType.prototype.unpack = function(view, offset) {
     if (!(view instanceof DataView))
       throw new Error('DataView expected')
-  
+
     if (!offset) offset = 0
-    
+
     this._view = view
-  
+
     var self = this
     function apply(definition) {
       for (var prop in definition) {
@@ -2662,10 +2662,10 @@ var Struct = module.exports = function(definition, opts) {
       if (!extension.condition.call(self)) return
       apply(extension.extension)
     })
-  
+
     if (typeof this.$unpacked === 'function')
       this.$unpacked()
-  
+
     return this
   }
 
@@ -2673,7 +2673,7 @@ var Struct = module.exports = function(definition, opts) {
     // console.log('Size: %d, Length: %d', this.sizeFor(this, true), this.lengthFor(this, true))
     if (typeof this.$packing === 'function')
       this.$packing()
-      
+
     if (!view) view = new DataView(new ArrayBuffer(this.lengthFor(this, true) * this.sizeFor(this, true)))
     if (!offset) offset = 0
 
@@ -2720,17 +2720,17 @@ var Struct = module.exports = function(definition, opts) {
 
     return view.buffer
   }
-  
+
   StructType.read = function read(buffer, offset) {
     var self = new this, parent = read.caller.parent
-      , shift = this.storage ? this.offsetFor(parent) : offset
+    var shift = this.storage ? this.offsetFor(parent) : offset
     self.unpack(buffer, shift)
     return self
   }
 
   StructType.write = function write(buffer, offset, value, relativeOffset) {
     var parent = write.caller.parent
-      , shift = this.storage ? offset + this.offsetFor(parent) : offset
+    var shift = this.storage ? offset + this.offsetFor(parent) : offset
     this.setOffset(this.storage ? relativeOffset + this.offsetFor(parent) : offset, parent)
     value.pack(buffer, shift)
   }
@@ -2760,7 +2760,7 @@ var Struct = module.exports = function(definition, opts) {
     })
     return size
   }
-  
+
   StructType.prototype.clone = function() {
     var clone = new StructType(this)
     if (typeof clone.$unpacked === 'function') clone.$unpacked()
@@ -2819,7 +2819,7 @@ function cloneValue(val) {
 }
 },{"./types/array":33,"./types/hash":34,"./types/number":35,"./types/reference":36,"./types/storage":37,"./types/string":38,"./utils":39}],33:[function(require,module,exports){
 var utils = require('../utils')
-  , StructReference = require('./reference')
+var StructReference = require('./reference')
 
 var StructArray = module.exports = function(struct, length) {
   this.struct = struct
@@ -2881,12 +2881,12 @@ StructArray.prototype.setLength = function(value, parent) {
     parent[this._length.prop] = value
   else if (typeof this._length === 'function') {
     return
-  } 
+  }
   else this._length = value
 }
 },{"../utils":39,"./reference":36}],34:[function(require,module,exports){
 var utils = require('../utils')
-  , StructReference = require('./reference')
+var StructReference = require('./reference')
 
 var StructHash = module.exports = function(struct, key, length) {
   this.struct = struct
@@ -2983,12 +2983,12 @@ var StructReference = module.exports = function(prop) {
 }
 },{}],37:[function(require,module,exports){
 var utils = require('../utils')
-  , StructReference = require('./reference')
-  , StructArray     = require('./array')
+var StructReference = require('./reference')
+var StructArray     = require('./array')
 
 var StructStorage = module.exports = function(path, opts) {
   this.path = path
-  if (opts instanceof StructReference) 
+  if (opts instanceof StructReference)
     opts = { offset: opts }
   opts = opts || {}
   Object.defineProperties(this, {
@@ -2998,7 +2998,7 @@ var StructStorage = module.exports = function(path, opts) {
 
 StructStorage.prototype.read = function read(view, offset) {
   var parent = read.caller.parent
-    , shift  = this.offsetFor(parent) || offset
+  var shift  = this.offsetFor(parent) || offset
   !function traverse(path, definition, target) {
     var step = path.shift(), type = definition[step]
     traverse.parent = target
@@ -3061,7 +3061,7 @@ StructStorage.prototype.sizeFor = function(parent, writing) {
 utils.methodsFor(StructStorage.prototype, '_offset', 'offsetFor', 'setOffset')
 },{"../utils":39,"./array":33,"./reference":36}],38:[function(require,module,exports){
 var utils = require('../utils')
-  , StructReference = require('./reference')
+var StructReference = require('./reference')
 
 var StructString = module.exports = function(length) {
   Object.defineProperties(this, {
@@ -3074,7 +3074,7 @@ var StructString = module.exports = function(length) {
 
 StructString.prototype.read = function read(buffer, offset) {
   var str = [], storage, parent = read.caller.parent
-    , shift = this.external
+  var shift = this.external
       ? this.offsetFor(parent)
       : (this.storage ? offset + this.offsetFor(parent) : offset)
   for (var i = 0, len = this.lengthFor(parent), step = this.sizeFor() === 2 ? 2 : 1; i < len; ++i) {
@@ -3085,7 +3085,7 @@ StructString.prototype.read = function read(buffer, offset) {
 
 StructString.prototype.write = function write(buffer, offset, value) {
   var str = [], storage, parent = write.caller.parent
-    , shift = this.external
+  var shift = this.external
       ? this.offsetFor(parent)
       : (this.storage ? offset + this.offsetFor(parent) : offset)
   this.setLength(this.lengthFor(parent, true), parent)
