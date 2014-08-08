@@ -21,9 +21,10 @@ AFM fonts and graphics are currently not implemented. If you are missing a featu
 
 1. [Document](#document)
 2. [Text](#text)
-3. [Table](#table)
-4. [Font](#font)
-5. [License](#license)
+3. [Image](#image)
+4. [Table](#table)
+5. [Font](#font)
+6. [License](#license)
 
 ## Document
 
@@ -35,7 +36,7 @@ var Document = require('pdfjs')
 
 **Arguments:**
 
-* **font** - a font; will be used as default font
+- **font** - a font; will be used as default font
 
 **Example:**
 
@@ -51,18 +52,18 @@ fs.readFile('OpenSans-Regular.ttf', function(err, b) {
 
 **Arguments:**
 
-* **text** - the text that should be rendered
-* **opts** - text options
+- **text** - the text that should be rendered
+- **opts** - text options
 
 **Options:**
 
-* **bold** - whether the text should be rendered bold (default: false)
-* **italic** - whether the text should be rendered italic  (default: false)
-* **light** - whether the text should be rendered light (default: false)
-* **align** - the text alignment (default: left, available: left, right, center or justify)
-* **lineSpacing** - this is a factor that could be used to increase or decrease the line spacing (default: 1)
-* **font** - the font that should be used
-* **size** - the font size
+- **bold** - whether the text should be rendered bold (default: false)
+- **italic** - whether the text should be rendered italic  (default: false)
+- **light** - whether the text should be rendered light (default: false)
+- **align** - the text alignment (default: left, available: left, right, center or justify)
+- **lineSpacing** - this is a factor that could be used to increase or decrease the line spacing (default: 1)
+- **font** - the font that should be used
+- **size** - the font size
 
 **Example:**
 
@@ -80,7 +81,7 @@ This text method can be used to render more advanced/complex text fragments. It 
 
 **Arguments:**
 
-* **definition** - a function describing the text to be rendered; it gets the `text` object described in [Text](#text)
+- **definition** - a function describing the text to be rendered; it gets the `text` object described in [Text](#text)
 
 **Example:**
 
@@ -106,19 +107,29 @@ doc.text(function(text) {
 
 ### .image(buffer, [opts])
 
-This methid can be used to render an image.
+This method can be used to render an image.
 
 **Arguments:**
 
-* **buffer** - a Buffer, ArrayBuffer or instance of [Image](#image)
-* **opts** - render options
+- **buffer** - a Buffer, ArrayBuffer or instance of [Image](#image)
+- **opts** - render options
 
 **Options:**
 
-* **width**, **height** - Image size. If neither `width` nor `height` are provided, the image is rendered to fit into the current context (e.g. page size). When either `width` or `height` is provided, the images is scaled proportionally; if both are provided, the image is stretched.
-* **wrap** - whether the image should wrap surrounding text (default: true)
-* **align** - when `wrap` is set to `true`, `align` can be used to set the horizontal positon (left, right, or center)
-* **x**, **y** - when `wrap` is set to `false`, `x` and `y` can be used to explicitly set the position if the image
+- **width**, **height** - Image size. If neither `width` nor `height` are provided, the image is rendered to fit into the current context (e.g. page size). When either `width` or `height` is provided, the images is scaled proportionally; if both are provided, the image is stretched.
+- **wrap** - whether the image should wrap surrounding text (default: true)
+- **align** - when `wrap` is set to `true`, `align` can be used to set the horizontal positon (left, right, or center)
+- **x**, **y** - when `wrap` is set to `false`, `x` and `y` can be used to explicitly set the position if the image
+
+**Example:**
+
+```js
+fs.readFile('./picture.jpg', function(err, b) {
+  if (err) throw err
+
+  doc.image(b, { align: 'center' })
+})
+```
 
 ### .table([opts, ] [definition])
 
@@ -126,14 +137,14 @@ This method can be used to define tables. **Returns** a [Table](#table) object.
 
 **Arguments:**
 
-* **opts** - table options
-* **definition** - a function that contains the table definition
+- **opts** - table options
+- **definition** - a function that contains the table definition
 
 **Options:**
 
-* **borderWidth** -
-* **width** - total width (absolute or relative) or an array of column widths
-* + [Text Options](#texttext-opts)
+- **borderWidth** -
+- **width** - total width (absolute or relative) or an array of column widths
+- + [Text Options](#texttext-opts)
 
 **Example:**
 
@@ -228,6 +239,21 @@ doc.text(function(text) {
 })
 ```
 
+## Image
+
+The image object should be used, when adding an image multiple times.
+
+### doc.createImage(buffer)
+
+This method is used to create a new image from the given buffer.
+
+**Example:**
+
+```js
+var img = doc.createImage(buffer)
+doc.image(img, { align: 'right' })
+```
+
 ## Table
 
 This table object is used to define its rows and its behaviour on page breaks.
@@ -238,13 +264,13 @@ This method is used to define a table row. **Returns** a [Table Row](#table-row)
 
 **Arguments:**
 
-* **opts** - row options
-* **definition** - a function that contains the row definition
+- **opts** - row options
+- **definition** - a function that contains the row definition
 
 **Options:**
 
-* **borderWidth** -
-* + [Text Options](#texttext-opts)
+- **borderWidth** -
+- + [Text Options](#texttext-opts)
 
 ### .beforeBreak([opts,] definition)
 
@@ -302,14 +328,14 @@ This method is used to define a cell of the row.
 
 **Arguments:**
 
-* **text** - the text contained in the cell
-* **opts** - cell options
+- **text** - the text contained in the cell
+- **opts** - cell options
 
 **Options:**
 
-* **borderWidth** -
-* **colspan** -
-* + [Text Options](#texttext-opts)
+- **borderWidth** -
+- **colspan** -
+- + [Text Options](#texttext-opts)
 
 ### .td([opts,] definition)
 
@@ -317,14 +343,14 @@ This method is used to define a cell of the row.
 
 **Arguments:**
 
-* **opts** - cell options
-* **definition** - a function that contains the cell definition
+- **opts** - cell options
+- **definition** - a function that contains the cell definition
 
 **Options:**
 
-* **borderWidth** -
-* **colspan** -
-* + [Text Options](#texttext-opts)
+- **borderWidth** -
+- **colspan** -
+- + [Text Options](#texttext-opts)
 
 ## Font
 
@@ -333,12 +359,12 @@ This method is used to define a cell of the row.
 
 **Options:**
 
-* **normal** -
-* **italic** -
-* **bold** -
-* **boldItalic** -
-* **light** -
-* **lightItalic** -
+- **normal** -
+- **italic** -
+- **bold** -
+- **boldItalic** -
+- **light** -
+- **lightItalic** -
 
 ## MIT License
 Copyright (c) 2013-2014 Markus Ast
