@@ -11,7 +11,7 @@ A Portable Document Format (PDF) generation library targeting both the server- a
 - Tables
 - Header & Footer
 - Automatic page breaks
-- Font embedding (as CID font, i.e., does supports many characters)
+- Font embedding (as CID fonts, i.e., supports large character set fonts)
 
 #### Missing Features
 
@@ -103,6 +103,22 @@ doc.text(function(text) {
 **Result:**
 
 ![Result](https://raw.github.com/rkusa/pdfjs/gh-pages/images/text-example.png)
+
+### .image(buffer, [opts])
+
+This methid can be used to render an image.
+
+**Arguments:**
+
+* **buffer** - a Buffer, ArrayBuffer or instance of [Image](#image)
+* **opts** - render options
+
+**Options:**
+
+* **width**, **height** - Image size. If neither `width` nor `height` are provided, the image is rendered to fit into the current context (e.g. page size). When either `width` or `height` is provided, the images is scaled proportionally; if both are provided, the image is stretched.
+* **wrap** - whether the image should wrap surrounding text (default: true)
+* **align** - when `wrap` is set to `true`, `align` can be used to set the horizontal positon (left, right, or center)
+* **x**, **y** - when `wrap` is set to `false`, `x` and `y` can be used to explicitly set the position if the image
 
 ### .table([opts, ] [definition])
 
