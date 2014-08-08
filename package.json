@@ -4,10 +4,13 @@
     "name": "Markus Ast",
     "email": "npm.m@rkusa.st"
   },
-  "version": "0.5.0",
+  "version": "0.5.1",
   "homepage": "https://github.com/rkusa/pdfjs",
   "description": "A Portable Document Format (PDF) generation library targeting both the server- and client-side.",
-  "keywords": ["pdf", "generator"],
+  "keywords": [
+    "pdf",
+    "generator"
+  ],
   "license": "MIT",
   "main": "lib/document",
   "scripts": {
@@ -17,18 +20,20 @@
     "minify": "uglifyjs --source-map pdfjs.min.map -o pdfjs.min.js pdfjs.js"
   },
   "dependencies": {
+    "base-64": "^0.1.0",
     "ttfjs": "0.2.x"
   },
   "devDependencies": {
-    "mocha": "1.13.x",
-    "chai": "1.8.x",
     "browserify": "2.x.x",
+    "chai": "1.8.x",
+    "mocha": "1.13.x",
+    "node-uuid": "^1.4.1",
     "uglify-js": "2.x.x"
   },
   "bugs": "https://github.com/rkusa/pdfjs/issues",
-  "repository" : {
-    "type" : "git",
-    "url" : "git://github.com/rkusa/pdfjs.git"
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/rkusa/pdfjs.git"
   },
   "engines": {
     "node": ">=0.8"
