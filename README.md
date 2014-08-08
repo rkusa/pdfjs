@@ -1,4 +1,4 @@
-# pdfjs
+![pdfjs](https://raw.githubusercontent.com/rkusa/pdfjs/master/logo/pdfjs.png)
 
 A Portable Document Format (PDF) generation library targeting both the server- and client-side.
 
@@ -8,6 +8,7 @@ A Portable Document Format (PDF) generation library targeting both the server- a
 #### Features
 
 - Text (+ formatting)
+- Images (JPEGs)
 - Tables
 - Header & Footer
 - Automatic page breaks
@@ -15,7 +16,7 @@ A Portable Document Format (PDF) generation library targeting both the server- a
 
 #### Missing Features
 
-AFM fonts and graphics are currently not implemented. If you are missing a feature, feel free to ask or to submit a PR.
+AFM fonts and vector graphics are currently not implemented. If you are missing a feature, feel free to ask or to submit a PR.
 
 #### Contents
 
