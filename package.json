@@ -21,13 +21,13 @@
   },
   "dependencies": {
     "base-64": "^0.1.0",
-    "ttfjs": "0.2.x"
+    "ttfjs": "0.2.x",
+    "node-uuid": "^1.4.1"
   },
   "devDependencies": {
     "browserify": "2.x.x",
     "chai": "1.8.x",
     "mocha": "1.13.x",
-    "node-uuid": "^1.4.1",
     "uglify-js": "2.x.x"
   },
   "bugs": "https://github.com/rkusa/pdfjs/issues",
