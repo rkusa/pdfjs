@@ -355,17 +355,60 @@ This method is used to define a cell of the row.
 
 ## Font
 
-### new Font(path)
-### new Font(opts)
+### new Font(buffer)
 
-**Options:**
+Create a new font from the given buffer.
 
-- **normal** -
-- **italic** -
-- **bold** -
-- **boldItalic** -
-- **light** -
-- **lightItalic** -
+### new Font(styles)
+
+Instead of just providing one font style (*regular*), you can also provide multiple styles.
+
+**Styles:** *normal*, *italic*, *bold*, *boldItalic*, *light*, *lightItalic*
+
+**Example:**
+
+```js
+new pdfjs.Font({
+  regular: fs.readFileSync(__dirname + '/open-sans/OpenSans-Regular.ttf'),
+  bold: fs.readFileSync(__dirname + '/open-sans/OpenSans-Bold.ttf'),
+  boldItalic: fs.readFileSync(__dirname + '/open-sans/OpenSans-BoldItalic.ttf'),
+  light: fs.readFileSync(__dirname + '/open-sans/OpenSans-Italic.ttf'),
+  italic: fs.readFileSync(__dirname + '/open-sans/OpenSans-LightItalic.ttf'),
+  lightItalic: fs.readFileSync(__dirname + '/open-sans/OpenSans-LightItalic.ttf'),
+})
+```
+
+(the sync API is just used for presentation purpose and should not be used in production)
+
+In the browser, you can load fonts using AJAX requests, e.g.:
+
+```js
+function load(path, callback) {
+  var request = new XMLHttpRequest()
+  request.open('GET', path, true)
+  request.responseType = 'arraybuffer'
+
+  if (request.overrideMimeType) {
+      request.overrideMimeType('text/plain; charset=x-user-defined')
+  } else {
+      request.setRequestHeader('Accept-Charset', 'x-user-defined')
+  }
+
+  request.onload = function() {
+    if (request.status === 200) {
+      callback(null, request.response)
+    } else {
+      callback(request.status)
+    }
+  }
+
+  request.send(null)
+}
+
+load('path/to/font.ttf', function(err, buffer) {
+  // ...
+})
+```
 
 ## MIT License
 Copyright (c) 2013-2014 Markus Ast
@@ -376,5 +419,5 @@ The above copyright notice and this permission notice shall be included in all c
 
 THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
-[npm]: http://img.shields.io/npm/v/pdfjs.svg?style=flat
-[deps]: http://img.shields.io/gemnasium/rkusa/pdfjs.svg?style=flat
+[npm]: http://img.shields.io/npm/v/pdfjs.svg?style=flat-square
+[deps]: http://img.shields.io/gemnasium/rkusa/pdfjs.svg?style=flat-square
