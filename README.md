@@ -65,6 +65,7 @@ fs.readFile('OpenSans-Regular.ttf', function(err, b) {
 - **lineSpacing** - this is a factor that could be used to increase or decrease the line spacing (default: 1)
 - **font** - the font that should be used
 - **size** - the font size
+- **color** - the font color
 
 **Example:**
 
@@ -144,6 +145,8 @@ This method can be used to define tables. **Returns** a [Table](#table) object.
 **Options:**
 
 - **borderWidth** -
+- **borderColor** -
+- **backgroundColor** - 
 - **width** - total width (absolute or relative) or an array of column widths
 - + [Text Options](#texttext-opts)
 
