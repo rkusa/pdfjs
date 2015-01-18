@@ -1,4 +1,10 @@
+# dotfiles
+.*
+!.eslintrc
+!.gitignore
+
+# dependencies
 node_modules
-.DS_Store
+
+# temporary
 test
-/pdfjs.*
