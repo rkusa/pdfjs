@@ -5,6 +5,8 @@ var test = require('tap').test
 var fixtures = require('./fixtures')
 var pdfjs    = require('../')
 
+process.env.TZ = 'Europe/Berlin'
+
 var files = process.argv.slice(2)
 if (files.length) {
   run(files)
