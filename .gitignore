@@ -1,5 +1,6 @@
 # dotfiles
 .*
+!.drone.yml
 !.eslintrc
 !.gitignore
 

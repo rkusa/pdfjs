@@ -1,0 +1,8 @@
+image: node:0.10
+script:
+  - npm install --silent
+  - npm test
+notify:
+  email:
+    recipients:
+      - m+pdfjs@rkusa.st

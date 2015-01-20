@@ -4,6 +4,7 @@ A Portable Document Format (PDF) generation library targeting both the server- a
 
 [![NPM][npm]](https://npmjs.org/package/pdfjs)
 [![Dependency Status][deps]](https://david-dm.org/rkusa/pdfjs)
+[![Build Status][drone]](https://ci.rkusa.st/github.com/rkusa/pdfjs)
 
 #### Features
 
@@ -423,4 +424,5 @@ The above copyright notice and this permission notice shall be included in all c
 THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 [npm]: http://img.shields.io/npm/v/pdfjs.svg?style=flat-square
-[deps]: http://img.shields.io/gemnasium/rkusa/pdfjs.svg?style=flat-square
+[deps]: http://img.shields.io/david/rkusa/pdfjs.svg?style=flat-square
+[drone]: http://ci.rkusa.st/api/badge/github.com/rkusa/pdfjs/status.svg?branch=master&style=flat-square
