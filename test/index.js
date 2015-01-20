@@ -5,9 +5,17 @@ var test = require('tap').test
 var fixtures = require('./fixtures')
 var pdfjs    = require('../')
 
-glob(__dirname + '/pdfs/**/*.js', function (err, files) {
-  if (err) throw err
+var files = process.argv.slice(2)
+if (files.length) {
+  run(files)
+} else {
+  glob(__dirname + '/pdfs/**/*.js', function (err, files) {
+    if (err) throw err
+    run(files)
+  })
+}
 
+function run(files) {
   files.forEach(function(scriptPath) {
     var dirname  = path.dirname(scriptPath)
     var basename = path.basename(scriptPath, '.js')
@@ -17,12 +25,14 @@ glob(__dirname + '/pdfs/**/*.js', function (err, files) {
 
     var script = require(scriptPath)
 
+    var f = fixtures.create()
+
     var doc = pdfjs.createDocument({
-      font:    fixtures.font.opensans.regular,
+      font:    f.font.opensans.regular,
       padding: 10,
     })
 
-    script(doc, fixtures)
+    script(doc, f)
 
     var pdf = doc.render()
     pdf.info.id = '42'
@@ -30,7 +40,7 @@ glob(__dirname + '/pdfs/**/*.js', function (err, files) {
     pdf.info.producer = 'pdfjs tests (github.com/rkusa/pdfjs)'
 
     var result = pdf.toString()
-    fs.writeFileSync(resultPath, result, 'ascii')
+    fs.writeFileSync(resultPath, result, 'binary')
 
     var expectation  = fs.readFileSync(expectationPath, 'binary')
     var relativePath = path.relative(path.join(__dirname, 'pdfs'), dirname)
@@ -39,4 +49,4 @@ glob(__dirname + '/pdfs/**/*.js', function (err, files) {
       t.end()
     })
   })
-})
+}
