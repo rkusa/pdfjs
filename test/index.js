@@ -30,7 +30,7 @@ glob(__dirname + '/pdfs/**/*.js', function (err, files) {
     pdf.info.producer = 'pdfjs tests (github.com/rkusa/pdfjs)'
 
     var result = pdf.toString()
-    fs.writeFile(resultPath, result, 'ascii')
+    fs.writeFileSync(resultPath, result, 'ascii')
 
     var expectation  = fs.readFileSync(expectationPath, 'binary')
     var relativePath = path.relative(path.join(__dirname, 'pdfs'), dirname)

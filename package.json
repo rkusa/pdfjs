@@ -22,7 +22,7 @@
     "base-64": "^0.1.0",
     "linebreak": "^0.1.2",
     "node-uuid": "^1.4.1",
-    "ttfjs": "0.2.x"
+    "ttfjs": "rkusa/ttfjs"
   },
   "devDependencies": {
     "browserify": "^8.1.1",
