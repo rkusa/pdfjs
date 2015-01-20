@@ -1,5 +1,5 @@
 module.exports = function(doc, fixtures) {
-  var table = doc.createTable({
+  var table = doc.table({
     padding: 15, borderWidth: 20, borderColor: 0xdddddd,
     backgroundColor: 0xeeeeee, widths: ['33%', '33%', '33%'],
     headerRows: 1

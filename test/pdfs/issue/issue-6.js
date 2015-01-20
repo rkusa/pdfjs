@@ -1,5 +1,5 @@
 module.exports = function(doc, fixtures) {
-  var text = doc.createText({ textAlign: 'justify' })
+  var text = doc.text({ textAlign: 'justify' })
   text.add('абвгдеёжзийклмнопрстуфхцчшщъыьэюяАБВГДЕЁЖЗИЙКЛМНОПРСТУФХЦЧШЩЪЫЬЭЮЯ\n\n')
   text.add('abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ\n\n')
 }

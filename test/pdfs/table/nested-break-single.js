@@ -1,5 +1,5 @@
 module.exports = function(doc, fixtures) {
-  var table = doc.createTable({
+  var table = doc.table({
     padding: 5,
     borderWidth: 20,
     borderColor: 0xdddddd,
@@ -12,7 +12,7 @@ module.exports = function(doc, fixtures) {
   outerTr.td(fixtures.lorem.long)
   var td = outerTr.td()
 
-  var inner = td.createTable({ widths: ['50%', '50%'] })
+  var inner = td.table({ widths: ['50%', '50%'] })
   var innerTr = inner.tr()
   innerTr.td(fixtures.lorem.long)
   innerTr.td(fixtures.lorem.long)
