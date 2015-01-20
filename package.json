@@ -12,10 +12,9 @@
     "generator"
   ],
   "license": "MIT",
-  "main": "lib/document",
+  "main": "lib/index",
   "scripts": {
-    "test": "mocha",
-    "prepublish": "npm run-script bundle",
+    "test": "node test/",
     "bundle": "browserify lib/document.js --standalone Pdfjs --detect-globals false  > pdfjs.js && npm run-script minify",
     "minify": "uglifyjs --source-map pdfjs.min.map -o pdfjs.min.js pdfjs.js"
   },
@@ -26,10 +25,10 @@
     "ttfjs": "0.2.x"
   },
   "devDependencies": {
-    "browserify": "2.x.x",
-    "chai": "1.8.x",
-    "mocha": "1.13.x",
-    "uglify-js": "2.x.x"
+    "browserify": "^8.1.1",
+    "glob": "^4.3.5",
+    "tap": "^0.5.0",
+    "uglify-js": "^2.4.16"
   },
   "bugs": "https://github.com/rkusa/pdfjs/issues",
   "repository": {
