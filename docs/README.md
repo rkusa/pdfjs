@@ -1,11 +1,4 @@
-#### Contents
-
-1. [Document](#document)
-2. [Text](#text)
-3. [Image](#image)
-4. [Table](#table)
-5. [Font](#font)
-6. [License](#license)
+## Documentation
 
 ### pdfjs.createDocument([opts])
 
@@ -20,6 +13,8 @@ Creates a new PDF document.
 - **width** (default: 612) - the page width
 - **height** (default: 792) - the page height
 - **padding**, **paddingTop**, **paddingRight**, **paddingBottom**, **paddingLeft** (default: 0) - the page padding
+- **precision** (default: 3) - precision used when creating the PDF and writing floating point numbers
+- **threshold** (default: 64) - threshold for the computation iterations done, before throwing; used to don't get caught in endless computations (should be increased for huge documents)
 - + [Text Options](document.md#texttext-opts)
 
 **Example:**
