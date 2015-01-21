@@ -30,8 +30,9 @@ function run(files) {
     var f = fixtures.create()
 
     var doc = pdfjs.createDocument({
-      font:    f.font.opensans.regular,
-      padding: 10,
+      font:      f.font.opensans.regular,
+      padding:   10,
+      threshold: 20
     })
 
     script(doc, f)

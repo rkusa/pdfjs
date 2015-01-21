@@ -104,6 +104,46 @@ tr.td('Foo')
 tr.td('Bar')
 ```
 
+### .header([opts])
+
+This method can be used to define a header that will be rendered on every page of the document.
+
+**Arguments:**
+
+- **opts** - styling options
+
+**Options:**
+
+- **padding**, **paddingTop**, **paddingRight**, **paddingBottom**, **paddingLeft** (default: 0) - the header padding
+- + [Text Options](document.md#texttext-opts)
+
+**Example:**
+
+```js
+var header = doc.header()
+header.text('Foobar', { textAlign: 'right' })
+```
+
+### .footer([opts])
+
+This method can be used to define a footer that will be rendered on every page of the document.
+
+**Arguments:**
+
+- **opts** - styling options
+
+**Options:**
+
+- **padding**, **paddingTop**, **paddingRight**, **paddingBottom**, **paddingLeft** (default: 0) - the footer padding
+- + [Text Options](document.md#texttext-opts)
+
+**Example:**
+
+```js
+var footer = doc.footer()
+footer.text('Foobar', { textAlign: 'right' })
+```
+
 ### .render()
 
 Creates an PDF object using the document's structure. Returns a [PDF object](pdf.md).
