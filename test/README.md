@@ -19,5 +19,5 @@ java -classpath ./preflight-app-1.8.6.jar org.apache.pdfbox.preflight.Validator_
 Use all results as future expectations:
 
 ```bash
-rename -f 's/\.result\.pdf$/\.pdf/' **/*.pdf
+rename -f 's/\.result\.pdf$/\.pdf/' test/pdfs/**/*.pdf
 ```
