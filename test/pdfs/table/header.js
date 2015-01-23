@@ -6,9 +6,9 @@ module.exports = function(doc, fixtures) {
   })
 
   var th = table.tr({ font: fixtures.font.opensans.bold })
-  th.td("A")
-  th.td("B")
-  th.td("C")
+  th.td('A')
+  th.td('B')
+  th.td('C')
 
   for (var i = 0; i < 3; ++i) {
     var tr = table.tr()

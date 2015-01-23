@@ -6,14 +6,14 @@ module.exports = function(doc, fixtures) {
   })
 
   var th1 = table.tr({ font: fixtures.font.opensans.bold })
-  th1.td("A")
-  th1.td("B")
-  th1.td("C")
+  th1.td('A')
+  th1.td('B')
+  th1.td('C')
 
   var th2 = table.tr({ font: fixtures.font.opensans.bold })
-  th2.td("1")
-  th2.td("2")
-  th2.td("3")
+  th2.td('1')
+  th2.td('2')
+  th2.td('3')
 
   for (var i = 0; i < 3; ++i) {
     var tr = table.tr()

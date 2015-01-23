@@ -5,15 +5,20 @@
     "no-use-before-define": 0,
     "no-underscore-dangle": 0,
     "no-debugger": 1,
-    "no-redeclare": 1,
-    "no-return-assign": 0,
     "no-warning-comments": 1,
     "max-nested-callbacks": [2, 4],
     "handle-callback-err": 2,
     "radix": 2,
     "semi": [2, "never"],
     "quotes": [2, "single"],
-    "no-unused-vars": [2, {"vars": "all", "args": "after-used"}]
+    "no-unused-vars": [2, { "vars": "all", "args": "none" }],
+    "strict": 0,
+    "no-multi-spaces": 0,
+    "key-spacing": 0,
+    "no-empty": 0,
+    "no-shadow": 0,
+    "new-cap": [2, { "capIsNewExceptions": ["Object", "Function", "Number", "String", "Boolean", "Date", "Array", "Symbol", "RegExp", "Tm", "Tj", "Td", "Tf", "RG", "BT", "ET", "S", "Do", "Q"] }],
+    "no-return-assign": 0
   },
   "env": {
     "node": true

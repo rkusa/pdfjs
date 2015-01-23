@@ -14,7 +14,7 @@
   "license": "MIT",
   "main": "lib/index",
   "scripts": {
-    "test": "node test/",
+    "test": "tap strict test/index.js",
     "bundle": "browserify lib/document.js --standalone Pdfjs --detect-globals false  > pdfjs.js && npm run-script minify",
     "minify": "uglifyjs --source-map pdfjs.min.map -o pdfjs.min.js pdfjs.js"
   },

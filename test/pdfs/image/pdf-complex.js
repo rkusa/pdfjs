@@ -4,6 +4,6 @@ module.exports = function(doc, fixtures) {
 
   doc.image(fixtures.image.complexPdf)
 
-  var text = doc.text({ textAlign: 'justify' })
+  text = doc.text({ textAlign: 'justify' })
   text.add(fixtures.lorem.short)
 }

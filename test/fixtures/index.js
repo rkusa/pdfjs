@@ -1,11 +1,12 @@
 var fs    = require('fs')
+var path  = require('path')
 var pdfjs = require('../../')
 
-var openSansRegular = fs.readFileSync(__dirname + '/font/opensans/regular.ttf')
-var openSansBold = fs.readFileSync(__dirname + '/font/opensans/bold.ttf')
-var jpegImage = fs.readFileSync(__dirname + '/../../logo/pdfjs.jpg')
-var pdfImage = fs.readFileSync(__dirname + '/../../logo/pdfjs.pdf')
-var complexPdfImage = fs.readFileSync(__dirname + '/image/complex.pdf')
+var openSansRegular = fs.readFileSync(path.join(__dirname, 'font/opensans/regular.ttf'))
+var openSansBold = fs.readFileSync(path.join(__dirname, 'font/opensans/bold.ttf'))
+var jpegImage = fs.readFileSync(path.join(__dirname, '../../logo/pdfjs.jpg'))
+var pdfImage = fs.readFileSync(path.join(__dirname, '../../logo/pdfjs.pdf'))
+var complexPdfImage = fs.readFileSync(path.join(__dirname, 'image/complex.pdf'))
 
 exports.create = function() {
   return {

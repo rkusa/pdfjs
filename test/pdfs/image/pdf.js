@@ -22,6 +22,6 @@ module.exports = function(doc, fixtures) {
     width: 128, align: 'right'
   })
 
-  var text = doc.text({ textAlign: 'justify' })
+  text = doc.text({ textAlign: 'justify' })
   text.add(fixtures.lorem.short)
 }

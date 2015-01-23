@@ -7,11 +7,11 @@ var pdfjs    = require('../')
 
 process.env.TZ = 'Europe/Berlin'
 
-var files = process.argv.slice(2)
-if (files.length) {
-  run(files)
+var args = process.argv.slice(2)
+if (args.length) {
+  run(args)
 } else {
-  glob(__dirname + '/pdfs/**/*.js', function (err, files) {
+  glob(path.join(__dirname, 'pdfs/**/*.js'), function (err, files) {
     if (err) throw err
     run(files)
   })
@@ -39,7 +39,7 @@ function run(files) {
 
     var pdf = doc.render()
     pdf.info.id = '42'
-    pdf.info.creationDate = new Date(2015, 01, 19, 22, 33, 26)
+    pdf.info.creationDate = new Date(2015, 1, 19, 22, 33, 26)
     pdf.info.producer = 'pdfjs tests (github.com/rkusa/pdfjs)'
 
     var result = pdf.toString()

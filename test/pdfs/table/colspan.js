@@ -7,26 +7,27 @@ module.exports = function(doc, fixtures) {
     widths: ['20%', '20%', '20%', '20%', '20%']
   })
 
-  for (var i = 0; i < 3; ++i) {
-    var tr = table.tr()
-    tr.td("A")
-    tr.td("B")
-    tr.td("C")
-    tr.td("D")
-    tr.td("E")
+  var tr
+  for (var i = 0;  i < 3; ++i) {
+    tr = table.tr()
+    tr.td('A')
+    tr.td('B')
+    tr.td('C')
+    tr.td('D')
+    tr.td('E')
   }
 
-  var tr = table.tr()
-  tr.td("A")
-  tr.td("B, C, D", { colspan: 3 })
-  tr.td("E")
+  tr = table.tr()
+  tr.td('A')
+  tr.td('B, C, D', { colspan: 3 })
+  tr.td('E')
 
-  for (var i = 0; i < 3; ++i) {
-    var tr = table.tr()
-    tr.td("A")
-    tr.td("B")
-    tr.td("C")
-    tr.td("D")
-    tr.td("E")
+  for (i = 0; i < 3; ++i) {
+    tr = table.tr()
+    tr.td('A')
+    tr.td('B')
+    tr.td('C')
+    tr.td('D')
+    tr.td('E')
   }
 }

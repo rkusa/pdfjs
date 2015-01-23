@@ -6,12 +6,12 @@ module.exports = function(doc, fixtures) {
   })
 
   var beforeBreak = table.beforeBreak()
-  beforeBreak.td("Subtotal")
-  beforeBreak.td("1")
+  beforeBreak.td('Subtotal')
+  beforeBreak.td('1')
 
   var th = table.tr({ font: fixtures.font.opensans.bold })
-  th.td("A")
-  th.td("B")
+  th.td('A')
+  th.td('B')
 
   for (var i = 0; i < 3; ++i) {
     var tr = table.tr()
