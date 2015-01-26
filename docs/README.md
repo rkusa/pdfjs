@@ -1,6 +1,6 @@
 ## Documentation
 
-### pdfjs.createDocument([opts])
+### new pdfjs.Document([opts]) | pdfjs.createDocument([opts])
 
 Creates a new [PDF document](document.md).
 
@@ -20,8 +20,8 @@ Creates a new [PDF document](document.md).
 **Example:**
 
 ```js
-var doc = pdfjs.createDocument({
-  font:    pdfjs.createTTFFont(buffer),
+var doc = new pdfjs.Document({
+  font:    new pdfjs.TTFFont(buffer),
   padding: 10
 })
 ```
@@ -31,7 +31,7 @@ var doc = pdfjs.createDocument({
 - **A4** - 210mm × 297mm (8.27in × 11.7in) = 595.296 x 841.896
 - **American Letter** - 215.9mm × 279.4mm (8.5in × 11in) = 612 x 792
 
-### pdfjs.createTTFFont(buffer)
+### new pdfjs.TTFFont(buffer) | pdfjs.createTTFFont(buffer)
 
 Creates a new TTF Font object that can be used with PDF documents. The created TTF Font object can be used multiple times.
 
@@ -39,7 +39,7 @@ Creates a new TTF Font object that can be used with PDF documents. The created T
 
 - **buffer** - the font data, as either Buffer or ArrayBuffer
 
-### pdfjs.createImage(buffer)
+### new pdfjs.Image(buffer) | pdfjs.createImage(buffer)
 
 Creates a new Image object that [can be used with PDF documents](document.md#imageimg-opts). The created image object can be used multiple times. Supported images are: JPEG, PDF
 
@@ -47,4 +47,17 @@ Creates a new Image object that [can be used with PDF documents](document.md#ima
 
 - **buffer** - the font data, as either Buffer or ArrayBuffer
 
+### pdfjs.load(path, callback)
 
+Helper method to load a specific file (image or font). Works on both server and client.
+
+**Example:**
+
+```js
+pdfjs.load('/assets/fonts/opensans.ttf', function(err, buf) {
+    if (err) throw err
+
+    var font = new pdfjs.TTFFont(buf)
+    // ...
+})
+```
