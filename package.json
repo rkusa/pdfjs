@@ -21,7 +21,7 @@
   "dependencies": {
     "base-64": "^0.1.0",
     "debug": "^2.1.1",
-    "linebreak": "^0.1.2",
+    "linebreak": "^0.2.0",
     "node-uuid": "^1.4.1",
     "ttfjs": "rkusa/ttfjs"
   },

@@ -10,7 +10,7 @@ A Portable Document Format (PDF) generation library targeting both the server- a
 
 ## 0.8 Breaking Changes
 
-pdfjs 0.8 contains a rewritten layout engine (layout engine of pdfjs `<=0.5` reached its limits), i.e., both API and layout behavior has changed completely.
+pdfjs 0.8 (still in development; expected to be buggy) contains a rewritten layout engine (layout engine of pdfjs `<=0.5` reached its limits), i.e., both API and layout behavior has changed completely.
 
 ### Features
 
