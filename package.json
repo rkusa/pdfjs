@@ -15,8 +15,8 @@
   "main": "lib/index",
   "scripts": {
     "test": "tap strict test/index.js",
-    "bundle": "browserify lib/document.js --standalone Pdfjs --detect-globals false  > pdfjs.js && npm run-script minify",
-    "minify": "uglifyjs --source-map pdfjs.min.map -o pdfjs.min.js pdfjs.js"
+    "bundle": "browserify lib/index.js --standalone pdfjs --detect-globals false > pdfjs.js",
+    "prepublish": "npm run bundle && uglifyjs --source-map pdfjs.min.map -o pdfjs.min.js pdfjs.js"
   },
   "dependencies": {
     "base-64": "^0.1.0",
@@ -26,6 +26,7 @@
     "ttfjs": "rkusa/ttfjs"
   },
   "devDependencies": {
+    "brfs": "^1.2.0",
     "browserify": "^8.1.1",
     "glob": "^4.3.5",
     "tap": "^0.5.0",
