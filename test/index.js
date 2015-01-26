@@ -22,6 +22,11 @@ function run(files) {
     var dirname  = path.dirname(scriptPath)
     var basename = path.basename(scriptPath, '.js')
 
+    // ignore tests starting with _
+    if (basename[0] === '_') {
+      return
+    }
+
     var expectationPath = path.join(dirname, basename + '.pdf')
     var resultPath      = path.join(dirname, basename + '.result.pdf')
 
