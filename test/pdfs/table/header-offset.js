@@ -1,4 +1,7 @@
 module.exports = function(doc, fixtures) {
+  var header = doc.header()
+  header.text(fixtures.lorem.short, { font: fixtures.font.opensans.bold })
+
   doc.text(fixtures.lorem.short)
 
   var table = doc.table({
