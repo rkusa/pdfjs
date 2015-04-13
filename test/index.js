@@ -9,7 +9,7 @@ process.env.TZ = 'Europe/Berlin'
 
 var args = process.argv.slice(2)
 if (args.length) {
-  run(args)
+  run(args, true)
 } else {
   glob(path.join(__dirname, 'pdfs/**/*.js'), function (err, files) {
     if (err) throw err
@@ -17,13 +17,13 @@ if (args.length) {
   })
 }
 
-function run(files) {
+function run(files, force) {
   files.forEach(function(scriptPath) {
     var dirname  = path.dirname(scriptPath)
     var basename = path.basename(scriptPath, '.js')
 
-    // ignore tests starting with _
-    if (basename[0] === '_') {
+    // ignore tests starting with _ and named `test`
+    if (!force && (basename[0] === '_' || basename === 'test')) {
       return
     }
 
@@ -53,7 +53,7 @@ function run(files) {
     var expectation  = fs.readFileSync(expectationPath, 'binary')
     var relativePath = path.relative(path.join(__dirname, 'pdfs'), dirname)
     test(path.join(relativePath, basename), function (t) {
-      t.equal(result, expectation)
+      t.ok(result === expectation, basename)
       t.end()
     })
   })
