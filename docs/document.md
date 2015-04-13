@@ -144,6 +144,18 @@ var footer = doc.footer()
 footer.text('Foobar', { textAlign: 'right' })
 ```
 
+### .ops()
+
+Allows adding PDF operations directly.
+
+**Example:**
+
+```js
+var ops = doc.ops()
+var h3 = mmToPt(148.5)
+ops.op(0, h3, 'm', 15, h3, 'l', 'S')
+```
+
 ### .render()
 
 Creates an PDF object using the document's structure. Returns a [PDF object](pdf.md).
