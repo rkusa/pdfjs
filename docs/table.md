@@ -16,6 +16,23 @@ Same as [doc.table([opts])](document.md#tableopts)
 
 Same as [table.tr([opts])](#beforebreakopts), but the created row is only rendered before table page breaks.
 
+### .beforeBreak(fn)
+
+Create a dynamic before pagebreak row.
+
+**Arguments:**
+
+- **fn** - function called, when creating the before pagebreak row
+
+**Example:**
+
+```js
+table.beforeBreak(function(row, i) {
+    row.td('BEFORE idx: ' + i)
+})
+```
+
+
 ## Row
 
 Table row.
