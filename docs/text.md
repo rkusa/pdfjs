@@ -26,8 +26,9 @@ Same as [text.add(text, [opts])](#addtext-opts), but directly appends the text, 
 Adds a line break.
 
 ### .pageNumber([opts])
+### .appendPageNumber([opts])
 
-Adds the current page number to the text fragment.
+Adds/appends the current page number to the text fragment. 
 
 **Arguments:**
 
@@ -38,8 +39,9 @@ Adds the current page number to the text fragment.
 Same as [doc.text([text], [opts])](document.md#texttext-opts)
 
 ### .pageCount([opts])
+### .appendPageCount([opts])
 
-Adds the documents total page count to the text fragment.
+Adds/appends the documents total page count to the text fragment.
 
 **Arguments:**
 
