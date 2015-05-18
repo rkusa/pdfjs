@@ -8,9 +8,13 @@ A Portable Document Format (PDF) generation library targeting both the server- a
 
 [Documentation](docs)
 
-## 0.8 Breaking Changes
+## 1.0.0 Breaking Changes
 
-pdfjs 0.8 (still in development; expected to be buggy) contains a rewritten layout engine (layout engine of pdfjs `<=0.5` reached its limits), i.e., both API and layout behavior has changed completely.
+pdfjs 1.0.0-alpha.1 (still in development; expected to be buggy) contains a rewritten layout engine (layout engine of pdfjs `<=0.5` reached its limits), i.e., both API and layout behavior has changed completely. Install with:
+
+```bash
+npm install pdfjs@1.0.0-alpha.1
+```
 
 ### Features
 
