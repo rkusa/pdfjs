@@ -23,4 +23,5 @@ module.exports = function(doc, fixtures) {
       .add('Big', { fontSize: 20 })
       .add('BigBold', { fontSize: 20, font: fixtures.font.opensans.bold })
       .add('Regular')
+      .add('Red', { color: 0xff0000 })
 }
