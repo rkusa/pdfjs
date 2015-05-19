@@ -42,17 +42,18 @@ function run(files, force) {
 
     script(doc, f)
 
-    var pdf = doc.render()
-    pdf.info.id = '42'
-    pdf.info.creationDate = new Date(2015, 1, 19, 22, 33, 26)
-    pdf.info.producer = 'pdfjs tests (github.com/rkusa/pdfjs)'
-
-    var result = pdf.toString()
-    fs.writeFileSync(resultPath, result, 'binary')
-
-    var expectation  = fs.readFileSync(expectationPath, 'binary')
     var relativePath = path.relative(path.join(__dirname, 'pdfs'), dirname)
     test(path.join(relativePath, basename), function (t) {
+      var pdf = doc.render()
+      pdf.info.id = '42'
+      pdf.info.creationDate = new Date(2015, 1, 19, 22, 33, 26)
+      pdf.info.producer = 'pdfjs tests (github.com/rkusa/pdfjs)'
+
+      var result = pdf.toString()
+      fs.writeFileSync(resultPath, result, 'binary')
+
+      var expectation  = fs.readFileSync(expectationPath, 'binary')
+
       t.ok(result === expectation, basename)
       t.end()
     })

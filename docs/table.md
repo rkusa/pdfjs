@@ -10,7 +10,8 @@ This method can be used place tables. Returns a [Row](table.md#row) object.
 
 **Options:**
 
-Same as [doc.table([opts])](document.md#tableopts)
+- **height**
+- + [Table options](document.md#tableopts)
 
 ### .beforeBreak([opts])
 
@@ -49,6 +50,7 @@ This method can be used place tables. Returns a [Row](table.md#row) object.
 **Options:**
 
 - **colspan** (default: 1) - through how many columns the cell should span
+- **height**
 - + [Table options](document.md#tableopts)
 
 ## Cell

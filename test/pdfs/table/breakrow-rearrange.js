@@ -12,7 +12,7 @@ module.exports = function(doc, fixtures) {
   beforeBreak.td('B')
 
   var tr1 = table.tr({})
-  tr1.td(fixtures.lorem.short + fixtures.lorem.short + fixtures.lorem.short + fixtures.lorem.short, { height: 600 })
+  tr1.td(fixtures.lorem.short + fixtures.lorem.short + fixtures.lorem.short + fixtures.lorem.short)
   tr1.td(fixtures.lorem.short)
 
   for (var i = 0; i < 10; ++i) {
