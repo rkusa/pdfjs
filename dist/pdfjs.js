@@ -1492,8 +1492,8 @@ Object.defineProperties(BoxNode.prototype, {
       var height = this.children
           .map(function(child) { return child.height })
           .reduce(function(lhs, rhs) { return lhs + rhs }, 0)
-        + this.style.borderTopWidth + this.style.paddingTop
-        + this.style.paddingBottom + this.style.borderBottomWidth
+        + this.style.getBorderTopWidth() + this.style.paddingTop
+        + this.style.paddingBottom + this.style.getBorderBottomWidth()
 
       return height < this.style.minHeight ? this.style.minHeight : height
     }
@@ -1502,13 +1502,13 @@ Object.defineProperties(BoxNode.prototype, {
     enumerable: true,
     configurable: true,
     get: function() {
-      return this.style.paddingBottom + this.style.borderBottomWidth
+      return this.style.paddingBottom + this.style.getBorderBottomWidth()
     }
   }
 })
 
 BoxNode.prototype.beforeContent = function(cursor) {
-  var top = this.style.borderTopWidth + this.style.paddingTop
+  var top = this.style.getBorderTopWidth() + this.style.paddingTop
   if (top > 0) {
     cursor.y -= top
   }
@@ -1518,7 +1518,7 @@ BoxNode.prototype.beforeContent = function(cursor) {
     cursor.x = this.style.x
   }
 
-  var left = this.style.borderLeftWidth + this.style.paddingLeft
+  var left = this.style.getBorderLeftWidth() + this.style.paddingLeft
   if (left > 0) {
     cursor.x += left
   }
@@ -1527,7 +1527,7 @@ BoxNode.prototype.beforeContent = function(cursor) {
 }
 
 BoxNode.prototype.afterContent = function(cursor) {
-  var bottom = this.style.borderBottomWidth + this.style.paddingBottom
+  var bottom = this.style.getBorderBottomWidth() + this.style.paddingBottom
   if (bottom > 0) {
     cursor.y -= bottom
   }
@@ -1548,57 +1548,57 @@ BoxNode.prototype._compute = function(cursor) {
   }
 
   this.width = utils.resolveWidth(this.style.width, maxWidth)
-             - this.style.paddingLeft - this.style.borderLeftWidth
-             - this.style.paddingRight - this.style.borderRightWidth
+             - this.style.paddingLeft - this.style.getBorderLeftWidth()
+             - this.style.paddingRight - this.style.getBorderRightWidth()
 }
 
 BoxNode.prototype.begin = function(doc, parent) {
   var height = this.height
-  var width  = this.style.borderLeftWidth + this.style.paddingLeft + this.width + this.style.paddingRight + this.style.borderRightWidth
-  var left   = this.x + (this.style.borderLeftWidth / 2)
-  var top    = this.y - (this.style.borderTopWidth / 2)
-  var right  = this.x + width - (this.style.borderRightWidth / 2)
-  var bottom = this.y - height + (this.style.borderBottomWidth / 2)
+  var width  = this.style.getBorderLeftWidth() + this.style.paddingLeft + this.width + this.style.paddingRight + this.style.getBorderRightWidth()
+  var left   = this.x + (this.style.getBorderLeftWidth() / 2)
+  var top    = this.y - (this.style.getBorderTopWidth() / 2)
+  var right  = this.x + width - (this.style.getBorderRightWidth() / 2)
+  var bottom = this.y - height + (this.style.getBorderBottomWidth() / 2)
 
   // backogrund color
   if (this.style.backgroundColor !== null) {
-    drawBackground(doc, left - (this.style.borderLeftWidth / 2),
-                        bottom - (this.style.borderBottomWidth / 2),
+    drawBackground(doc, left - (this.style.getBorderLeftWidth() / 2),
+                        bottom - (this.style.getBorderBottomWidth() / 2),
                         width, height,
                         this.style.backgroundColor)
   }
 
   // border top
-  if (this.style.borderTopWidth > 0) {
-    drawLine(doc, this.style.borderTopWidth,
-                  [left - (this.style.borderLeftWidth / 2), top],
-                  [right + (this.style.borderRightWidth / 2), top],
-                  this.style.borderTopColor)
+  if (this.style.getBorderTopWidth() > 0) {
+    drawLine(doc, this.style.getBorderTopWidth(),
+                  [left - (this.style.getBorderLeftWidth() / 2), top],
+                  [right + (this.style.getBorderRightWidth() / 2), top],
+                  this.style.getBorderTopColor())
   }
 
 
   // border right
-  if (this.style.borderRightWidth > 0) {
-    drawLine(doc, this.style.borderRightWidth,
-                  [right, top + (this.style.borderTopWidth / 2)],
-                  [right, bottom - (this.style.borderBottomWidth / 2)],
-                  this.style.borderRightColor)
+  if (this.style.getBorderRightWidth() > 0) {
+    drawLine(doc, this.style.getBorderRightWidth(),
+                  [right, top + (this.style.getBorderTopWidth() / 2)],
+                  [right, bottom - (this.style.getBorderBottomWidth() / 2)],
+                  this.style.getBorderRightColor())
   }
 
   // border bottom
-  if (this.style.borderBottomWidth > 0) {
-    drawLine(doc, this.style.borderBottomWidth,
-                  [right + (this.style.borderRightWidth / 2), bottom],
-                  [left - (this.style.borderLeftWidth / 2), bottom],
-                  this.style.borderBottomColor)
+  if (this.style.getBorderBottomWidth() > 0) {
+    drawLine(doc, this.style.getBorderBottomWidth(),
+                  [right + (this.style.getBorderRightWidth() / 2), bottom],
+                  [left - (this.style.getBorderLeftWidth() / 2), bottom],
+                  this.style.getBorderBottomColor())
   }
 
   // border left
-  if (this.style.borderLeftWidth > 0) {
-    drawLine(doc, this.style.borderLeftWidth,
-                  [left, bottom - (this.style.borderBottomWidth / 2)],
-                  [left, top + (this.style.borderTopWidth / 2)],
-                  this.style.borderLeftColor)
+  if (this.style.getBorderLeftWidth() > 0) {
+    drawLine(doc, this.style.getBorderLeftWidth(),
+                  [left, bottom - (this.style.getBorderBottomWidth() / 2)],
+                  [left, top + (this.style.getBorderTopWidth() / 2)],
+                  this.style.getBorderLeftColor())
   }
 }
 
@@ -1676,8 +1676,8 @@ CellNode.prototype._compute = function(cursor) {
   // this.y = cursor.y
 
   // this.width = resolveWidth(this.style.width, cursor.width)
-  //            - this.style.paddingLeft - this.style.borderLeftWidth
-  //            - this.style.paddingRight - this.style.borderRightWidth
+  //            - this.style.paddingLeft - this.style.getBorderLeftWidth()
+  //            - this.style.paddingRight - this.style.getBorderRightWidth()
 }
 
 },{"../utils":56,"./box":20}],22:[function(require,module,exports){
@@ -2091,7 +2091,7 @@ Object.defineProperties(RowNode.prototype, {
       return Math.max.apply(Math, this.children.map(function(child) {
         var height = child.minHeight
                    + child.style.paddingTop + child.style.paddingBottom
-                   + child.style.borderTopWidth + child.style.borderBottomWidth
+                   + child.style.getBorderTopWidth() + child.style.getBorderBottomWidth()
 
         return height
       }, this))
@@ -2128,8 +2128,8 @@ RowNode.prototype._compute = function(cursor) {
   this.children.forEach(function(child, i) {
     // set width
     child.width = (this.widths[index++] || 0)
-               - child.style.borderLeftWidth - child.style.paddingLeft
-               - child.style.paddingRight - child.style.borderRightWidth
+               - child.style.getBorderLeftWidth() - child.style.paddingLeft
+               - child.style.paddingRight - child.style.getBorderRightWidth()
 
     if (child.style.colspan > 1) {
       for (var j = 1; j < child.style.colspan; ++j) {
@@ -2141,7 +2141,7 @@ RowNode.prototype._compute = function(cursor) {
     child.x = cursor.x + offset
     offset += child.width
             + child.style.paddingLeft + child.style.paddingRight
-            + child.style.borderRightWidth + child.style.borderLeftWidth
+            + child.style.getBorderRightWidth() + child.style.getBorderLeftWidth()
   }, this)
 }
 
@@ -2324,12 +2324,12 @@ TableNode.prototype._compute = function(cursor) {
 
         var horizontalWidth, horizontalColor
 
-        if (cell.style.borderTopWidth > onTop.style.borderBottomWidth) {
-          horizontalWidth = cell.style.borderTopWidth / 2
-          horizontalColor = cell.style.borderTopColor
+        if (cell.style.getBorderTopWidth() > onTop.style.getBorderBottomWidth()) {
+          horizontalWidth = cell.style.getBorderTopWidth() / 2
+          horizontalColor = cell.style.getBorderTopColor()
         } else {
-          horizontalWidth = onTop.style.borderBottomWidth / 2
-          horizontalColor = onTop.style.borderBottomColor
+          horizontalWidth = onTop.style.getBorderBottomWidth() / 2
+          horizontalColor = onTop.style.getBorderBottomColor()
         }
 
         onTop.style = onTop.style.merge({
@@ -2360,12 +2360,12 @@ TableNode.prototype._compute = function(cursor) {
         var onLeft = row.children[i - 1]
         var verticalWidth, verticalColor
 
-        if (cell.style.borderLeftWidth > onLeft.style.borderRightWidth) {
-          verticalWidth = cell.style.borderLeftWidth / 2
-          verticalColor = cell.style.borderLeftColor
+        if (cell.style.getBorderLeftWidth() > onLeft.style.getBorderRightWidth()) {
+          verticalWidth = cell.style.getBorderLeftWidth() / 2
+          verticalColor = cell.style.getBorderLeftColor()
         } else {
-          verticalWidth = onLeft.style.borderRightWidth / 2
-          verticalColor = onLeft.style.borderRightColor
+          verticalWidth = onLeft.style.getBorderRightWidth() / 2
+          verticalColor = onLeft.style.getBorderRightColor()
         }
 
         onLeft.style = onLeft.style.merge({
@@ -4258,38 +4258,37 @@ BaseStyle.prototype.merge = function() {
 },{}],58:[function(require,module,exports){
 'use strict'
 
+var SIDES = ['Top', 'Right', 'Bottom', 'Left']
+
 var BoxStyle = module.exports = function() {
   this.backgroundColor = null
   this.x = null
   this.y = null
   this.minHeight = null
 
-  var sides = ['Top', 'Right', 'Bottom', 'Left']
-
   this.borderWidth = 0
-  sides.forEach(function(side) {
-    var value = null
-    Object.defineProperty(this, 'border' + side + 'Width', {
-      enumerable: true,
-      get: function() { return Math.max(0, value != null ? value : this.borderWidth || 0) },
-      set: function(val) { value = val }
-    })
-  }, this)
-
   this.borderColor = 0x000000
-  sides.forEach(function(side) {
-    var value = null
-    Object.defineProperty(this, 'border' + side + 'Color', {
-      enumerable: true,
-      get: function() { return value != null ? value : this.borderColor || 0x000000 },
-      set: function(val) { value = val }
-    })
+  SIDES.forEach(function(side) {
+    this['border' + side + 'Width'] = null
+    this['border' + side + 'Color'] = null
   }, this)
 
   BoxStyle.super_.apply(this, arguments)
 }
 
 require('../pdf/utils').inherits(BoxStyle, require('./container'))
+
+SIDES.forEach(function(side) {
+  BoxStyle.prototype['getBorder' + side + 'Width'] = function() {
+    var value = this['border' + side + 'Width']
+    return Math.max(0, value != null ? value : this.borderWidth || 0)
+  }
+
+  BoxStyle.prototype['getBorder' + side + 'Color'] = function() {
+    var value = this['border' + side + 'Color']
+    return value != null ? value : this.borderColor || 0x000000
+  }
+})
 
 },{"../pdf/utils":56,"./container":59}],59:[function(require,module,exports){
 'use strict'
@@ -4372,6 +4371,9 @@ require('../pdf/utils').inherits(ImageStyle, require('./base'))
 },{"../pdf/utils":56,"./base":57}],62:[function(require,module,exports){
 'use strict'
 
+var DIRECTIONS = ['Vertical', 'Horizontal']
+var SIDES = ['Top', 'Right', 'Bottom', 'Left']
+
 var TableStyle = module.exports = function() {
   this.tableLayout = 'fixed'
   this.widths = []
@@ -4381,54 +4383,46 @@ var TableStyle = module.exports = function() {
   this.borderWidth = 0
   this.borderColor = 0x000000
 
-  var directions = ['Vertical', 'Horizontal']
-
-  directions.forEach(function(direction) {
-    var value = null
-    Object.defineProperty(this, 'border' + direction + 'Width', {
-      enumerable: true,
-      get: function() { return Math.max(0, value != null ? value : this.borderWidth || 0) },
-      set: function(val) { value = val }
-    })
+  DIRECTIONS.forEach(function(direction) {
+    this['border' + direction + 'Width'] = null
+    this[ 'border' + direction + 'Color'] = null
   }, this)
 
-  directions.forEach(function(direction) {
-    var value = null
-    Object.defineProperty(this, 'border' + direction + 'Color', {
-      enumerable: true,
-      get: function() { return value != null ? value : this.borderColor || 0x000000 },
-      set: function(val) { value = val }
-    })
-  }, this)
-
-  var sides = ['Top', 'Right', 'Bottom', 'Left']
-
-  sides.forEach(function(side) {
-    var value = null
-    var direction = side === 'Right' || side === 'Left' ? 'Vertical' : 'Horizontal'
-    var directionProperty = 'border' + direction + 'Width'
-    Object.defineProperty(this, 'border' + side + 'Width', {
-      enumerable: true,
-      get: function() { return Math.max(0, value !== null ? value : this[directionProperty] || this.borderWidth || 0) },
-      set: function(val) { value = val }
-    })
-  }, this)
-
-  sides.forEach(function(side) {
-    var value = null
-    var direction = side === 'Right' || side === 'Left' ? 'Vertical' : 'Horizontal'
-    var directionProperty = 'border' + direction + 'Color'
-    Object.defineProperty(this, 'border' + side + 'Color', {
-      enumerable: true,
-      get: function() { return value != null ? value : this[directionProperty] || this.borderColor || 0x000000 },
-      set: function(val) { value = val }
-    })
+  SIDES.forEach(function(side) {
+    this['border' + side + 'Width'] = null
+    this['border' + side + 'Color'] = null
   }, this)
 
   TableStyle.super_.apply(this, arguments)
 }
 
 require('../pdf/utils').inherits(TableStyle, require('./container'))
+
+DIRECTIONS.forEach(function(direction) {
+  TableStyle.prototype['getBorder' + direction + 'Width'] = function() {
+    var value = this['border' + direction + 'Width']
+    return Math.max(0, value != null ? value : (this.borderWidth || 0))
+  }
+
+  TableStyle.prototype['getBorder' + direction + 'Color'] = function() {
+    var value = this['border' + direction + 'Color']
+    return value != null ? value : (this.borderColor || 0x000000)
+  }
+})
+
+SIDES.forEach(function(side) {
+  var direction = side === 'Right' || side === 'Left' ? 'Vertical' : 'Horizontal'
+
+  TableStyle.prototype['getBorder' + side + 'Width'] = function() {
+    var value = this['border' + side + 'Width']
+    return Math.max(0, value !== null ? value : this['border' + direction + 'Width'] || this.borderWidth || 0)
+  }
+
+  TableStyle.prototype['getBorder' + side + 'Color'] = function() {
+    var value = this['border' + side + 'Color']
+    return value != null ? value : (this['border' + direction + 'Color'] || this.borderColor || 0x000000)
+  }
+})
 
 TableStyle.reset = {
   colspan: 1,
@@ -8197,7 +8191,7 @@ module.exports={
     "name": "Markus Ast",
     "email": "npm.m@rkusa.st"
   },
-  "version": "1.0.0-b1",
+  "version": "1.0.0-alpha.1",
   "homepage": "https://github.com/rkusa/pdfjs",
   "description": "A Portable Document Format (PDF) generation library targeting both the server- and client-side.",
   "keywords": [
