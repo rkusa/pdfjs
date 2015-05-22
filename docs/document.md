@@ -144,7 +144,8 @@ var footer = doc.footer()
 footer.text('Foobar', { textAlign: 'right' })
 ```
 
-### .ops()
+### .ops(args...)
+### .ops(fn)
 
 Allows adding PDF operations directly.
 
@@ -152,8 +153,20 @@ Allows adding PDF operations directly.
 
 ```js
 var ops = doc.ops()
-var h3 = mmToPt(148.5)
-ops.op(0, h3, 'm', 15, h3, 'l', 'S')
+ops.op(0, 0, 0, 'rg')
+ops.op(0, 830, 297.6648, 11.896, 're')
+ops.op('f')
+```
+
+Or, providing a function that gets the current x/y (y goes bottom-up) coords when being rendered.
+
+```js
+ops = doc.ops()
+ops.op(function(x, y) {
+  var height = 40
+  return [x, y - height, x + 60, height, 're']
+})
+ops.op('f')
 ```
 
 ### .render()
