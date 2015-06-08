@@ -74,14 +74,14 @@ Container.prototype.text = function(text, opts) {
 
 var Box = require('./box')
 Container.prototype.box = function(opts) {
-  var box = new Box(this.style.merge(ContainerStyle.paddingReset), opts)
+  var box = new Box(this.style.merge(ContainerStyle.reset), opts)
   this.children.push(box)
   return box
 }
 
 var Table = require('./table')
 Container.prototype.table = function(opts) {
-  var table = new Table(this.style.merge(ContainerStyle.paddingReset), opts)
+  var table = new Table(this.style.merge(ContainerStyle.reset), opts)
   this.children.push(table)
   return table
 }
@@ -131,7 +131,7 @@ Document.prototype.header = function(opts) {
     opts.width = '100%'
   }
 
-  this._header = new Box(this.style.merge(DocumentStyle.super_.paddingReset), opts)
+  this._header = new Box(this.style.merge(DocumentStyle.super_.reset), opts)
   return this._header
 }
 
@@ -144,7 +144,7 @@ Document.prototype.footer = function(opts) {
     opts.width = '100%'
   }
 
-  this._footer = new Box(this.style.merge(DocumentStyle.super_.paddingReset), opts)
+  this._footer = new Box(this.style.merge(DocumentStyle.super_.reset), opts)
   return this._footer
 }
 
@@ -243,8 +243,12 @@ var Operations = module.exports = function() {
 
 require('../pdf/utils').inherits(Operations, require('./base'))
 
-Operations.prototype.op = function() {
-  this.ops.push(Array.prototype.slice.call(arguments))
+Operations.prototype.op = function(fn) {
+  if (fn && typeof fn === 'function') {
+    this.ops.push(fn)
+  } else {
+    this.ops.push(Array.prototype.slice.call(arguments))
+  }
 }
 },{"../pdf/node/operations":25,"../pdf/utils":56,"./base":1}],10:[function(require,module,exports){
 'use strict'
@@ -314,17 +318,17 @@ require('../pdf/utils').inherits(Table, require('./base'))
 
 var Row = require('./row')
 Table.prototype.tr = function(opts) {
-  var tr = new Row(this.style.merge(opts))
+  var tr = new Row(this.style.merge(TableStyle.reset, opts))
   this.children.push(tr)
   return tr
 }
 
 Table.prototype.beforeBreak = function(fnOrOpts, opts) {
   if (typeof fnOrOpts === 'function') {
-    fnOrOpts.opts = this.style.merge(opts)
+    fnOrOpts.opts = this.style.merge(TableStyle.reset, opts)
     this.beforeBreakChildren.push(fnOrOpts)
   } else {
-    var tr = new Row(this.style.merge(fnOrOpts))
+    var tr = new Row(this.style.merge(TableStyle.reset, fnOrOpts))
     this.beforeBreakChildren.push(tr)
     return tr
   }
@@ -1113,6 +1117,12 @@ PDF.prototype.Q = function() {
 }
 
 function toFixed(num, precision) {
+  if (isNaN(num)) {
+    var stack = (new Error).stack.split('\n')
+    stack.splice(0, 5)
+    stack = stack.join('\n')
+    console.warn("Writing NaN - there probably went something wrong.\nPlease report this issue to http://github.com/rkusa/pdfjs/issues\nStack Trace:\n" + stack)
+  }
   return (+(Math.floor(+(num + 'e' + precision)) + 'e' + -precision)).toFixed(precision)
 }
 
@@ -1637,8 +1647,11 @@ Object.defineProperties(CellNode.prototype, {
   minHeight: {
     enumerable: true,
     get: function() {
-      return this.children.map(function(child) { return child.height })
-                          .reduce(function(lhs, rhs) { return lhs + rhs }, 0)
+      return Math.max(
+        this.style.height || 0,
+        this.children.map(function(child) { return child.height })
+                     .reduce(function(lhs, rhs) { return lhs + rhs }, 0)
+      )
     }
   },
   height: {
@@ -1915,14 +1928,33 @@ var OperationsNode = module.exports = function(ops) {
 
   this.type = 'OperationsNode'
 
+  this.height = this.width = 0
   this.ops = ops.ops
 }
 
 utils.inherits(OperationsNode, require('./base'))
 
+OperationsNode.prototype._compute = function(cursor) {
+  this.ops.forEach(function(op) {
+    if (typeof op === 'function') {
+      op.x = cursor.x
+      op.y = cursor.y
+    }
+  })
+}
+
 OperationsNode.prototype.render = function(doc) {
   this.ops.forEach(function(op) {
-    doc.write.apply(doc, op)
+    if (typeof op === 'function') {
+      var args = op(op.x, op.y)
+      if (!Array.isArray(args)) {
+        args = [args]
+      }
+    } else {
+      args = op
+    }
+
+    doc.write.apply(doc, args)
   })
 }
 
@@ -2322,61 +2354,66 @@ TableNode.prototype._compute = function(cursor) {
           return
         }
 
-        var horizontalWidth, horizontalColor
+        if (cell.style.getBorderTopWidth()) {
+          var horizontalWidth, horizontalColor
 
-        if (cell.style.getBorderTopWidth() > onTop.style.getBorderBottomWidth()) {
-          horizontalWidth = cell.style.getBorderTopWidth() / 2
-          horizontalColor = cell.style.getBorderTopColor()
-        } else {
-          horizontalWidth = onTop.style.getBorderBottomWidth() / 2
-          horizontalColor = onTop.style.getBorderBottomColor()
-        }
+          if (cell.style.getBorderTopWidth() > onTop.style.getBorderBottomWidth()) {
+            horizontalWidth = cell.style.getBorderTopWidth() / 2
+            horizontalColor = cell.style.getBorderTopColor()
+          } else {
+            horizontalWidth = onTop.style.getBorderBottomWidth() / 2
+            horizontalColor = onTop.style.getBorderBottomColor()
+          }
 
-        onTop.style = onTop.style.merge({
-          borderBottomWidth: horizontalWidth,
-          borderBottomColor: horizontalColor
-        })
+          onTop.style = onTop.style.merge({
+            borderBottomWidth: horizontalWidth,
+            borderBottomColor: horizontalColor
+          })
 
-        cell.style = cell.style.merge({
-          borderTopWidth: horizontalWidth,
-          borderTopColor: horizontalColor
-        })
+          cell.style = cell.style.merge({
+            borderTopWidth: horizontalWidth,
+            borderTopColor: horizontalColor
+          })
 
-        if (cell.style.colspan > 1) {
-          for (var k = 1; k < cell.style.colspan; ++k) {
-            var next = this.children[j - 1].children[index++]
-            if (!next) {
-              break
+          if (cell.style.colspan > 1) {
+            for (var k = 1; k < cell.style.colspan; ++k) {
+              var next = this.children[j - 1].children[index++]
+              if (!next) {
+                break
+              }
+              next.style = next.style.merge({
+                borderBottomWidth: horizontalWidth,
+                borderBottomColor: horizontalColor
+              })
             }
-            next.style = next.style.merge({
-              borderBottomWidth: horizontalWidth,
-              borderBottomColor: horizontalColor
-            })
           }
         }
       }
 
       if (i > 0) {
         var onLeft = row.children[i - 1]
-        var verticalWidth, verticalColor
 
-        if (cell.style.getBorderLeftWidth() > onLeft.style.getBorderRightWidth()) {
-          verticalWidth = cell.style.getBorderLeftWidth() / 2
-          verticalColor = cell.style.getBorderLeftColor()
-        } else {
-          verticalWidth = onLeft.style.getBorderRightWidth() / 2
-          verticalColor = onLeft.style.getBorderRightColor()
+        if (cell.style.getBorderLeftWidth() > 0) {
+          var verticalWidth, verticalColor
+
+          if (cell.style.getBorderLeftWidth() > onLeft.style.getBorderRightWidth()) {
+            verticalWidth = cell.style.getBorderLeftWidth() / 2
+            verticalColor = cell.style.getBorderLeftColor()
+          } else {
+            verticalWidth = onLeft.style.getBorderRightWidth() / 2
+            verticalColor = onLeft.style.getBorderRightColor()
+          }
+
+          onLeft.style = onLeft.style.merge({
+            borderRightWidth: verticalWidth,
+            borderRightColor: verticalColor
+          })
+
+          cell.style = cell.style.merge({
+            borderLeftWidth: verticalWidth,
+            borderLeftColor: verticalColor
+          })
         }
-
-        onLeft.style = onLeft.style.merge({
-          borderRightWidth: verticalWidth,
-          borderRightColor: verticalColor
-        })
-
-        cell.style = cell.style.merge({
-          borderLeftWidth: verticalWidth,
-          borderLeftColor: verticalColor
-        })
       }
     }, this)
   }, this)
@@ -4314,12 +4351,13 @@ var ContainerStyle = module.exports = function(values) {
 
 require('../pdf/utils').inherits(ContainerStyle, require('./text'))
 
-ContainerStyle.paddingReset = {
+ContainerStyle.reset = {
   padding: 0,
   paddingTop: 0,
   paddingRight: 0,
   paddingBottom: 0,
-  paddingLeft: 0
+  paddingLeft: 0,
+  height: null
 }
 
 Object.defineProperties(ContainerStyle.prototype, {
@@ -4426,7 +4464,8 @@ SIDES.forEach(function(side) {
 
 TableStyle.reset = {
   colspan: 1,
-  allowBreak: false
+  allowBreak: false,
+  // height: null
 }
 
 },{"../pdf/utils":56,"./container":59}],63:[function(require,module,exports){
@@ -7074,20 +7113,20 @@ var TTFFont = module.exports = function(buffer) {
   /* assume not being symbolic */    flags |= 1 << 5
   this.flags = flags
 
-  this.widths = []
-  for (var code in this.codeMap) {
-    if (code < 32) continue
-    var gid = this.codeMap[code]
-    this.widths.push(Math.round(this.tables.hmtx.metrics[gid] * this.scaleFactor))
-  }
-  this.avgCharWidth = this.tables.os2 && (this.tables.os2.xAvgCharWidth * this.scaleFactor) || 0
+  this.avgCharWidth = this.tables.os2 && this.tables.os2.xAvgCharWidth || 0
 }
 
 TTFFont.prototype.stringWidth = function(string, size) {
-  var width = 0, scale = size / 1000
+  var width = 0, scale = size / this.tables.head.unitsPerEm
   for (var i = 0, len = string.length; i < len; ++i) {
-    var code = string.charCodeAt(i) - 32 // - 32 because of non AFM font
-    width += this.widths[code] || this.avgCharWidth
+    var code = string.charCodeAt(i) //- 32 // - 32 because of non AFM font
+
+    if (code < 32) {
+      continue
+    }
+
+    var gid = this.codeMap[code]
+    width += this.tables.hmtx.metrics[gid] || this.avgCharWidth
   }
   return width * scale
 }
@@ -8209,7 +8248,7 @@ module.exports={
     "debug": "^2.2",
     "linebreak": "^0.3.0",
     "node-uuid": "^1.4",
-    "ttfjs": "^0.3.0",
+    "ttfjs": "^0.4.0",
     "unorm": "^1.3"
   },
   "devDependencies": {
