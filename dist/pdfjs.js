@@ -8230,7 +8230,7 @@ module.exports={
     "name": "Markus Ast",
     "email": "npm.m@rkusa.st"
   },
-  "version": "1.0.0-alpha.1",
+  "version": "1.0.0-alpha.2",
   "homepage": "https://github.com/rkusa/pdfjs",
   "description": "A Portable Document Format (PDF) generation library targeting both the server- and client-side.",
   "keywords": [
