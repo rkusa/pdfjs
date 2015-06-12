@@ -4,21 +4,22 @@ module.exports = function(doc, fixtures) {
     borderWidth: 20,
     borderColor: 0xdddddd,
     backgroundColor: 0xeeeeee,
-    widths: ['30%', '70%'],
+    widths: ['100%'],
     headerRows: 1
   })
 
   var outerTh = table.tr()
   outerTh.td('A')
-  outerTh.td('B')
 
   var outerTr = table.tr()
-  outerTr.td(fixtures.lorem.long)
   var td = outerTr.td()
 
   var inner = td.table({
     widths: ['50%', '50%'],
-    headerRows: 1
+    backgroundColor: 0xcccccc,
+    headerRows: 1,
+    borderWidth: 10,
+    borderColor: 0xaaaaaa
   })
 
   var innerTh = inner.tr()
@@ -28,4 +29,12 @@ module.exports = function(doc, fixtures) {
   var innerTr = inner.tr()
   innerTr.td(fixtures.lorem.long)
   innerTr.td(fixtures.lorem.long)
+
+  innerTr = inner.tr()
+  innerTr.td(fixtures.lorem.short)
+  innerTr.td(fixtures.lorem.short)
+
+  innerTr = inner.tr()
+  innerTr.td(fixtures.lorem.long + fixtures.lorem.long)
+  innerTr.td(fixtures.lorem.long + fixtures.lorem.long)
 }
