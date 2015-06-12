@@ -9,15 +9,14 @@ module.exports = function(doc, fixtures) {
   })
 
   var tr1 = table.tr({})
-  tr1.td(fixtures.lorem.long + fixtures.lorem.long + fixtures.lorem.short, { height: 600 })
+  tr1.td({ height: 600 })
 
   var tr2 = table.tr({ allowBreak: true })
 
   var table2 = tr2.td({ allowBreak: true }).table({
     padding: 5,
-    borderWidth: 1,
-    borderColor: 0xdddddd,
-    backgroundColor: 0xeeeeee,
+    backgroundColor: 0xcccccc,
+    borderColor: 0xaaaaaa,
     widths: ['50%', '50%'],
     headerRows: 2
   })
