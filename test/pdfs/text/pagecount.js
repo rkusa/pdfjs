@@ -5,9 +5,13 @@ module.exports = function(doc, fixtures) {
 
   var text = doc.text()
 
-  for (var j = 0; j < 3; ++j) {
-    for (var i = 0; i < 70; ++i) {
-      text.add('-').br()
+  for (var j = 0; j < 4; ++j) {
+    if (j > 0) {
+      for (var i = 0; i < 66; ++i) {
+        text.add('-').br()
+      }
     }
+
+    text.add('total').pageCount().append('; current ').pageNumber().br()
   }
 }
