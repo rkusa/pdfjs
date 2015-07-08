@@ -2564,11 +2564,11 @@ endobj
 	/FontName /TTFJS+#95#95#95#95
 	/Flags 32
 	/FontBBox [-550 -271 1204 1048]
-	/ItalicAngle null
+	/ItalicAngle 0
 	/Ascent 765
 	/Descent -240
 	/CapHeight 1462
-	/StemV null
+	/StemV 0
 	/FontFile2 8 0 R
 >>
 endobj
@@ -2582,7 +2582,7 @@ endobj
 	/CIDSystemInfo <<
 		/Ordering (Identity)
 		/Registry (Adobe)
-		/Supplement null
+		/Supplement 0
 	>>
 	/FontDescriptor 10 0 R
 	/W [1 [260] 2 [633] 3 [648] 4 [519] 5 [604] 6 [408] 7 [561] 8 [930] 9 [253] 10 [613] 11 [477] 12 [614] 13 [613] 14 [253] 15 [353] 16 [556] 17 [245] 18 [476] 19 [614] 20 [548] 21 [504] 22 [501] 23 [613] 24 [613] 25 [266] 26 [253] 27 [549] 28 [525] 29 [729] 30 [614] 31 [339] 32 [468] 33 [728] 34 [778] 35 [524]]
@@ -2602,7 +2602,7 @@ xref
 0000056777 00000 n 
 0000067217 00000 n 
 0000067355 00000 n 
-0000067548 00000 n 
+0000067542 00000 n 
 trailer
 <<
 	/Size 12
@@ -2614,5 +2614,5 @@ trailer
 	>>
 >>
 startxref
-68081
+68072
 %%EOF

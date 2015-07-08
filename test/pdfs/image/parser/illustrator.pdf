@@ -328,11 +328,11 @@ endobj
 	/FontName /TTFJS+#95#95#95#95
 	/Flags 32
 	/FontBBox [-550 -271 1204 1048]
-	/ItalicAngle null
+	/ItalicAngle 0
 	/Ascent 765
 	/Descent -240
 	/CapHeight 1462
-	/StemV null
+	/StemV 0
 	/FontFile2 6 0 R
 >>
 endobj
@@ -346,7 +346,7 @@ endobj
 	/CIDSystemInfo <<
 		/Ordering (Identity)
 		/Registry (Adobe)
-		/Supplement null
+		/Supplement 0
 	>>
 	/FontDescriptor 8 0 R
 	/W [1 [260] 2 [519] 3 [604] 4 [408] 5 [561] 6 [930] 7 [253] 8 [613] 9 [477] 10 [614] 11 [613] 12 [253] 13 [353] 14 [556] 15 [245] 16 [476] 17 [614] 18 [548] 19 [504] 20 [501] 21 [613] 22 [613] 23 [266] 24 [633] 25 [253] 26 [549] 27 [525]]
@@ -385,31 +385,31 @@ endobj
 
 11 0 obj
 <<
-	/AIS null
+	/AIS false
 	/BM /Normal
 	/CA 1
-	/OP null
-	/OPM null
+	/OP false
+	/OPM 0
 	/SA true
 	/SMask /None
 	/Type /ExtGState
 	/ca 1
-	/op null
+	/op false
 >>
 endobj
 
 12 0 obj
 <<
-	/AIS null
+	/AIS false
 	/BM /Normal
 	/CA 1
-	/OP null
+	/OP false
 	/OPM 1
 	/SA true
 	/SMask /None
 	/Type /ExtGState
 	/ca 1
-	/op null
+	/op false
 >>
 endobj
 
@@ -447,7 +447,7 @@ endobj
 	/FontName /ZWIDHP+MyriadPro-Cond
 	/FontStretch /Condensed
 	/FontWeight 400
-	/ItalicAngle null
+	/ItalicAngle 0
 	/StemV 76
 	/Type /FontDescriptor
 	/XHeight 484
@@ -503,17 +503,17 @@ xref
 0000005529 00000 n 
 0000013888 00000 n 
 0000014025 00000 n 
-0000014217 00000 n 
-0000014676 00000 n 
-0000015945 00000 n 
-0000016079 00000 n 
-0000016210 00000 n 
-0000016558 00000 n 
-0000016654 00000 n 
-0000016979 00000 n 
-0000017868 00000 n 
-0000017951 00000 n 
-0000017984 00000 n 
+0000014211 00000 n 
+0000014667 00000 n 
+0000015936 00000 n 
+0000016070 00000 n 
+0000016204 00000 n 
+0000016552 00000 n 
+0000016648 00000 n 
+0000016970 00000 n 
+0000017859 00000 n 
+0000017942 00000 n 
+0000017975 00000 n 
 trailer
 <<
 	/Size 20
@@ -525,5 +525,5 @@ trailer
 	>>
 >>
 startxref
-18084
+18075
 %%EOF

@@ -328,11 +328,11 @@ endobj
 	/FontName /TTFJS+#95#95#95#95
 	/Flags 32
 	/FontBBox [-550 -271 1204 1048]
-	/ItalicAngle null
+	/ItalicAngle 0
 	/Ascent 765
 	/Descent -240
 	/CapHeight 1462
-	/StemV null
+	/StemV 0
 	/FontFile2 6 0 R
 >>
 endobj
@@ -346,7 +346,7 @@ endobj
 	/CIDSystemInfo <<
 		/Ordering (Identity)
 		/Registry (Adobe)
-		/Supplement null
+		/Supplement 0
 	>>
 	/FontDescriptor 8 0 R
 	/W [1 [260] 2 [519] 3 [604] 4 [408] 5 [561] 6 [930] 7 [253] 8 [613] 9 [477] 10 [614] 11 [613] 12 [253] 13 [353] 14 [556] 15 [245] 16 [476] 17 [614] 18 [548] 19 [504] 20 [501] 21 [613] 22 [613] 23 [266] 24 [633] 25 [253] 26 [549] 27 [525]]
@@ -411,7 +411,7 @@ endobj
 	/Height 178
 	/ColorSpace /DeviceRGB
 	/BitsPerComponent 8
-	/Interpolate null
+	/Interpolate false
 	/Filter /FlateDecode
 	/Length 9296
 >>
@@ -460,7 +460,7 @@ endobj
 	/Height 2
 	/ColorSpace [/Indexed /DeviceRGB 1 (   ÿÿÿ)]
 	/BitsPerComponent 1
-	/Interpolate null
+	/Interpolate false
 	/SMask 14 0 R
 	/Length 2
 >>
@@ -522,7 +522,7 @@ endobj
 	/Type /FontDescriptor
 	/FontName /ABCDEE+Calibri
 	/Flags 32
-	/ItalicAngle null
+	/ItalicAngle 0
 	/Ascent 750
 	/Descent -250
 	/CapHeight 750
@@ -834,18 +834,18 @@ xref
 0000005529 00000 n 
 0000013888 00000 n 
 0000014025 00000 n 
-0000014217 00000 n 
-0000014676 00000 n 
-0000015277 00000 n 
-0000015532 00000 n 
-0000025027 00000 n 
-0000025236 00000 n 
-0000025816 00000 n 
-0000025877 00000 n 
-0000025938 00000 n 
-0000026129 00000 n 
-0000026400 00000 n 
-0000103645 00000 n 
+0000014211 00000 n 
+0000014667 00000 n 
+0000015268 00000 n 
+0000015523 00000 n 
+0000025019 00000 n 
+0000025229 00000 n 
+0000025809 00000 n 
+0000025870 00000 n 
+0000025931 00000 n 
+0000026122 00000 n 
+0000026390 00000 n 
+0000103635 00000 n 
 trailer
 <<
 	/Size 21
@@ -857,5 +857,5 @@ trailer
 	>>
 >>
 startxref
-103668
+103658
 %%EOF

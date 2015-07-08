@@ -328,11 +328,11 @@ endobj
 	/FontName /TTFJS+#95#95#95#95
 	/Flags 32
 	/FontBBox [-550 -271 1204 1048]
-	/ItalicAngle null
+	/ItalicAngle 0
 	/Ascent 765
 	/Descent -240
 	/CapHeight 1462
-	/StemV null
+	/StemV 0
 	/FontFile2 6 0 R
 >>
 endobj
@@ -346,7 +346,7 @@ endobj
 	/CIDSystemInfo <<
 		/Ordering (Identity)
 		/Registry (Adobe)
-		/Supplement null
+		/Supplement 0
 	>>
 	/FontDescriptor 8 0 R
 	/W [1 [260] 2 [519] 3 [604] 4 [408] 5 [561] 6 [930] 7 [253] 8 [613] 9 [477] 10 [614] 11 [613] 12 [253] 13 [353] 14 [556] 15 [245] 16 [476] 17 [614] 18 [548] 19 [504] 20 [501] 21 [613] 22 [613] 23 [266] 24 [633] 25 [253] 26 [549] 27 [525]]
@@ -2228,7 +2228,7 @@ endobj
 	/CIDSystemInfo <<
 		/Ordering (Identity )
 		/Registry (Adobe )
-		/Supplement null
+		/Supplement 0
 	>>
 	/FontDescriptor 16 0 R
 	/Subtype /CIDFontType0
@@ -2246,7 +2246,7 @@ endobj
 	/FontBBox [-140 -250 970 935]
 	/FontFile3 17 0 R
 	/FontName /WQKOXN+MyriadPro-Cond
-	/ItalicAngle null
+	/ItalicAngle 0
 	/MaxWidth 1110
 	/StemV 76
 	/Type /FontDescriptor
@@ -2288,7 +2288,7 @@ endobj
 		/Colors 4
 		/Columns 2480
 		/HSamples [1 1 1 1]
-		/QFactor null
+		/QFactor 0
 		/Rows 3508
 		/VSamples [1 1 1 1]
 	>>
@@ -2474,7 +2474,7 @@ endobj
 		/Colors 4
 		/Columns 2480
 		/HSamples [1 1 1 1]
-		/QFactor null
+		/QFactor 0
 		/Rows 3508
 		/VSamples [1 1 1 1]
 	>>
@@ -2523,18 +2523,18 @@ xref
 0000005529 00000 n 
 0000013888 00000 n 
 0000014025 00000 n 
-0000014217 00000 n 
-0000014676 00000 n 
-0000015242 00000 n 
-0000015472 00000 n 
-0000015508 00000 n 
-0000508191 00000 n 
-0000508369 00000 n 
-0000508574 00000 n 
-0000508833 00000 n 
-0000509783 00000 n 
-0000510154 00000 n 
-0000722249 00000 n 
+0000014211 00000 n 
+0000014667 00000 n 
+0000015233 00000 n 
+0000015463 00000 n 
+0000015499 00000 n 
+0000508182 00000 n 
+0000508360 00000 n 
+0000508562 00000 n 
+0000508818 00000 n 
+0000509768 00000 n 
+0000510139 00000 n 
+0000722231 00000 n 
 trailer
 <<
 	/Size 21
@@ -2546,5 +2546,5 @@ trailer
 	>>
 >>
 startxref
-863967
+863946
 %%EOF
