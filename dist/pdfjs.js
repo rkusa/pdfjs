@@ -5,7 +5,7 @@ var BaseElement = module.exports = function(Node) {
   this.Node = Node
 }
 
-BaseElement.prototype.createNode = function(x, y, width) {
+BaseElement.prototype.createNode = function() {
   var node = new this.Node(this)
   return node
 }
@@ -23,7 +23,16 @@ var Box = module.exports = function(style, opts) {
 
 require('../pdf/utils').inherits(Box, require('./container'))
 
-},{"../pdf/node/box":20,"../pdf/utils":56,"../style/box":58,"./container":4}],3:[function(require,module,exports){
+Box.prototype.clone = function() {
+  var clone = new Box()
+  clone.style = this.style
+  clone.children = this.children.map(function(child) {
+    return child.clone()
+  })
+  return clone
+}
+
+},{"../pdf/node/box":21,"../pdf/utils":58,"../style/box":61,"./container":4}],3:[function(require,module,exports){
 'use strict'
 
 var TableStyle = require('../style/table')
@@ -47,7 +56,16 @@ Cell.prototype.table = function(opts) {
   return table
 }
 
-},{"../pdf/node/cell":21,"../pdf/utils":56,"../style/table":62,"./container":4,"./table":13}],4:[function(require,module,exports){
+Cell.prototype.clone = function() {
+  var clone = new Cell()
+  clone.style = this.style
+  clone.children = this.children.map(function(child) {
+    return child.clone()
+  })
+  return clone
+}
+
+},{"../pdf/node/cell":22,"../pdf/utils":58,"../style/table":65,"./container":4,"./table":13}],4:[function(require,module,exports){
 'use strict'
 
 var ContainerStyle = require('../style/container')
@@ -100,7 +118,7 @@ Container.prototype.ops = function() {
   return ops
 }
 
-},{"../pdf/utils":56,"../style/container":59,"./base":1,"./box":2,"./image":7,"./operations":9,"./table":13,"./text":14}],5:[function(require,module,exports){
+},{"../pdf/utils":58,"../style/container":62,"./base":1,"./box":2,"./image":7,"./operations":9,"./table":13,"./text":14}],5:[function(require,module,exports){
 'use strict'
 
 var DocumentStyle = require('../style/document')
@@ -152,7 +170,7 @@ Document.prototype.render = function() {
   return new PDF(this.createNode(this))
 }
 
-},{"../pdf":18,"../pdf/node/document":22,"../pdf/utils":56,"../style/document":60,"./box":2,"./container":4}],6:[function(require,module,exports){
+},{"../pdf":19,"../pdf/node/document":24,"../pdf/utils":58,"../style/document":63,"./box":2,"./container":4}],6:[function(require,module,exports){
 'use strict'
 
 var TTFFont = require('ttfjs')
@@ -180,7 +198,7 @@ Font.prototype.lineDescent = function(size) {
   return this.ttf.lineDescent(size)
 }
 
-},{"../../pdf/utils":56,"node-uuid":75,"ttfjs":88}],7:[function(require,module,exports){
+},{"../../pdf/utils":58,"node-uuid":78,"ttfjs":91}],7:[function(require,module,exports){
 'use strict'
 
 var ImageStyle = require('../style/image')
@@ -196,7 +214,13 @@ var Image = module.exports = function(img, style, opts) {
 
 require('../pdf/utils').inherits(Image, require('./base'))
 
-},{"../pdf/node/image":23,"../pdf/utils":56,"../style/image":61,"./base":1}],8:[function(require,module,exports){
+Image.prototype.clone = function() {
+  var clone = new Image(this.img)
+  clone.style = this.style
+  return clone
+}
+
+},{"../pdf/node/image":25,"../pdf/utils":58,"../style/image":64,"./base":1}],8:[function(require,module,exports){
 'use strict'
 
 var LineBreak = module.exports = function(style) {
@@ -232,7 +256,11 @@ Object.defineProperties(LineBreak.prototype, {
   }
 })
 
-},{"../pdf/node/linebreak":24,"../pdf/utils":56,"./base":1}],9:[function(require,module,exports){
+LineBreak.prototype.clone = function() {
+  return new LineBreak(this.style)
+}
+
+},{"../pdf/node/linebreak":26,"../pdf/utils":58,"./base":1}],9:[function(require,module,exports){
 'use strict'
 
 var Operations = module.exports = function() {
@@ -250,7 +278,14 @@ Operations.prototype.op = function(fn) {
     this.ops.push(Array.prototype.slice.call(arguments))
   }
 }
-},{"../pdf/node/operations":25,"../pdf/utils":56,"./base":1}],10:[function(require,module,exports){
+
+Operations.prototype.clone = function() {
+  var clone = new Operations
+  clone.ops = this.ops.slice()
+  return clone
+}
+
+},{"../pdf/node/operations":27,"../pdf/utils":58,"./base":1}],10:[function(require,module,exports){
 'use strict'
 
 var Word = require('./word')
@@ -262,7 +297,11 @@ var PageCount = module.exports = function(style) {
 
 require('../pdf/utils').inherits(PageCount, Word)
 
-},{"../pdf/node/page-count":26,"../pdf/utils":56,"./word":15}],11:[function(require,module,exports){
+PageCount.prototype.clone = function() {
+  return this
+}
+
+},{"../pdf/node/page-count":28,"../pdf/utils":58,"./word":15}],11:[function(require,module,exports){
 'use strict'
 
 var Word = require('./word')
@@ -274,7 +313,16 @@ var PageNumber = module.exports = function(style) {
 
 require('../pdf/utils').inherits(PageNumber, Word)
 
-},{"../pdf/node/page-number":27,"../pdf/utils":56,"./word":15}],12:[function(require,module,exports){
+PageNumber.prototype.clone = function() {
+  var clone = new PageNumber(this.style)
+  clone.style = this.style
+  clone.children = [clone].concat(this.children.slice(1).map(function(child) {
+    return child.clone()
+  }))
+  return clone
+}
+
+},{"../pdf/node/page-number":29,"../pdf/utils":58,"./word":15}],12:[function(require,module,exports){
 'use strict'
 
 var TableStyle = require('../style/table')
@@ -300,7 +348,16 @@ Row.prototype.td = function(text, opts) {
   return td
 }
 
-},{"../pdf/node/row":29,"../pdf/utils":56,"../style/table":62,"./base":1,"./cell":3}],13:[function(require,module,exports){
+Row.prototype.clone = function() {
+  var clone = new Row()
+  clone.style = this.style
+  clone.children = this.children.map(function(child) {
+    return child.clone()
+  })
+  return clone
+}
+
+},{"../pdf/node/row":31,"../pdf/utils":58,"../style/table":65,"./base":1,"./cell":3}],13:[function(require,module,exports){
 'use strict'
 
 var TableStyle = require('../style/table')
@@ -334,7 +391,19 @@ Table.prototype.beforeBreak = function(fnOrOpts, opts) {
   }
 }
 
-},{"../pdf/node/table":31,"../pdf/utils":56,"../style/table":62,"./base":1,"./row":12}],14:[function(require,module,exports){
+Table.prototype.clone = function() {
+  var clone = new Table()
+  clone.style = this.style
+  clone.children = this.children.map(function(child) {
+    return child.clone()
+  })
+  clone.beforeBreakChildren = this.beforeBreakChildren.map(function(child) {
+    return child.clone()
+  })
+  return clone
+}
+
+},{"../pdf/node/table":33,"../pdf/utils":58,"../style/table":65,"./base":1,"./row":12}],14:[function(require,module,exports){
 'use strict'
 
 var TextStyle = require('../style/text')
@@ -443,7 +512,16 @@ Text.prototype.appendPageCount = function(opts) {
   return this.pageCount(opts, true)
 }
 
-},{"../pdf/node/text":32,"../pdf/utils":56,"../style/text":63,"./base":1,"./linebreak":8,"./page-count":10,"./page-number":11,"./word":15,"linebreak":73}],15:[function(require,module,exports){
+Text.prototype.clone = function() {
+  var clone = new Text()
+  clone.style = this.style
+  clone.children = this.children.map(function(child) {
+    return child.clone()
+  })
+  return clone
+}
+
+},{"../pdf/node/text":34,"../pdf/utils":58,"../style/text":66,"./base":1,"./linebreak":8,"./page-count":10,"./page-number":11,"./word":15,"linebreak":76}],15:[function(require,module,exports){
 'use strict'
 
 var unorm = require('unorm')
@@ -498,6 +576,15 @@ Object.defineProperties(Word.prototype, {
   }
 })
 
+Word.prototype.clone = function() {
+  var clone = new Word(this.word, this.style)
+  clone.style = this.style
+  clone.children = [clone].concat(this.children.slice(1).map(function(child) {
+    return child.clone()
+  }))
+  return clone
+}
+
 Word.prototype.toString = function() {
   return this.children.map(function(word) {
     return word.word
@@ -506,7 +593,7 @@ Word.prototype.toString = function() {
   }, '')
 }
 
-},{"../pdf/node/word":33,"../pdf/utils":56,"./base":1,"unorm":97}],16:[function(require,module,exports){
+},{"../pdf/node/word":35,"../pdf/utils":58,"./base":1,"unorm":100}],16:[function(require,module,exports){
 'use strict'
 
 var utils = require('./pdf/utils')
@@ -611,7 +698,57 @@ function parsePDFInfo(buffer) {
   }
 }
 
-},{"./pdf/parser/document":53,"./pdf/utils":56,"node-uuid":75}],17:[function(require,module,exports){
+},{"./pdf/parser/document":55,"./pdf/utils":58,"node-uuid":78}],17:[function(require,module,exports){
+'use strict'
+
+var Document = exports.Document = require('./element/document')
+exports.createDocument = function(style) {
+  return new Document(style)
+}
+
+var TTFFont = exports.TTFFont = require('./element/font/ttf')
+exports.createTTFFont = function(src) {
+  return new TTFFont(src)
+}
+
+
+var Image = exports.Image = require('./image')
+exports.createImage = function(src) {
+  return new Image(src)
+}
+
+exports.Parser = require('./pdf/parser/document')
+
+var isClient = typeof window !== 'undefined' && !!window.document
+// trick browserify
+var fs = (require)('fs')
+exports.load = function(path, callback) {
+  if (isClient) {
+    var xhr = new XMLHttpRequest()
+    xhr.open('GET', path, true)
+    xhr.responseType = 'arraybuffer'
+
+    if (xhr.overrideMimeType) {
+      xhr.overrideMimeType('text/plain; charset=x-user-defined')
+    } else {
+      xhr.setRequestHeader('Accept-Charset', 'x-user-defined')
+    }
+
+    xhr.onload = function() {
+      if (xhr.status === 200) {
+        callback(null, xhr.response)
+      } else {
+        callback(new Error(xhr.statusText), null)
+      }
+    }
+
+    xhr.send(null)
+  } else {
+    fs.readFile(path, callback)
+  }
+}
+
+},{"./element/document":5,"./element/font/ttf":6,"./image":16,"./pdf/parser/document":55,"fs":68}],18:[function(require,module,exports){
 'use strict'
 
 var Page = function(nr, header, footer, afterBreak) {
@@ -643,6 +780,7 @@ Page.prototype.setup = function(cursor) {
 
   if (this.afterBreak && this.afterBreak.length) {
     this.afterBreak.forEach(function(node) {
+      cursor.x = node.x.val
       node.compute(cursor)
       this.top -= node.height
       shift += node.height
@@ -691,7 +829,7 @@ var CursorFactory = module.exports = function(doc) {
   this.currentPage = 1
   this.pages       = []
   this.pageBreaks  = []
-  this.addPage()
+  this.addPage(doc)
 
   this.nextPageBreakId  = 1
   this.validBreaks = Object.create(null)
@@ -781,7 +919,7 @@ CursorFactory.prototype.create = function(w) {
       }
 
       var offset = self.offset
-      var mustBreak = (node.y - node.height) + offset < self.bottom
+      var mustBreak = (node.y.val - node.height) + offset < self.bottom
       if (!mustBreak) {
         return false
       }
@@ -826,14 +964,18 @@ CursorFactory.prototype.reset = function() {
   this.highestVisitedBreak = 0
 }
 
-CursorFactory.prototype.addPage = function() {
+CursorFactory.prototype.addPage = function(parent) {
   var page = new Page(
     this.currentPage,
-    this.header && this.header.createNode(),
-    this.footer && this.footer.createNode(),
-    (this.afterBreak[this.afterBreak.length - 1] || []).map(function(child) {
-      return child.clone()
-    })
+    this.header && this.header.clone().createNode(),
+    this.footer && this.footer.clone().createNode(),
+    (this.afterBreak[this.afterBreak.length - 1] || [])
+      .filter(function(child) {
+        return child.valid(parent)
+      })
+      .map(function(child) {
+        return child.clone()
+      })
   )
 
   this.pages.push(page)
@@ -872,7 +1014,7 @@ CursorFactory.prototype.pageBreak = function(pageBreak, parent, idx) {
     }
 
     if (++this.currentPage > this.pages.length) {
-      this.addPage()
+      this.addPage(parent)
     }
   } else {
     var isValid = this.validBreaks[pageBreak.id] === true
@@ -891,7 +1033,7 @@ CursorFactory.prototype.pageBreak = function(pageBreak, parent, idx) {
   return pageBreak
 }
 
-},{}],18:[function(require,module,exports){
+},{}],19:[function(require,module,exports){
 'use strict'
 
 var PDFObject  = require('./object/object')
@@ -1310,10 +1452,11 @@ function intersect(p0x, p0y, p1x, p1y, p2x, p2y, p3x, p3y) {
   return null // No collision
 }
 
-},{"../../package.json":98,"./cursor":17,"./object/object":43,"./object/page":44,"./object/pages":45,"./object/trailer":49,"./object/xobject":51,"./object/xref":52,"base-64":64,"debug":66,"node-uuid":75}],19:[function(require,module,exports){
+},{"../../package.json":101,"./cursor":18,"./object/object":45,"./object/page":46,"./object/pages":47,"./object/trailer":51,"./object/xobject":53,"./object/xref":54,"base-64":67,"debug":69,"node-uuid":78}],20:[function(require,module,exports){
 'use strict'
 
 var debug = require('debug')('pdfjs:break')
+var Value = require('../value')
 
 var BaseNode = module.exports = function() {
   this.type = 'BaseNode'
@@ -1323,6 +1466,9 @@ var BaseNode = module.exports = function() {
   this.page = 0
   this.computed = false
   this.arranged = false
+
+  this.x = new Value(undefined)
+  this.y = new Value(undefined)
 }
 
 BaseNode.prototype.mustUpdate = function(/* cursor */) {
@@ -1338,8 +1484,8 @@ BaseNode.prototype.afterContent = function(cursor) {
 }
 
 BaseNode.prototype._compute = function(cursor) {
-  this.x = cursor.x
-  this.y = cursor.y
+  this.x.val = cursor.x
+  this.y.val = cursor.y
 
   this.width  = 0
   this.height = 0
@@ -1369,7 +1515,7 @@ BaseNode.prototype.compute = function(cursor) {
 }
 
 BaseNode.prototype.shift = function(offset) {
-  this.y -= offset
+  this.y.val -= offset
 
   if (this.children) {
     this.children.forEach(function(child) {
@@ -1415,8 +1561,6 @@ BaseNode.prototype.arrange = function(cursor) {
           debug('VALID break %d', child.id)
           if (child.height && cursor.y - child.height < cursor.bottom - cursor.offset) {
             debug('FORCE BREAK %s (%d height)', child.type, child.height)
-
-            child.offset -= child.height
 
             if (i === 0) {
               child.children.length = 0
@@ -1474,7 +1618,11 @@ BaseNode.prototype.arrange = function(cursor) {
   return true
 }
 
-},{"./pagebreak":28,"debug":66}],20:[function(require,module,exports){
+BaseNode.prototype.valid = function() {
+  return true
+}
+
+},{"../value":59,"./pagebreak":30,"debug":69}],21:[function(require,module,exports){
 'use strict'
 
 var utils = require('../utils')
@@ -1543,18 +1691,18 @@ BoxNode.prototype.afterContent = function(cursor) {
   }
 
   cursor.x = this.xBefore
-  cursor.y = this.y - this.height
+  cursor.y = this.y.val - this.height
 
   return cursor
 }
 
 BoxNode.prototype._compute = function(cursor) {
-  this.x = this.style.x !== null ? this.style.x : cursor.x
-  this.y = cursor.y = this.style.y !== null ? this.style.y : cursor.y
+  this.x.val = this.style.x !== null ? this.style.x : cursor.x
+  this.y.val = cursor.y = this.style.y !== null ? this.style.y : cursor.y
 
   var maxWidth = cursor.width
-  if (this.x + maxWidth > cursor.right) {
-    maxWidth = cursor.right - this.x
+  if (this.x.val + maxWidth > cursor.right) {
+    maxWidth = cursor.right - this.x.val
   }
 
   this.width = utils.resolveWidth(this.style.width, maxWidth)
@@ -1565,10 +1713,10 @@ BoxNode.prototype._compute = function(cursor) {
 BoxNode.prototype.begin = function(doc, parent) {
   var height = this.height
   var width  = this.style.getBorderLeftWidth() + this.style.paddingLeft + this.width + this.style.paddingRight + this.style.getBorderRightWidth()
-  var left   = this.x + (this.style.getBorderLeftWidth() / 2)
-  var top    = this.y - (this.style.getBorderTopWidth() / 2)
-  var right  = this.x + width - (this.style.getBorderRightWidth() / 2)
-  var bottom = this.y - height + (this.style.getBorderBottomWidth() / 2)
+  var left   = this.x.val + (this.style.getBorderLeftWidth() / 2)
+  var top    = this.y.val - (this.style.getBorderTopWidth() / 2)
+  var right  = this.x.val + width - (this.style.getBorderRightWidth() / 2)
+  var bottom = this.y.val - height + (this.style.getBorderBottomWidth() / 2)
 
   // backogrund color
   if (this.style.backgroundColor !== null) {
@@ -1624,7 +1772,7 @@ function drawBackground(doc, x, y, width, height, color) {
   doc.f()
 }
 
-},{"../utils":56,"./base":19}],21:[function(require,module,exports){
+},{"../utils":58,"./base":20}],22:[function(require,module,exports){
 'use strict'
 
 var utils = require('../utils')
@@ -1678,22 +1826,60 @@ CellNode.prototype.mustUpdate = function(cursor) {
 }
 
 CellNode.prototype.beforeContent = function(cursor) {
-  cursor.x = this.x
-  cursor.y = this.y
+  cursor.x = this.x.val
+  cursor.y = this.y.val
 
   return BoxNode.prototype.beforeContent.call(this, cursor)
 }
 
 CellNode.prototype._compute = function(cursor) {
-  // this.x = cursor.x
-  // this.y = cursor.y
-
-  // this.width = resolveWidth(this.style.width, cursor.width)
-  //            - this.style.paddingLeft - this.style.getBorderLeftWidth()
-  //            - this.style.paddingRight - this.style.getBorderRightWidth()
 }
 
-},{"../utils":56,"./box":20}],22:[function(require,module,exports){
+},{"../utils":58,"./box":21}],23:[function(require,module,exports){
+var ConditionalNode = module.exports = function(nodes, condition) {
+  ConditionalNode.super_.call(this)
+
+  this.type = 'ConditionalNode'
+
+  this.children  = nodes
+  this.condition = condition
+}
+
+require('../utils').inherits(ConditionalNode, require('./base'))
+
+Object.defineProperties(ConditionalNode.prototype, {
+  height: {
+    enumerable: true,
+    get: function() {
+      return this.children
+          .map(function(child) { return child.height })
+          .reduce(function(lhs, rhs) { return lhs + rhs }, 0)
+    },
+    set: function() {} // noop
+  },
+  x: {
+    enumerable: true,
+    get: function() { return this.children[0] && this.children[0].x },
+    set: function() {} // noop
+  },
+  y: {
+    enumerable: true,
+    get: function() { return this.children[0] && this.children[0].y },
+    set: function() {} // noop
+  }
+})
+
+ConditionalNode.prototype.valid = function(parent) {
+  return this.condition(parent)
+}
+
+ConditionalNode.prototype.clone = function() {
+  return new ConditionalNode(this.children.map(function(child) {
+    return child.clone()
+  }), this.condition)
+}
+
+},{"../utils":58,"./base":20}],24:[function(require,module,exports){
 'use strict'
 
 var DocumentNode = module.exports = function(doc) {
@@ -1706,8 +1892,8 @@ var DocumentNode = module.exports = function(doc) {
   this.style    = doc.style
 
   this.children = this.doc.children.map(function(child) {
-    return child.createNode(this)
-  }, this)
+    return child.createNode()
+  })
 
   this.headers     = []
   this.footers     = []
@@ -1722,6 +1908,10 @@ DocumentNode.prototype.begin = function(doc, parent) {
   if (header) {
     doc._build(header, { parent: parent, node: this })
   }
+}
+
+DocumentNode.prototype.end = function(doc, parent) {
+  var currentPage = doc.pages.kids.length
 
   var afterBreak = this.afterBreaks[currentPage]
   if (afterBreak) {
@@ -1729,9 +1919,7 @@ DocumentNode.prototype.begin = function(doc, parent) {
       doc._build(child, { parent: parent, node: this })
     }, this)
   }
-}
 
-DocumentNode.prototype.end = function(doc, parent) {
   var currentPage = doc.pages.kids.length
   var footer = this.footers[currentPage]
   if (footer) {
@@ -1739,7 +1927,7 @@ DocumentNode.prototype.end = function(doc, parent) {
   }
 }
 
-},{"../utils":56,"./base":19}],23:[function(require,module,exports){
+},{"../utils":58,"./base":20}],25:[function(require,module,exports){
 'use strict'
 
 var utils = require('../utils')
@@ -1760,8 +1948,8 @@ var ImageNode = module.exports = function(image) {
 require('../utils').inherits(ImageNode, require('./base'))
 
 ImageNode.prototype._compute = function(cursor) {
-  this.x = cursor.x
-  this.y = cursor.y
+  this.x.val = cursor.x
+  this.y.val = cursor.y
 
   this.renderWidth = this.info.width
   this.renderHeight = this.info.height
@@ -1812,10 +2000,10 @@ ImageNode.prototype._compute = function(cursor) {
 
   switch (this.style.align) {
     case 'right':
-      this.x += cursor.width - this.renderWidth
+      this.x.val += cursor.width - this.renderWidth
       break
     case 'center':
-      this.x += (cursor.width - this.renderWidth) / 2
+      this.x.val += (cursor.width - this.renderWidth) / 2
       break
     case 'left':
     default:
@@ -1858,8 +2046,8 @@ ImageNode.prototype.render = function(doc) {
     doc.currentPage.xobjects.add(image.alias, image.toReference())
   }
 
-  var x = this.x
-  var y = this.y - this.renderHeight
+  var x = this.x.val
+  var y = this.y.val - this.renderHeight
 
 
   if (this.style.wrap === false) {
@@ -1886,7 +2074,7 @@ ImageNode.prototype.render = function(doc) {
   doc.Q()
 }
 
-},{"../object/formxobject":38,"../object/image":39,"../utils":56,"./base":19}],24:[function(require,module,exports){
+},{"../object/formxobject":40,"../object/image":41,"../utils":58,"./base":20}],26:[function(require,module,exports){
 'use strict'
 
 var LineBreakNode = module.exports = function(linebreak) {
@@ -1911,14 +2099,14 @@ LineBreakNode.prototype.beforeContent = function(cursor) {
 }
 
 LineBreakNode.prototype._compute = function(cursor) {
-  this.x = cursor.x
-  this.y = cursor.y
+  this.x.val = cursor.x
+  this.y.val = cursor.y
 
   this.width  = 0
   this.height = this.linebreak.height
 }
 
-},{"../utils":56,"./base":19}],25:[function(require,module,exports){
+},{"../utils":58,"./base":20}],27:[function(require,module,exports){
 'use strict'
 
 var utils = require('../utils')
@@ -1958,7 +2146,7 @@ OperationsNode.prototype.render = function(doc) {
   })
 }
 
-},{"../utils":56,"./base":19}],26:[function(require,module,exports){
+},{"../utils":58,"./base":20}],28:[function(require,module,exports){
 'use strict'
 
 var utils     = require('../utils')
@@ -1989,7 +2177,7 @@ PageCount.prototype.mustUpdate = function(cursor) {
   return updateRequired || WordNode.prototype.mustUpdate.call(this, cursor)
 }
 
-},{"../../element/word":15,"../utils":56,"./word":33}],27:[function(require,module,exports){
+},{"../../element/word":15,"../utils":58,"./word":35}],29:[function(require,module,exports){
 'use strict'
 
 var utils = require('../utils')
@@ -2020,7 +2208,7 @@ PageNumber.prototype.mustUpdate = function(cursor) {
   return updateRequired || WordNode.prototype.mustUpdate.call(this, cursor)
 }
 
-},{"../../element/word":15,"../utils":56,"./word":33}],28:[function(require,module,exports){
+},{"../../element/word":15,"../utils":58,"./word":35}],30:[function(require,module,exports){
 'use strict'
 
 var PageBreakNode = module.exports = function(id, offset) {
@@ -2082,7 +2270,7 @@ function hasFunction(obj, name) {
   return typeof obj[name] === 'function'
 }
 
-},{"../utils":56,"./base":19}],29:[function(require,module,exports){
+},{"../utils":58,"./base":20}],31:[function(require,module,exports){
 'use strict'
 
 var RowNode = module.exports = function(row) {
@@ -2136,6 +2324,7 @@ RowNode.prototype.clone = function() {
   clone.style = this.style
   clone.width = this.width
   clone.widths = this.widths
+  clone.x = this.x
   clone.children = this.children.map(function(child) {
     return child.clone()
   })
@@ -2153,8 +2342,10 @@ RowNode.prototype.mustUpdate = function(cursor) {
 }
 
 RowNode.prototype._compute = function(cursor) {
-  this.x = cursor.x
-  this.y = cursor.y
+  if (this.x.val === undefined) {
+    this.x.val = cursor.x
+  }
+  this.y.val = cursor.y
 
   var offset = 0, index = 0
   this.children.forEach(function(child, i) {
@@ -2169,8 +2360,8 @@ RowNode.prototype._compute = function(cursor) {
       }
     }
 
-    child.y = cursor.y
-    child.x = cursor.x + offset
+    child.y.val = cursor.y
+    child.x.val = cursor.x + offset
     offset += child.width
             + child.style.paddingLeft + child.style.paddingRight
             + child.style.getBorderRightWidth() + child.style.getBorderLeftWidth()
@@ -2184,10 +2375,8 @@ RowNode.prototype.afterContent = function(cursor) {
     child.height = height
   })
 
-  cursor.x = this.x
-  cursor.y = this.y - this.height
-
-  return cursor
+  cursor.x = this.x.val
+  cursor.y = this.y.val - this.height
 }
 
 var BoxNode = require('./box')
@@ -2198,7 +2387,7 @@ RowNode.prototype.begin = function(doc, parent) {
   })
 }
 
-},{"../utils":56,"./base":19,"./box":20}],30:[function(require,module,exports){
+},{"../utils":58,"./base":20,"./box":21}],32:[function(require,module,exports){
 'use strict'
 
 var TablePageBreakNode = module.exports = function(id, offset) {
@@ -2236,24 +2425,20 @@ TablePageBreakNode.with = function(children) {
 }
 
 TablePageBreakNode.prototype._compute = function(cursor) {
-  this.x = cursor.x
-  this.y = cursor.y
-}
-
-TablePageBreakNode.prototype.beforeContent = function(cursor) {
-  this.yBefore = cursor.y
-  return cursor
+  this.x.val = cursor.x
+  this.y.val = cursor.y
 }
 
 TablePageBreakNode.prototype.afterContent = function(cursor) {
-  cursor.y = this.yBefore
+  cursor.y = this.y.val
 }
 
-},{"../utils":56,"./pagebreak":28}],31:[function(require,module,exports){
+},{"../utils":58,"./pagebreak":30}],33:[function(require,module,exports){
 'use strict'
 
 var utils = require('../utils')
 var TablePageBreakNode = require('./table-pagebreak')
+var ConditionalNode = require('./conditional')
 var RowProxy = require('../proxy/row')
 
 var TableNode = module.exports = function(table) {
@@ -2277,7 +2462,15 @@ var TableNode = module.exports = function(table) {
   })
   this.PageBreakType = TablePageBreakNode.with(this.beforeBreakChildren)
 
-  this.afterBreak = this.children.slice(0, this.style.headerRows)
+  this.afterBreak = []
+
+  if (this.style.headerRows > 0) {
+    var self = this
+    this.afterBreak.push(new ConditionalNode(
+      this.children.slice(0, this.style.headerRows),
+      function(parent) { return parent === self }
+    ))
+  }
 }
 
 utils.inherits(TableNode, require('./base'))
@@ -2303,8 +2496,8 @@ TableNode.prototype.mustUpdate = function(cursor) {
 }
 
 TableNode.prototype._compute = function(cursor) {
-  this.x = cursor.x
-  this.y = cursor.y
+  this.x.val = cursor.x
+  this.y.val = cursor.y
 
   this.width = utils.resolveWidth(this.style.width, cursor.width)
 
@@ -2342,6 +2535,7 @@ TableNode.prototype._compute = function(cursor) {
   }
 
   this.children.forEach(function(row, j) {
+    row.x = this.x
     row.width = this.width
     row.widths = this.widths
 
@@ -2418,13 +2612,19 @@ TableNode.prototype._compute = function(cursor) {
     }, this)
   }, this)
 
+  if (this.afterBreak.length) {
+    this.afterBreak[0].children.forEach(function(row) {
+      row.x = this.x
+    }, this)
+  }
+
   this.beforeBreakChildren.forEach(function(row, j) {
     row.width = this.width
     row.widths = this.widths
   }, this)
 }
 
-},{"../proxy/row":55,"../utils":56,"./base":19,"./table-pagebreak":30}],32:[function(require,module,exports){
+},{"../proxy/row":57,"../utils":58,"./base":20,"./conditional":23,"./table-pagebreak":32}],34:[function(require,module,exports){
 'use strict'
 
 var TextNode = module.exports = function(text) {
@@ -2461,8 +2661,8 @@ TextNode.prototype.afterContent = function(cursor) {
 }
 
 TextNode.prototype._compute = function(cursor) {
-  this.x = cursor.x
-  var y = this.y = cursor.y
+  this.x.val = cursor.x
+  var y = this.y.val = cursor.y
   this.width  = cursor.width
   this.height = 0
   this.descent = 0
@@ -2581,7 +2781,7 @@ TextNode.prototype.end = function(doc) {
   doc.ET()
 }
 
-},{"../utils":56,"./base":19,"./word":33}],33:[function(require,module,exports){
+},{"../utils":58,"./base":20,"./word":35}],35:[function(require,module,exports){
 'use strict'
 
 var WordNode = module.exports = function(word) {
@@ -2622,12 +2822,12 @@ WordNode.prototype.beforeContent = function(cursor) {
 }
 
 WordNode.prototype._compute = function(cursor) {
-  this.y = cursor.y
+  this.y.val = cursor.y
 }
 
 WordNode.prototype.setBoundingBox = function(x, y, width, height) {
-  this.x = x
-  this.y = y
+  this.x.val = x
+  this.y.val = y
 
   this.width  = width
   this.height = height
@@ -2662,7 +2862,7 @@ WordNode.prototype.render = function(doc, parent) {
   var font = doc.mapping[this.style.font.uuid]
 
   if (this.isFirst) {
-    doc.Tm(1, 0, 0, 1, this.x, this.y - this.height)
+    doc.Tm(1, 0, 0, 1, this.x.val, this.y.val - this.height)
   }
 
   var str = font.encode(this.word.toString())
@@ -2673,7 +2873,7 @@ WordNode.prototype.render = function(doc, parent) {
   }
 }
 
-},{"../object/font/ttf":37,"../object/string":48,"../utils":56,"./base":19}],34:[function(require,module,exports){
+},{"../object/font/ttf":39,"../object/string":50,"../utils":58,"./base":20}],36:[function(require,module,exports){
 var PDFArray = module.exports = function(array) {
   if (!array) array = []
 
@@ -2714,7 +2914,7 @@ PDFArray.parse = function(xref, lexer, trial) {
   return new PDFArray(values)
 }
 
-},{"./value":50}],35:[function(require,module,exports){
+},{"./value":52}],37:[function(require,module,exports){
 exports.parse = function(xref, lexer, trial) {
   var isTrue = lexer.getString(4) === 'true'
   var isFalse = !isTrue && lexer.getString(5) === 'false'
@@ -2736,7 +2936,7 @@ exports.parse = function(xref, lexer, trial) {
   return isTrue
 }
 
-},{}],36:[function(require,module,exports){
+},{}],38:[function(require,module,exports){
 var PDFName = require('./name')
 
 var PDFDictionary = module.exports = function(dictionary) {
@@ -2763,13 +2963,12 @@ PDFDictionary.prototype.get = function(key) {
 }
 
 PDFDictionary.prototype.toString = function() {
-  var self = this
   return '<<\n' +
-           Object.keys(this.dictionary).map(function(key) {
-             var value = self.dictionary[key] && self.dictionary[key].toString() || 'null'
-             return key.toString() + ' ' + value
-           }).join('\n').replace(/^/gm, '\t') + '\n' +
-         '>>'
+    Object.keys(this.dictionary).map(function(key) {
+      var value = this.dictionary[key] !== null ? this.dictionary[key].toString() : 'null'
+      return key.toString() + ' ' + value
+    }, this).join('\n').replace(/^/gm, '\t') + '\n' +
+  '>>'
 }
 
 Object.defineProperty(PDFDictionary.prototype, 'length', {
@@ -2810,7 +3009,7 @@ PDFDictionary.parse = function(xref, lexer, trial) {
   return dictionary
 }
 
-},{"./name":40,"./value":50}],37:[function(require,module,exports){
+},{"./name":42,"./value":52}],39:[function(require,module,exports){
 'use strict'
 
 var PDFObject     = require('../object')
@@ -2948,7 +3147,7 @@ TTFFont.prototype.embed = function(doc) {
   doc.addObject(this.descendant)
 }
 
-},{"../../utils":56,"../array":34,"../dictionary":36,"../name":40,"../object":43,"../stream":47,"../string":48}],38:[function(require,module,exports){
+},{"../../utils":58,"../array":36,"../dictionary":38,"../name":42,"../object":45,"../stream":49,"../string":50}],40:[function(require,module,exports){
 var PDFObject = require('./object')
 var PDFStream = require('./stream')
 var PDFArray  = require('./array')
@@ -3024,7 +3223,7 @@ PDFFormXObject.prototype.addObjectsRecursive = function(value) {
   }
 }
 
-},{"../object/dictionary":36,"../object/reference":46,"../utils":56,"./array":34,"./name":40,"./object":43,"./stream":47}],39:[function(require,module,exports){
+},{"../object/dictionary":38,"../object/reference":48,"../utils":58,"./array":36,"./name":42,"./object":45,"./stream":49}],41:[function(require,module,exports){
 'use strict'
 
 var PDFXObject    = require('../object/xobject')
@@ -3057,7 +3256,7 @@ Image.prototype.embed = function(doc) {
   doc.addObject(this)
 }
 
-},{"../object/array":34,"../object/name":40,"../object/xobject":51,"../utils":56}],40:[function(require,module,exports){
+},{"../object/array":36,"../object/name":42,"../object/xobject":53,"../utils":58}],42:[function(require,module,exports){
 var PDFName = module.exports = function(name) {
   if (!name) throw new Error('A Name cannot be undefined')
 
@@ -3140,7 +3339,7 @@ PDFName.parse = function(xref, lexer, trial) {
   return new PDFName(name)
 }
 
-},{}],41:[function(require,module,exports){
+},{}],43:[function(require,module,exports){
 exports.parse = function(xref, lexer, trial) {
   var isNull = lexer.getString(4) === 'null'
 
@@ -3157,7 +3356,7 @@ exports.parse = function(xref, lexer, trial) {
   return null
 }
 
-},{}],42:[function(require,module,exports){
+},{}],44:[function(require,module,exports){
 exports.parse = function(xref, lexer, trial) {
   var n = lexer.readNumber(true)
 
@@ -3172,7 +3371,7 @@ exports.parse = function(xref, lexer, trial) {
   return n
 }
 
-},{}],43:[function(require,module,exports){
+},{}],45:[function(require,module,exports){
 // > Objects may be labeled so that they can be referred to by other objects.
 //   A labeled object is called an indirect object.
 // pdfjs just calls them `references`
@@ -3287,7 +3486,7 @@ PDFObject.parse = function(xref, lexer, trial) {
   return obj
 }
 
-},{"./dictionary":36,"./reference":46,"./stream":47,"./value":50}],44:[function(require,module,exports){
+},{"./dictionary":38,"./reference":48,"./stream":49,"./value":52}],46:[function(require,module,exports){
 'use strict'
 
 var PDFObject     = require('./object')
@@ -3327,7 +3526,7 @@ Page.prototype.embed = function(doc) {
   doc.addObject(this.contents.object)
 }
 
-},{"../utils":56,"./array":34,"./dictionary":36,"./name":40,"./object":43,"./stream":47}],45:[function(require,module,exports){
+},{"../utils":58,"./array":36,"./dictionary":38,"./name":42,"./object":45,"./stream":49}],47:[function(require,module,exports){
 'use strict'
 
 var PDFObject = require('./object')
@@ -3364,7 +3563,7 @@ Pages.prototype.embed = function(doc) {
   })
 }
 
-},{"../utils":56,"./array":34,"./object":43}],46:[function(require,module,exports){
+},{"../utils":58,"./array":36,"./object":45}],48:[function(require,module,exports){
 var PDFReference = module.exports = function(object) {
   this._object = object
 }
@@ -3430,7 +3629,7 @@ function parseObject(xref, lexer, id) {
   return PDFObject.parse(xref, lexer)
 }
 
-},{"./object":43}],47:[function(require,module,exports){
+},{"./object":45}],49:[function(require,module,exports){
 // page 60
 // Filters: page 65
 
@@ -3465,7 +3664,7 @@ PDFStream.prototype.toString = function() {
   return 'stream\n' + content + 'endstream'
 }
 
-},{"../utils":56}],48:[function(require,module,exports){
+},{"../utils":58}],50:[function(require,module,exports){
 var PDFString = module.exports = function(str) {
   this.str = str
 }
@@ -3632,7 +3831,7 @@ PDFString.parseHex = function(lexer, trial) {
   return new PDFString(str)
 }
 
-},{}],49:[function(require,module,exports){
+},{}],51:[function(require,module,exports){
 var PDFDictionary = require('./dictionary')
 var PDFArray      = require('./array')
 var PDFString     = require('./string')
@@ -3674,7 +3873,7 @@ PDFTrailer.parse = function(xref, lexer) {
   return dict
 }
 
-},{"../utils":56,"./array":34,"./dictionary":36,"./string":48}],50:[function(require,module,exports){
+},{"../utils":58,"./array":36,"./dictionary":38,"./string":50}],52:[function(require,module,exports){
 var Objects = []
 
 exports.parse = function(xref, lexer) {
@@ -3704,7 +3903,7 @@ exports.parse = function(xref, lexer) {
   return undefined
 }
 
-},{"./array":34,"./boolean":35,"./dictionary":36,"./name":40,"./null":41,"./number":42,"./reference":46,"./string":48}],51:[function(require,module,exports){
+},{"./array":36,"./boolean":37,"./dictionary":38,"./name":42,"./null":43,"./number":44,"./reference":48,"./string":50}],53:[function(require,module,exports){
 var PDFObject = require('./object')
 var PDFStream = require('./stream')
 
@@ -3721,7 +3920,7 @@ PDFXObject.prototype = Object.create(PDFObject.prototype, {
   constructor: { value: PDFXObject }
 })
 
-},{"./object":43,"./stream":47}],52:[function(require,module,exports){
+},{"./object":45,"./stream":49}],54:[function(require,module,exports){
 var PDFXref = module.exports = function() {
   this.objects = []
 }
@@ -3813,7 +4012,7 @@ PDFXref.parse = function(_, lexer) {
   return xref
 }
 
-},{}],53:[function(require,module,exports){
+},{}],55:[function(require,module,exports){
 'use strict'
 
 var utils = require('../utils')
@@ -3896,7 +4095,7 @@ function find(src, key, pos, limit, backwards) {
   return index
 }
 
-},{"../object/trailer":49,"../object/xref":52,"../utils":56,"./lexer":54}],54:[function(require,module,exports){
+},{"../object/trailer":51,"../object/xref":54,"../utils":58,"./lexer":56}],56:[function(require,module,exports){
 var Lexer = module.exports = function(buf) {
   this.buf = buf
   this.pos = 0
@@ -4089,7 +4288,7 @@ Lexer.isWhiteSpace = Lexer.prototype.isWhiteSpace = function(c) {
   )
 }
 
-},{}],55:[function(require,module,exports){
+},{}],57:[function(require,module,exports){
 'use strict'
 
 var Row = require('../../element/row')
@@ -4117,7 +4316,7 @@ RowProxy.prototype.create = function(idx) {
   return node
 }
 
-},{"../../element/row":12}],56:[function(require,module,exports){
+},{"../../element/row":12}],58:[function(require,module,exports){
 // exports.extend = function(destination, source) {
 //   for (var prop in source) {
 //     if (prop in destination) continue
@@ -4244,7 +4443,11 @@ exports.resolveWidth = function(width, maxWidth) {
   }
 }
 
-},{}],57:[function(require,module,exports){
+},{}],59:[function(require,module,exports){
+var Value = module.exports = function(val) {
+  this.val = val
+}
+},{}],60:[function(require,module,exports){
 'use strict'
 
 var BaseStyle = module.exports = function() {
@@ -4292,7 +4495,7 @@ BaseStyle.prototype.merge = function() {
   }
 }
 
-},{}],58:[function(require,module,exports){
+},{}],61:[function(require,module,exports){
 'use strict'
 
 var SIDES = ['Top', 'Right', 'Bottom', 'Left']
@@ -4327,7 +4530,7 @@ SIDES.forEach(function(side) {
   }
 })
 
-},{"../pdf/utils":56,"./container":59}],59:[function(require,module,exports){
+},{"../pdf/utils":58,"./container":62}],62:[function(require,module,exports){
 'use strict'
 
 var ContainerStyle = module.exports = function(values) {
@@ -4377,7 +4580,7 @@ Object.defineProperties(ContainerStyle.prototype, {
   }
 })
 
-},{"../pdf/utils":56,"./text":63}],60:[function(require,module,exports){
+},{"../pdf/utils":58,"./text":66}],63:[function(require,module,exports){
 'use strict'
 
 var DocumentStyle = module.exports = function(values) {
@@ -4389,7 +4592,7 @@ var DocumentStyle = module.exports = function(values) {
 
 require('../pdf/utils').inherits(DocumentStyle, require('./container'))
 
-},{"../pdf/utils":56,"./container":59}],61:[function(require,module,exports){
+},{"../pdf/utils":58,"./container":62}],64:[function(require,module,exports){
 'use strict'
 
 var ImageStyle = module.exports = function() {
@@ -4406,7 +4609,7 @@ var ImageStyle = module.exports = function() {
 
 require('../pdf/utils').inherits(ImageStyle, require('./base'))
 
-},{"../pdf/utils":56,"./base":57}],62:[function(require,module,exports){
+},{"../pdf/utils":58,"./base":60}],65:[function(require,module,exports){
 'use strict'
 
 var DIRECTIONS = ['Vertical', 'Horizontal']
@@ -4468,7 +4671,7 @@ TableStyle.reset = {
   // height: null
 }
 
-},{"../pdf/utils":56,"./container":59}],63:[function(require,module,exports){
+},{"../pdf/utils":58,"./container":62}],66:[function(require,module,exports){
 'use strict'
 
 var TextStyle = module.exports = function() {
@@ -4484,7 +4687,7 @@ var TextStyle = module.exports = function() {
 
 require('../pdf/utils').inherits(TextStyle, require('./base'))
 
-},{"../pdf/utils":56,"./base":57}],64:[function(require,module,exports){
+},{"../pdf/utils":58,"./base":60}],67:[function(require,module,exports){
 (function (global){
 /*! http://mths.be/base64 v0.1.0 by @mathias | MIT license */
 ;(function(root) {
@@ -4654,9 +4857,9 @@ require('../pdf/utils').inherits(TextStyle, require('./base'))
 
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
 
-},{}],65:[function(require,module,exports){
+},{}],68:[function(require,module,exports){
 
-},{}],66:[function(require,module,exports){
+},{}],69:[function(require,module,exports){
 
 /**
  * This is the web browser implementation of `debug()`.
@@ -4826,7 +5029,7 @@ function localstorage(){
   } catch (e) {}
 }
 
-},{"./debug":67}],67:[function(require,module,exports){
+},{"./debug":70}],70:[function(require,module,exports){
 
 /**
  * This is the common logic for both the Node.js and web browser
@@ -5025,7 +5228,7 @@ function coerce(val) {
   return val;
 }
 
-},{"ms":68}],68:[function(require,module,exports){
+},{"ms":71}],71:[function(require,module,exports){
 /**
  * Helpers.
  */
@@ -5152,7 +5355,7 @@ function plural(ms, n, name) {
   return Math.ceil(ms / n) + ' ' + name + 's';
 }
 
-},{}],69:[function(require,module,exports){
+},{}],72:[function(require,module,exports){
 var lookup = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/';
 
 ;(function (exports) {
@@ -5278,7 +5481,7 @@ var lookup = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/';
 	exports.fromByteArray = uint8ToBase64
 }(typeof exports === 'undefined' ? (this.base64js = {}) : exports))
 
-},{}],70:[function(require,module,exports){
+},{}],73:[function(require,module,exports){
 // Generated by CoffeeScript 1.7.1
 var UnicodeTrie, inflate;
 
@@ -5371,7 +5574,7 @@ UnicodeTrie = (function() {
 
 module.exports = UnicodeTrie;
 
-},{"tiny-inflate":71}],71:[function(require,module,exports){
+},{"tiny-inflate":74}],74:[function(require,module,exports){
 var TINF_OK = 0;
 var TINF_DATA_ERROR = -3;
 
@@ -5748,7 +5951,7 @@ length_base[28] = 258;
 
 module.exports = tinf_uncompress;
 
-},{}],72:[function(require,module,exports){
+},{}],75:[function(require,module,exports){
 // Generated by CoffeeScript 1.7.1
 (function() {
   var AI, AL, B2, BA, BB, BK, CB, CJ, CL, CM, CP, CR, EX, GL, H2, H3, HL, HY, ID, IN, IS, JL, JT, JV, LF, NL, NS, NU, OP, PO, PR, QU, RI, SA, SG, SP, SY, WJ, XX, ZW;
@@ -5835,7 +6038,7 @@ module.exports = tinf_uncompress;
 
 }).call(this);
 
-},{}],73:[function(require,module,exports){
+},{}],76:[function(require,module,exports){
 // Generated by CoffeeScript 1.7.1
 (function() {
   var AI, AL, BA, BK, CB, CI_BRK, CJ, CP_BRK, CR, DI_BRK, ID, IN_BRK, LF, LineBreaker, NL, NS, PR_BRK, SA, SG, SP, UnicodeTrie, WJ, XX, base64, characterClasses, classTrie, data, fs, pairTable, _ref, _ref1;
@@ -5998,7 +6201,7 @@ module.exports = tinf_uncompress;
 
 }).call(this);
 
-},{"./classes":72,"./pairs":74,"base64-js":69,"unicode-trie":70}],74:[function(require,module,exports){
+},{"./classes":75,"./pairs":77,"base64-js":72,"unicode-trie":73}],77:[function(require,module,exports){
 // Generated by CoffeeScript 1.7.1
 (function() {
   var CI_BRK, CP_BRK, DI_BRK, IN_BRK, PR_BRK;
@@ -6017,7 +6220,7 @@ module.exports = tinf_uncompress;
 
 }).call(this);
 
-},{}],75:[function(require,module,exports){
+},{}],78:[function(require,module,exports){
 //     uuid.js
 //
 //     Copyright (c) 2010-2012 Robert Kieffer
@@ -6266,7 +6469,7 @@ module.exports = tinf_uncompress;
   }
 }).call(this);
 
-},{}],76:[function(require,module,exports){
+},{}],79:[function(require,module,exports){
 var Struct = require('structjs')
 
 var Entry = module.exports = new Struct({
@@ -6306,7 +6509,7 @@ function easySearchable(numTables) {
   return result
 }
 
-},{"structjs":89}],77:[function(require,module,exports){
+},{"structjs":92}],80:[function(require,module,exports){
 var Subset = module.exports = function(font, opts) {
   this.font    = font.clone()
   this.opts    = opts || {}
@@ -6420,7 +6623,7 @@ Subset.prototype.embed = function() {
 Subset.prototype.save = function() {
   return this.font.save()
 }
-},{}],78:[function(require,module,exports){
+},{}],81:[function(require,module,exports){
 var Struct = require('structjs')
 
 var Table = new Struct({
@@ -6582,7 +6785,7 @@ Cmap.prototype.embed = function(cmap) {
     maxGlyphID: nextId + 1
   }
 }
-},{"structjs":89}],79:[function(require,module,exports){
+},{"structjs":92}],82:[function(require,module,exports){
 var Struct = require('structjs')
 
 module.exports = function(loca) {
@@ -6721,7 +6924,7 @@ Glyph.prototype.embed = function(mapping) {
     self.view.setUint16(self.offsets[i], mapping[id])
   })
 }
-},{"structjs":89}],80:[function(require,module,exports){
+},{"structjs":92}],83:[function(require,module,exports){
 var Struct = require('structjs')
 module.exports = new Struct({
   version:            Struct.Int32,
@@ -6744,7 +6947,7 @@ module.exports = new Struct({
   indexToLocFormat:   Struct.Int16,
   glyphDataFormat:    Struct.Int16
 })
-},{"structjs":89}],81:[function(require,module,exports){
+},{"structjs":92}],84:[function(require,module,exports){
 var Struct = require('structjs')
 
 var Hhea = module.exports = new Struct({
@@ -6770,7 +6973,7 @@ var Hhea = module.exports = new Struct({
 Hhea.prototype.embed = function(ids) {
   this.numOfLongHorMetrics = ids.length
 }
-},{"structjs":89}],82:[function(require,module,exports){
+},{"structjs":92}],85:[function(require,module,exports){
 var Struct = require('structjs')
 
 var AdvanceWidth = new Struct({
@@ -6821,7 +7024,7 @@ module.exports = function(numOfLongHorMetrics, numGlyphs) {
 }
 
 
-},{"structjs":89}],83:[function(require,module,exports){
+},{"structjs":92}],86:[function(require,module,exports){
 var Struct = require('structjs')
 module.exports = function(indexToLocFormat, numGlyphs) {
   var Loca
@@ -6863,7 +7066,7 @@ module.exports = function(indexToLocFormat, numGlyphs) {
   
   return Loca
 }
-},{"structjs":89}],84:[function(require,module,exports){
+},{"structjs":92}],87:[function(require,module,exports){
 var Struct = require('structjs')
 
 var Maxp = module.exports = new Struct({
@@ -6887,7 +7090,7 @@ var Maxp = module.exports = new Struct({
 Maxp.prototype.embed = function(ids) {
   this.numGlyphs = ids.length
 }
-},{"structjs":89}],85:[function(require,module,exports){
+},{"structjs":92}],88:[function(require,module,exports){
 var Struct = require('structjs')
 
 var Record = new Struct({
@@ -6950,7 +7153,7 @@ Name.prototype.embed = function(charMap, trimNames) {
     }
   }
 }
-},{"structjs":89}],86:[function(require,module,exports){
+},{"structjs":92}],89:[function(require,module,exports){
 var Struct = require('structjs')
 module.exports = (new Struct({
   version:             Struct.Uint16,
@@ -6997,7 +7200,7 @@ module.exports = (new Struct({
 })
 
 
-},{"structjs":89}],87:[function(require,module,exports){
+},{"structjs":92}],90:[function(require,module,exports){
 var Struct = require('structjs')
 
 var Post = module.exports = new Struct({
@@ -7012,7 +7215,7 @@ var Post = module.exports = new Struct({
   minMemType1:        Struct.Uint32,
   maxMemType1:        Struct.Uint32
 })
-},{"structjs":89}],88:[function(require,module,exports){
+},{"structjs":92}],91:[function(require,module,exports){
 var Directory = require('./directory')
   , Subset = require('./subset')
 
@@ -7225,7 +7428,7 @@ function toArrayBuffer(buffer) {
   }
   return ab;
 }
-},{"./directory":76,"./subset":77,"./table/cmap":78,"./table/glyf":79,"./table/head":80,"./table/hhea":81,"./table/hmtx":82,"./table/loca":83,"./table/maxp":84,"./table/name":85,"./table/os2":86,"./table/post":87}],89:[function(require,module,exports){
+},{"./directory":79,"./subset":80,"./table/cmap":81,"./table/glyf":82,"./table/head":83,"./table/hhea":84,"./table/hmtx":85,"./table/loca":86,"./table/maxp":87,"./table/name":88,"./table/os2":89,"./table/post":90}],92:[function(require,module,exports){
 var StructNumber    = require('./types/number')
   , StructString    = require('./types/string')
   , StructHash      = require('./types/hash')
@@ -7454,7 +7657,7 @@ function cloneValue(val) {
     return val
   }
 }
-},{"./types/array":90,"./types/hash":91,"./types/number":92,"./types/reference":93,"./types/storage":94,"./types/string":95,"./utils":96}],90:[function(require,module,exports){
+},{"./types/array":93,"./types/hash":94,"./types/number":95,"./types/reference":96,"./types/storage":97,"./types/string":98,"./utils":99}],93:[function(require,module,exports){
 var utils = require('../utils')
   , StructReference = require('./reference')
 
@@ -7521,7 +7724,7 @@ StructArray.prototype.setLength = function(value, parent) {
   } 
   else this._length = value
 }
-},{"../utils":96,"./reference":93}],91:[function(require,module,exports){
+},{"../utils":99,"./reference":96}],94:[function(require,module,exports){
 var utils = require('../utils')
   , StructReference = require('./reference')
 
@@ -7574,7 +7777,7 @@ StructHash.prototype.setLength = function(value, parent) {
   else this._length = value
 }
 
-},{"../utils":96,"./reference":93}],92:[function(require,module,exports){
+},{"../utils":99,"./reference":96}],95:[function(require,module,exports){
 var utils = require('../utils')
 
 var StructNumber = module.exports = function(read, write, length) {
@@ -7614,11 +7817,11 @@ StructNumber.prototype.sizeFor = function() {
 }
 
 utils.methodsFor(StructNumber.prototype, '_offset', 'offsetFor', 'setOffset')
-},{"../utils":96}],93:[function(require,module,exports){
+},{"../utils":99}],96:[function(require,module,exports){
 var StructReference = module.exports = function(prop) {
   this.prop = prop
 }
-},{}],94:[function(require,module,exports){
+},{}],97:[function(require,module,exports){
 var utils = require('../utils')
   , StructReference = require('./reference')
   , StructArray     = require('./array')
@@ -7696,7 +7899,7 @@ StructStorage.prototype.sizeFor = function(parent, writing) {
 }
 
 utils.methodsFor(StructStorage.prototype, '_offset', 'offsetFor', 'setOffset')
-},{"../utils":96,"./array":90,"./reference":93}],95:[function(require,module,exports){
+},{"../utils":99,"./array":93,"./reference":96}],98:[function(require,module,exports){
 var utils = require('../utils')
   , StructReference = require('./reference')
 
@@ -7752,7 +7955,7 @@ StructString.prototype.setLength = function(value, parent) {
 
 utils.methodsFor(StructString.prototype, '_offset',  'offsetFor', 'setOffset')
 
-},{"../utils":96,"./reference":93}],96:[function(require,module,exports){
+},{"../utils":99,"./reference":96}],99:[function(require,module,exports){
 var StructReference = require('./types/reference')
 
 exports.methodsFor = function(obj, prop, get, set) {
@@ -7786,7 +7989,7 @@ exports.options = function(opts) {
     this._length  = opts
   }
 }
-},{"./types/reference":93}],97:[function(require,module,exports){
+},{"./types/reference":96}],100:[function(require,module,exports){
 (function (root) {
    "use strict";
 
@@ -8223,14 +8426,14 @@ UChar.udata={
    }
 }(this));
 
-},{}],98:[function(require,module,exports){
+},{}],101:[function(require,module,exports){
 module.exports={
   "name": "pdfjs",
   "author": {
     "name": "Markus Ast",
     "email": "npm.m@rkusa.st"
   },
-  "version": "1.0.0-alpha.3",
+  "version": "1.0.0-alpha.4",
   "homepage": "https://github.com/rkusa/pdfjs",
   "description": "A Portable Document Format (PDF) generation library targeting both the server- and client-side.",
   "keywords": [
@@ -8267,56 +8470,6 @@ module.exports={
   }
 }
 
-},{}],99:[function(require,module,exports){
-'use strict'
-
-var Document = exports.Document = require('./element/document')
-exports.createDocument = function(style) {
-  return new Document(style)
-}
-
-var TTFFont = exports.TTFFont = require('./element/font/ttf')
-exports.createTTFFont = function(src) {
-  return new TTFFont(src)
-}
-
-
-var Image = exports.Image = require('./image')
-exports.createImage = function(src) {
-  return new Image(src)
-}
-
-exports.Parser = require('./pdf/parser/document')
-
-var isClient = typeof window !== 'undefined' && !!window.document
-// trick browserify
-var fs = (require)('fs')
-exports.load = function(path, callback) {
-  if (isClient) {
-    var xhr = new XMLHttpRequest()
-    xhr.open('GET', path, true)
-    xhr.responseType = 'arraybuffer'
-
-    if (xhr.overrideMimeType) {
-      xhr.overrideMimeType('text/plain; charset=x-user-defined')
-    } else {
-      xhr.setRequestHeader('Accept-Charset', 'x-user-defined')
-    }
-
-    xhr.onload = function() {
-      if (xhr.status === 200) {
-        callback(null, xhr.response)
-      } else {
-        callback(new Error(xhr.statusText), null)
-      }
-    }
-
-    xhr.send(null)
-  } else {
-    fs.readFile(path, callback)
-  }
-}
-
-},{"./element/document":5,"./element/font/ttf":6,"./image":16,"./pdf/parser/document":53,"fs":65}]},{},[99])(99)
+},{}]},{},[17])(17)
 });
 //# sourceMappingURL=pdfjs.js.map
