@@ -1,12 +1,11 @@
 module.exports = function(doc, fixtures) {
   var box = doc.box({
-    borderWidth: 20,
+    borderWidth: 1,
     borderColor: 0xdddddd,
-    backgroundColor: 0xeeeeee,
     padding: 10,
-    y: 500,
-    x: 60,
-    height: 300
+    width: 200,
+    height: 200,
+    overflow: 'hidden'
   })
 
   var content = box.text({ textAlign: 'justify' })
