@@ -169,6 +169,16 @@ ops.op(function(x, y) {
 ops.op('f')
 ```
 
+### .pageBreak()
+
+Add a page break manually.
+
+**Example:**
+
+```js
+doc.pageBreak()
+```
+
 ### .render()
 
 Creates an PDF object using the document's structure. Returns a [PDF object](pdf.md).

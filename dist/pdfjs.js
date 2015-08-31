@@ -10,6 +10,10 @@ BaseElement.prototype.createNode = function() {
   return node
 }
 
+BaseElement.prototype.clone = function() {
+  return this.createNode()
+}
+
 },{}],2:[function(require,module,exports){
 'use strict'
 
@@ -32,7 +36,7 @@ Box.prototype.clone = function() {
   return clone
 }
 
-},{"../pdf/node/box":21,"../pdf/utils":58,"../style/box":61,"./container":4}],3:[function(require,module,exports){
+},{"../pdf/node/box":22,"../pdf/utils":60,"../style/box":63,"./container":4}],3:[function(require,module,exports){
 'use strict'
 
 var TableStyle = require('../style/table')
@@ -65,7 +69,7 @@ Cell.prototype.clone = function() {
   return clone
 }
 
-},{"../pdf/node/cell":22,"../pdf/utils":58,"../style/table":65,"./container":4,"./table":13}],4:[function(require,module,exports){
+},{"../pdf/node/cell":23,"../pdf/utils":60,"../style/table":67,"./container":4,"./table":14}],4:[function(require,module,exports){
 'use strict'
 
 var ContainerStyle = require('../style/container')
@@ -118,7 +122,13 @@ Container.prototype.ops = function() {
   return ops
 }
 
-},{"../pdf/utils":58,"../style/container":62,"./base":1,"./box":2,"./image":7,"./operations":9,"./table":13,"./text":14}],5:[function(require,module,exports){
+var ForceBreak = require('./forcebreak')
+Container.prototype.pageBreak = function() {
+  this.children.push(new ForceBreak())
+  return this
+}
+
+},{"../pdf/utils":60,"../style/container":64,"./base":1,"./box":2,"./forcebreak":7,"./image":8,"./operations":10,"./table":14,"./text":15}],5:[function(require,module,exports){
 'use strict'
 
 var DocumentStyle = require('../style/document')
@@ -170,7 +180,7 @@ Document.prototype.render = function() {
   return new PDF(this.createNode(this))
 }
 
-},{"../pdf":19,"../pdf/node/document":24,"../pdf/utils":58,"../style/document":63,"./box":2,"./container":4}],6:[function(require,module,exports){
+},{"../pdf":20,"../pdf/node/document":25,"../pdf/utils":60,"../style/document":65,"./box":2,"./container":4}],6:[function(require,module,exports){
 'use strict'
 
 var TTFFont = require('ttfjs')
@@ -198,7 +208,16 @@ Font.prototype.lineDescent = function(size) {
   return this.ttf.lineDescent(size)
 }
 
-},{"../../pdf/utils":58,"node-uuid":78,"ttfjs":91}],7:[function(require,module,exports){
+},{"../../pdf/utils":60,"node-uuid":80,"ttfjs":93}],7:[function(require,module,exports){
+'use strict'
+
+var ForceBreak = module.exports = function() {
+  ForceBreak.super_.call(this, require('../pdf/node/forcebreak'))
+}
+
+require('../pdf/utils').inherits(ForceBreak, require('./base'))
+
+},{"../pdf/node/forcebreak":26,"../pdf/utils":60,"./base":1}],8:[function(require,module,exports){
 'use strict'
 
 var ImageStyle = require('../style/image')
@@ -220,7 +239,7 @@ Image.prototype.clone = function() {
   return clone
 }
 
-},{"../pdf/node/image":25,"../pdf/utils":58,"../style/image":64,"./base":1}],8:[function(require,module,exports){
+},{"../pdf/node/image":27,"../pdf/utils":60,"../style/image":66,"./base":1}],9:[function(require,module,exports){
 'use strict'
 
 var LineBreak = module.exports = function(style) {
@@ -260,7 +279,7 @@ LineBreak.prototype.clone = function() {
   return new LineBreak(this.style)
 }
 
-},{"../pdf/node/linebreak":26,"../pdf/utils":58,"./base":1}],9:[function(require,module,exports){
+},{"../pdf/node/linebreak":28,"../pdf/utils":60,"./base":1}],10:[function(require,module,exports){
 'use strict'
 
 var Operations = module.exports = function() {
@@ -285,7 +304,7 @@ Operations.prototype.clone = function() {
   return clone
 }
 
-},{"../pdf/node/operations":27,"../pdf/utils":58,"./base":1}],10:[function(require,module,exports){
+},{"../pdf/node/operations":29,"../pdf/utils":60,"./base":1}],11:[function(require,module,exports){
 'use strict'
 
 var Word = require('./word')
@@ -301,7 +320,7 @@ PageCount.prototype.clone = function() {
   return this
 }
 
-},{"../pdf/node/page-count":28,"../pdf/utils":58,"./word":15}],11:[function(require,module,exports){
+},{"../pdf/node/page-count":30,"../pdf/utils":60,"./word":16}],12:[function(require,module,exports){
 'use strict'
 
 var Word = require('./word')
@@ -322,7 +341,7 @@ PageNumber.prototype.clone = function() {
   return clone
 }
 
-},{"../pdf/node/page-number":29,"../pdf/utils":58,"./word":15}],12:[function(require,module,exports){
+},{"../pdf/node/page-number":31,"../pdf/utils":60,"./word":16}],13:[function(require,module,exports){
 'use strict'
 
 var TableStyle = require('../style/table')
@@ -357,7 +376,7 @@ Row.prototype.clone = function() {
   return clone
 }
 
-},{"../pdf/node/row":31,"../pdf/utils":58,"../style/table":65,"./base":1,"./cell":3}],13:[function(require,module,exports){
+},{"../pdf/node/row":33,"../pdf/utils":60,"../style/table":67,"./base":1,"./cell":3}],14:[function(require,module,exports){
 'use strict'
 
 var TableStyle = require('../style/table')
@@ -403,7 +422,7 @@ Table.prototype.clone = function() {
   return clone
 }
 
-},{"../pdf/node/table":33,"../pdf/utils":58,"../style/table":65,"./base":1,"./row":12}],14:[function(require,module,exports){
+},{"../pdf/node/table":35,"../pdf/utils":60,"../style/table":67,"./base":1,"./row":13}],15:[function(require,module,exports){
 'use strict'
 
 var TextStyle = require('../style/text')
@@ -521,7 +540,7 @@ Text.prototype.clone = function() {
   return clone
 }
 
-},{"../pdf/node/text":34,"../pdf/utils":58,"../style/text":66,"./base":1,"./linebreak":8,"./page-count":10,"./page-number":11,"./word":15,"linebreak":76}],15:[function(require,module,exports){
+},{"../pdf/node/text":36,"../pdf/utils":60,"../style/text":68,"./base":1,"./linebreak":9,"./page-count":11,"./page-number":12,"./word":16,"linebreak":78}],16:[function(require,module,exports){
 'use strict'
 
 var unorm = require('unorm')
@@ -593,7 +612,7 @@ Word.prototype.toString = function() {
   }, '')
 }
 
-},{"../pdf/node/word":35,"../pdf/utils":58,"./base":1,"unorm":100}],16:[function(require,module,exports){
+},{"../pdf/node/word":37,"../pdf/utils":60,"./base":1,"unorm":102}],17:[function(require,module,exports){
 'use strict'
 
 var utils = require('./pdf/utils')
@@ -698,7 +717,7 @@ function parsePDFInfo(buffer) {
   }
 }
 
-},{"./pdf/parser/document":55,"./pdf/utils":58,"node-uuid":78}],17:[function(require,module,exports){
+},{"./pdf/parser/document":57,"./pdf/utils":60,"node-uuid":80}],18:[function(require,module,exports){
 'use strict'
 
 var Document = exports.Document = require('./element/document')
@@ -748,7 +767,7 @@ exports.load = function(path, callback) {
   }
 }
 
-},{"./element/document":5,"./element/font/ttf":6,"./image":16,"./pdf/parser/document":55,"fs":68}],18:[function(require,module,exports){
+},{"./element/document":5,"./element/font/ttf":6,"./image":17,"./pdf/parser/document":57,"fs":70}],19:[function(require,module,exports){
 'use strict'
 
 var Page = function(nr, header, footer, afterBreak) {
@@ -854,10 +873,12 @@ Object.defineProperties(CursorFactory.prototype, {
   }
 })
 
-CursorFactory.prototype.create = function(w) {
+CursorFactory.prototype.create = function(w, h) {
   if (!w) {
     w = this.innerWidth
   }
+
+  var cutAt = h ? this.y - h : undefined
 
   var self = this
 
@@ -914,6 +935,11 @@ CursorFactory.prototype.create = function(w) {
       return self.currentPage = page
     },
     mustBreak: function(node) {
+      if (node.type === 'ForceBreakNode' && !node.valid) {
+        node.valid = false
+        return true
+      }
+
       if (node.allowBreak) {
         return false
       }
@@ -930,8 +956,11 @@ CursorFactory.prototype.create = function(w) {
 
       return true
     },
-    create: function(narrow) {
-      return self.create(narrow || w)
+    isVisible: function(node) {
+      return !cutAt || node.y.val - node.height >= cutAt
+    },
+    create: function(width, height) {
+      return self.create(width || w, height)
     },
     reset: this.reset.bind(this),
     pageBreak: this.pageBreak.bind(this),
@@ -998,16 +1027,15 @@ CursorFactory.prototype.applyBreak = function(pageBreak) {
   this.currentPage++
 }
 
-CursorFactory.prototype.pageBreak = function(pageBreak, parent, idx) {
+CursorFactory.prototype.pageBreak = function(pageBreak, parent, cause) {
   if (!pageBreak) {
-
     var offset = this.style.height - this.y - this.offset
     this.offset += offset
 
     if (this.currentPage in this.pageBreaks && this.visitedBreaks[this.pageBreaks[this.currentPage].id] === true) {
       pageBreak = this.pageBreaks[this.currentPage]
     } else {
-      pageBreak = new parent.PageBreakType(this.nextPageBreakId++, offset, parent, idx)
+      pageBreak = new parent.PageBreakType(this.nextPageBreakId++, offset, cause)
       pageBreak.page = this.currentPage
       this.pageBreaks[this.currentPage] = pageBreak
       this.validBreaks[pageBreak.id] = true
@@ -1028,12 +1056,15 @@ CursorFactory.prototype.pageBreak = function(pageBreak, parent, idx) {
 
     this.visitedBreaks[pageBreak.id] = true
     this.highestVisitedBreak = Math.max(this.highestVisitedBreak, pageBreak.id)
+    if (pageBreak.cause) {
+      pageBreak.cause.valid = true
+    }
   }
 
   return pageBreak
 }
 
-},{}],19:[function(require,module,exports){
+},{}],20:[function(require,module,exports){
 'use strict'
 
 var PDFObject  = require('./object/object')
@@ -1300,6 +1331,10 @@ PDF.prototype._compute = function() {
 }
 
 PDF.prototype._build = function(ast, parent) {
+  if (!ast.visible) {
+    return
+  }
+
   if (hasFunction(ast, 'begin')) {
     ast.begin(this, parent)
   }
@@ -1452,7 +1487,7 @@ function intersect(p0x, p0y, p1x, p1y, p2x, p2y, p3x, p3y) {
   return null // No collision
 }
 
-},{"../../package.json":101,"./cursor":18,"./object/object":45,"./object/page":46,"./object/pages":47,"./object/trailer":51,"./object/xobject":53,"./object/xref":54,"base-64":67,"debug":69,"node-uuid":78}],20:[function(require,module,exports){
+},{"../../package.json":103,"./cursor":19,"./object/object":47,"./object/page":48,"./object/pages":49,"./object/trailer":53,"./object/xobject":55,"./object/xref":56,"base-64":69,"debug":71,"node-uuid":80}],21:[function(require,module,exports){
 'use strict'
 
 var debug = require('debug')('pdfjs:break')
@@ -1466,6 +1501,7 @@ var BaseNode = module.exports = function() {
   this.page = 0
   this.computed = false
   this.arranged = false
+  this.visible  = true
 
   this.x = new Value(undefined)
   this.y = new Value(undefined)
@@ -1535,6 +1571,12 @@ BaseNode.prototype.arrange = function(cursor) {
     cursor.force = true
   }
 
+  this.visible = this.allowBreak || cursor.isVisible(this)
+
+  if (!this.visible) {
+    return true
+  }
+
   cursor = cursor.beforeContent(this)
 
   if ('children' in this) {
@@ -1553,7 +1595,7 @@ BaseNode.prototype.arrange = function(cursor) {
       var child = this.children[i]
 
       if (child.type === 'PageBreakNode') {
-        if (cursor.pageBreak(child, this, idx) === null) {
+        if (cursor.pageBreak(child, this, child) === null) {
           debug('INVALIDATE %d', child.id)
           this.children.splice(i, 1)
           --i
@@ -1586,7 +1628,7 @@ BaseNode.prototype.arrange = function(cursor) {
         debug('BREAK %s at Page %d', child.type, cursor.currentPage)
 
         // page break
-        this.children.splice(i, 0, cursor.pageBreak(null, this, idx))
+        this.children.splice(i, 0, cursor.pageBreak(null, this, child))
         child.page = cursor.currentPage
 
         return false
@@ -1622,7 +1664,7 @@ BaseNode.prototype.valid = function() {
   return true
 }
 
-},{"../value":59,"./pagebreak":30,"debug":69}],21:[function(require,module,exports){
+},{"../value":61,"./pagebreak":32,"debug":71}],22:[function(require,module,exports){
 'use strict'
 
 var utils = require('../utils')
@@ -1647,13 +1689,17 @@ Object.defineProperties(BoxNode.prototype, {
     enumerable: true,
     configurable: true,
     get: function() {
+      if (this.style.height > 0 && this.style.overflow === 'hidden') {
+        return this.style.height
+      }
+
       var height = this.children
           .map(function(child) { return child.height })
           .reduce(function(lhs, rhs) { return lhs + rhs }, 0)
         + this.style.getBorderTopWidth() + this.style.paddingTop
         + this.style.paddingBottom + this.style.getBorderBottomWidth()
 
-      return height < this.style.minHeight ? this.style.minHeight : height
+      return Math.max(this.style.height || 0, height)
     }
   },
   beforeBreakHeight: {
@@ -1681,7 +1727,10 @@ BoxNode.prototype.beforeContent = function(cursor) {
     cursor.x += left
   }
 
-  return cursor.create(this.width)
+  var height = this.height > 0 && this.style.overflow === 'hidden'
+    ? this.height - (top + this.style.paddingBottom + this.style.getBorderBottomWidth())
+    : undefined
+  return cursor.create(this.width, height)
 }
 
 BoxNode.prototype.afterContent = function(cursor) {
@@ -1772,7 +1821,7 @@ function drawBackground(doc, x, y, width, height, color) {
   doc.f()
 }
 
-},{"../utils":58,"./base":20}],22:[function(require,module,exports){
+},{"../utils":60,"./base":21}],23:[function(require,module,exports){
 'use strict'
 
 var utils = require('../utils')
@@ -1835,7 +1884,7 @@ CellNode.prototype.beforeContent = function(cursor) {
 CellNode.prototype._compute = function(cursor) {
 }
 
-},{"../utils":58,"./box":21}],23:[function(require,module,exports){
+},{"../utils":60,"./box":22}],24:[function(require,module,exports){
 var ConditionalNode = module.exports = function(nodes, condition) {
   ConditionalNode.super_.call(this)
 
@@ -1879,7 +1928,7 @@ ConditionalNode.prototype.clone = function() {
   }), this.condition)
 }
 
-},{"../utils":58,"./base":20}],24:[function(require,module,exports){
+},{"../utils":60,"./base":21}],25:[function(require,module,exports){
 'use strict'
 
 var DocumentNode = module.exports = function(doc) {
@@ -1927,7 +1976,21 @@ DocumentNode.prototype.end = function(doc, parent) {
   }
 }
 
-},{"../utils":58,"./base":20}],25:[function(require,module,exports){
+},{"../utils":60,"./base":21}],26:[function(require,module,exports){
+'use strict'
+
+var utils = require('../utils')
+
+var ForceBreakNode = module.exports = function() {
+  ForceBreakNode.super_.call(this)
+
+  this.type = 'ForceBreakNode'
+  this.valid = false
+}
+
+utils.inherits(ForceBreakNode, require('./base'))
+
+},{"../utils":60,"./base":21}],27:[function(require,module,exports){
 'use strict'
 
 var utils = require('../utils')
@@ -2074,7 +2137,7 @@ ImageNode.prototype.render = function(doc) {
   doc.Q()
 }
 
-},{"../object/formxobject":40,"../object/image":41,"../utils":58,"./base":20}],26:[function(require,module,exports){
+},{"../object/formxobject":42,"../object/image":43,"../utils":60,"./base":21}],28:[function(require,module,exports){
 'use strict'
 
 var LineBreakNode = module.exports = function(linebreak) {
@@ -2106,7 +2169,7 @@ LineBreakNode.prototype._compute = function(cursor) {
   this.height = this.linebreak.height
 }
 
-},{"../utils":58,"./base":20}],27:[function(require,module,exports){
+},{"../utils":60,"./base":21}],29:[function(require,module,exports){
 'use strict'
 
 var utils = require('../utils')
@@ -2146,7 +2209,7 @@ OperationsNode.prototype.render = function(doc) {
   })
 }
 
-},{"../utils":58,"./base":20}],28:[function(require,module,exports){
+},{"../utils":60,"./base":21}],30:[function(require,module,exports){
 'use strict'
 
 var utils     = require('../utils')
@@ -2177,7 +2240,7 @@ PageCount.prototype.mustUpdate = function(cursor) {
   return updateRequired || WordNode.prototype.mustUpdate.call(this, cursor)
 }
 
-},{"../../element/word":15,"../utils":58,"./word":35}],29:[function(require,module,exports){
+},{"../../element/word":16,"../utils":60,"./word":37}],31:[function(require,module,exports){
 'use strict'
 
 var utils = require('../utils')
@@ -2208,15 +2271,16 @@ PageNumber.prototype.mustUpdate = function(cursor) {
   return updateRequired || WordNode.prototype.mustUpdate.call(this, cursor)
 }
 
-},{"../../element/word":15,"../utils":58,"./word":35}],30:[function(require,module,exports){
+},{"../../element/word":16,"../utils":60,"./word":37}],32:[function(require,module,exports){
 'use strict'
 
-var PageBreakNode = module.exports = function(id, offset) {
+var PageBreakNode = module.exports = function(id, offset, cause) {
   PageBreakNode.super_.call(this)
 
   this.type   = 'PageBreakNode'
   this.id     = id
   this.offset = offset
+  this.cause  = cause
 
   this.begun  = []
   this.broken = []
@@ -2270,7 +2334,7 @@ function hasFunction(obj, name) {
   return typeof obj[name] === 'function'
 }
 
-},{"../utils":58,"./base":20}],31:[function(require,module,exports){
+},{"../utils":60,"./base":21}],33:[function(require,module,exports){
 'use strict'
 
 var RowNode = module.exports = function(row) {
@@ -2308,6 +2372,10 @@ Object.defineProperties(RowNode.prototype, {
   height: {
     enumerable: true,
     get: function() {
+      if (this.style.height > 0 && this.style.overflow === 'hidden') {
+        return this.style.height
+      }
+
       return Math.max.apply(Math, this.children.map(function(child) {
         var height = child.minHeight
                    + child.style.paddingTop + child.style.paddingBottom
@@ -2387,11 +2455,11 @@ RowNode.prototype.begin = function(doc, parent) {
   })
 }
 
-},{"../utils":58,"./base":20,"./box":21}],32:[function(require,module,exports){
+},{"../utils":60,"./base":21,"./box":22}],34:[function(require,module,exports){
 'use strict'
 
-var TablePageBreakNode = module.exports = function(id, offset) {
-  TablePageBreakNode.super_.call(this, id, offset)
+var TablePageBreakNode = module.exports = function(id, offset, cause) {
+  TablePageBreakNode.super_.call(this, id, offset, cause)
 
   this.children = []
 }
@@ -2433,7 +2501,7 @@ TablePageBreakNode.prototype.afterContent = function(cursor) {
   cursor.y = this.y.val
 }
 
-},{"../utils":58,"./pagebreak":30}],33:[function(require,module,exports){
+},{"../utils":60,"./pagebreak":32}],35:[function(require,module,exports){
 'use strict'
 
 var utils = require('../utils')
@@ -2624,7 +2692,7 @@ TableNode.prototype._compute = function(cursor) {
   }, this)
 }
 
-},{"../proxy/row":57,"../utils":58,"./base":20,"./conditional":23,"./table-pagebreak":32}],34:[function(require,module,exports){
+},{"../proxy/row":59,"../utils":60,"./base":21,"./conditional":24,"./table-pagebreak":34}],36:[function(require,module,exports){
 'use strict'
 
 var TextNode = module.exports = function(text) {
@@ -2781,7 +2849,7 @@ TextNode.prototype.end = function(doc) {
   doc.ET()
 }
 
-},{"../utils":58,"./base":20,"./word":35}],35:[function(require,module,exports){
+},{"../utils":60,"./base":21,"./word":37}],37:[function(require,module,exports){
 'use strict'
 
 var WordNode = module.exports = function(word) {
@@ -2873,7 +2941,7 @@ WordNode.prototype.render = function(doc, parent) {
   }
 }
 
-},{"../object/font/ttf":39,"../object/string":50,"../utils":58,"./base":20}],36:[function(require,module,exports){
+},{"../object/font/ttf":41,"../object/string":52,"../utils":60,"./base":21}],38:[function(require,module,exports){
 var PDFArray = module.exports = function(array) {
   if (!array) array = []
 
@@ -2914,7 +2982,7 @@ PDFArray.parse = function(xref, lexer, trial) {
   return new PDFArray(values)
 }
 
-},{"./value":52}],37:[function(require,module,exports){
+},{"./value":54}],39:[function(require,module,exports){
 exports.parse = function(xref, lexer, trial) {
   var isTrue = lexer.getString(4) === 'true'
   var isFalse = !isTrue && lexer.getString(5) === 'false'
@@ -2936,7 +3004,7 @@ exports.parse = function(xref, lexer, trial) {
   return isTrue
 }
 
-},{}],38:[function(require,module,exports){
+},{}],40:[function(require,module,exports){
 var PDFName = require('./name')
 
 var PDFDictionary = module.exports = function(dictionary) {
@@ -3009,7 +3077,7 @@ PDFDictionary.parse = function(xref, lexer, trial) {
   return dictionary
 }
 
-},{"./name":42,"./value":52}],39:[function(require,module,exports){
+},{"./name":44,"./value":54}],41:[function(require,module,exports){
 'use strict'
 
 var PDFObject     = require('../object')
@@ -3147,7 +3215,7 @@ TTFFont.prototype.embed = function(doc) {
   doc.addObject(this.descendant)
 }
 
-},{"../../utils":58,"../array":36,"../dictionary":38,"../name":42,"../object":45,"../stream":49,"../string":50}],40:[function(require,module,exports){
+},{"../../utils":60,"../array":38,"../dictionary":40,"../name":44,"../object":47,"../stream":51,"../string":52}],42:[function(require,module,exports){
 var PDFObject = require('./object')
 var PDFStream = require('./stream')
 var PDFArray  = require('./array')
@@ -3223,7 +3291,7 @@ PDFFormXObject.prototype.addObjectsRecursive = function(value) {
   }
 }
 
-},{"../object/dictionary":38,"../object/reference":48,"../utils":58,"./array":36,"./name":42,"./object":45,"./stream":49}],41:[function(require,module,exports){
+},{"../object/dictionary":40,"../object/reference":50,"../utils":60,"./array":38,"./name":44,"./object":47,"./stream":51}],43:[function(require,module,exports){
 'use strict'
 
 var PDFXObject    = require('../object/xobject')
@@ -3256,7 +3324,7 @@ Image.prototype.embed = function(doc) {
   doc.addObject(this)
 }
 
-},{"../object/array":36,"../object/name":42,"../object/xobject":53,"../utils":58}],42:[function(require,module,exports){
+},{"../object/array":38,"../object/name":44,"../object/xobject":55,"../utils":60}],44:[function(require,module,exports){
 var PDFName = module.exports = function(name) {
   if (!name) throw new Error('A Name cannot be undefined')
 
@@ -3339,7 +3407,7 @@ PDFName.parse = function(xref, lexer, trial) {
   return new PDFName(name)
 }
 
-},{}],43:[function(require,module,exports){
+},{}],45:[function(require,module,exports){
 exports.parse = function(xref, lexer, trial) {
   var isNull = lexer.getString(4) === 'null'
 
@@ -3356,7 +3424,7 @@ exports.parse = function(xref, lexer, trial) {
   return null
 }
 
-},{}],44:[function(require,module,exports){
+},{}],46:[function(require,module,exports){
 exports.parse = function(xref, lexer, trial) {
   var n = lexer.readNumber(true)
 
@@ -3371,7 +3439,7 @@ exports.parse = function(xref, lexer, trial) {
   return n
 }
 
-},{}],45:[function(require,module,exports){
+},{}],47:[function(require,module,exports){
 // > Objects may be labeled so that they can be referred to by other objects.
 //   A labeled object is called an indirect object.
 // pdfjs just calls them `references`
@@ -3486,7 +3554,7 @@ PDFObject.parse = function(xref, lexer, trial) {
   return obj
 }
 
-},{"./dictionary":38,"./reference":48,"./stream":49,"./value":52}],46:[function(require,module,exports){
+},{"./dictionary":40,"./reference":50,"./stream":51,"./value":54}],48:[function(require,module,exports){
 'use strict'
 
 var PDFObject     = require('./object')
@@ -3526,7 +3594,7 @@ Page.prototype.embed = function(doc) {
   doc.addObject(this.contents.object)
 }
 
-},{"../utils":58,"./array":36,"./dictionary":38,"./name":42,"./object":45,"./stream":49}],47:[function(require,module,exports){
+},{"../utils":60,"./array":38,"./dictionary":40,"./name":44,"./object":47,"./stream":51}],49:[function(require,module,exports){
 'use strict'
 
 var PDFObject = require('./object')
@@ -3563,7 +3631,7 @@ Pages.prototype.embed = function(doc) {
   })
 }
 
-},{"../utils":58,"./array":36,"./object":45}],48:[function(require,module,exports){
+},{"../utils":60,"./array":38,"./object":47}],50:[function(require,module,exports){
 var PDFReference = module.exports = function(object) {
   this._object = object
 }
@@ -3629,7 +3697,7 @@ function parseObject(xref, lexer, id) {
   return PDFObject.parse(xref, lexer)
 }
 
-},{"./object":45}],49:[function(require,module,exports){
+},{"./object":47}],51:[function(require,module,exports){
 // page 60
 // Filters: page 65
 
@@ -3664,7 +3732,7 @@ PDFStream.prototype.toString = function() {
   return 'stream\n' + content + 'endstream'
 }
 
-},{"../utils":58}],50:[function(require,module,exports){
+},{"../utils":60}],52:[function(require,module,exports){
 var PDFString = module.exports = function(str) {
   this.str = str
 }
@@ -3831,7 +3899,7 @@ PDFString.parseHex = function(lexer, trial) {
   return new PDFString(str)
 }
 
-},{}],51:[function(require,module,exports){
+},{}],53:[function(require,module,exports){
 var PDFDictionary = require('./dictionary')
 var PDFArray      = require('./array')
 var PDFString     = require('./string')
@@ -3873,7 +3941,7 @@ PDFTrailer.parse = function(xref, lexer) {
   return dict
 }
 
-},{"../utils":58,"./array":36,"./dictionary":38,"./string":50}],52:[function(require,module,exports){
+},{"../utils":60,"./array":38,"./dictionary":40,"./string":52}],54:[function(require,module,exports){
 var Objects = []
 
 exports.parse = function(xref, lexer) {
@@ -3903,7 +3971,7 @@ exports.parse = function(xref, lexer) {
   return undefined
 }
 
-},{"./array":36,"./boolean":37,"./dictionary":38,"./name":42,"./null":43,"./number":44,"./reference":48,"./string":50}],53:[function(require,module,exports){
+},{"./array":38,"./boolean":39,"./dictionary":40,"./name":44,"./null":45,"./number":46,"./reference":50,"./string":52}],55:[function(require,module,exports){
 var PDFObject = require('./object')
 var PDFStream = require('./stream')
 
@@ -3920,7 +3988,7 @@ PDFXObject.prototype = Object.create(PDFObject.prototype, {
   constructor: { value: PDFXObject }
 })
 
-},{"./object":45,"./stream":49}],54:[function(require,module,exports){
+},{"./object":47,"./stream":51}],56:[function(require,module,exports){
 var PDFXref = module.exports = function() {
   this.objects = []
 }
@@ -4012,7 +4080,7 @@ PDFXref.parse = function(_, lexer) {
   return xref
 }
 
-},{}],55:[function(require,module,exports){
+},{}],57:[function(require,module,exports){
 'use strict'
 
 var utils = require('../utils')
@@ -4095,7 +4163,7 @@ function find(src, key, pos, limit, backwards) {
   return index
 }
 
-},{"../object/trailer":51,"../object/xref":54,"../utils":58,"./lexer":56}],56:[function(require,module,exports){
+},{"../object/trailer":53,"../object/xref":56,"../utils":60,"./lexer":58}],58:[function(require,module,exports){
 var Lexer = module.exports = function(buf) {
   this.buf = buf
   this.pos = 0
@@ -4288,7 +4356,7 @@ Lexer.isWhiteSpace = Lexer.prototype.isWhiteSpace = function(c) {
   )
 }
 
-},{}],57:[function(require,module,exports){
+},{}],59:[function(require,module,exports){
 'use strict'
 
 var Row = require('../../element/row')
@@ -4316,7 +4384,7 @@ RowProxy.prototype.create = function(idx) {
   return node
 }
 
-},{"../../element/row":12}],58:[function(require,module,exports){
+},{"../../element/row":13}],60:[function(require,module,exports){
 // exports.extend = function(destination, source) {
 //   for (var prop in source) {
 //     if (prop in destination) continue
@@ -4443,11 +4511,11 @@ exports.resolveWidth = function(width, maxWidth) {
   }
 }
 
-},{}],59:[function(require,module,exports){
+},{}],61:[function(require,module,exports){
 var Value = module.exports = function(val) {
   this.val = val
 }
-},{}],60:[function(require,module,exports){
+},{}],62:[function(require,module,exports){
 'use strict'
 
 var BaseStyle = module.exports = function() {
@@ -4495,7 +4563,7 @@ BaseStyle.prototype.merge = function() {
   }
 }
 
-},{}],61:[function(require,module,exports){
+},{}],63:[function(require,module,exports){
 'use strict'
 
 var SIDES = ['Top', 'Right', 'Bottom', 'Left']
@@ -4504,7 +4572,7 @@ var BoxStyle = module.exports = function() {
   this.backgroundColor = null
   this.x = null
   this.y = null
-  this.minHeight = null
+  this.overflow = 'visible'
 
   this.borderWidth = 0
   this.borderColor = 0x000000
@@ -4530,7 +4598,7 @@ SIDES.forEach(function(side) {
   }
 })
 
-},{"../pdf/utils":58,"./container":62}],62:[function(require,module,exports){
+},{"../pdf/utils":60,"./container":64}],64:[function(require,module,exports){
 'use strict'
 
 var ContainerStyle = module.exports = function(values) {
@@ -4580,7 +4648,7 @@ Object.defineProperties(ContainerStyle.prototype, {
   }
 })
 
-},{"../pdf/utils":58,"./text":66}],63:[function(require,module,exports){
+},{"../pdf/utils":60,"./text":68}],65:[function(require,module,exports){
 'use strict'
 
 var DocumentStyle = module.exports = function(values) {
@@ -4592,7 +4660,7 @@ var DocumentStyle = module.exports = function(values) {
 
 require('../pdf/utils').inherits(DocumentStyle, require('./container'))
 
-},{"../pdf/utils":58,"./container":62}],64:[function(require,module,exports){
+},{"../pdf/utils":60,"./container":64}],66:[function(require,module,exports){
 'use strict'
 
 var ImageStyle = module.exports = function() {
@@ -4609,7 +4677,7 @@ var ImageStyle = module.exports = function() {
 
 require('../pdf/utils').inherits(ImageStyle, require('./base'))
 
-},{"../pdf/utils":58,"./base":60}],65:[function(require,module,exports){
+},{"../pdf/utils":60,"./base":62}],67:[function(require,module,exports){
 'use strict'
 
 var DIRECTIONS = ['Vertical', 'Horizontal']
@@ -4623,6 +4691,7 @@ var TableStyle = module.exports = function() {
   this.backgroundColor = null
   this.borderWidth = 0
   this.borderColor = 0x000000
+  this.overflow = 'visible'
 
   DIRECTIONS.forEach(function(direction) {
     this['border' + direction + 'Width'] = null
@@ -4671,7 +4740,7 @@ TableStyle.reset = {
   // height: null
 }
 
-},{"../pdf/utils":58,"./container":62}],66:[function(require,module,exports){
+},{"../pdf/utils":60,"./container":64}],68:[function(require,module,exports){
 'use strict'
 
 var TextStyle = module.exports = function() {
@@ -4687,7 +4756,7 @@ var TextStyle = module.exports = function() {
 
 require('../pdf/utils').inherits(TextStyle, require('./base'))
 
-},{"../pdf/utils":58,"./base":60}],67:[function(require,module,exports){
+},{"../pdf/utils":60,"./base":62}],69:[function(require,module,exports){
 (function (global){
 /*! http://mths.be/base64 v0.1.0 by @mathias | MIT license */
 ;(function(root) {
@@ -4857,9 +4926,9 @@ require('../pdf/utils').inherits(TextStyle, require('./base'))
 
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
 
-},{}],68:[function(require,module,exports){
+},{}],70:[function(require,module,exports){
 
-},{}],69:[function(require,module,exports){
+},{}],71:[function(require,module,exports){
 
 /**
  * This is the web browser implementation of `debug()`.
@@ -5029,7 +5098,7 @@ function localstorage(){
   } catch (e) {}
 }
 
-},{"./debug":70}],70:[function(require,module,exports){
+},{"./debug":72}],72:[function(require,module,exports){
 
 /**
  * This is the common logic for both the Node.js and web browser
@@ -5228,7 +5297,7 @@ function coerce(val) {
   return val;
 }
 
-},{"ms":71}],71:[function(require,module,exports){
+},{"ms":73}],73:[function(require,module,exports){
 /**
  * Helpers.
  */
@@ -5355,7 +5424,7 @@ function plural(ms, n, name) {
   return Math.ceil(ms / n) + ' ' + name + 's';
 }
 
-},{}],72:[function(require,module,exports){
+},{}],74:[function(require,module,exports){
 var lookup = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/';
 
 ;(function (exports) {
@@ -5481,7 +5550,7 @@ var lookup = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/';
 	exports.fromByteArray = uint8ToBase64
 }(typeof exports === 'undefined' ? (this.base64js = {}) : exports))
 
-},{}],73:[function(require,module,exports){
+},{}],75:[function(require,module,exports){
 // Generated by CoffeeScript 1.7.1
 var UnicodeTrie, inflate;
 
@@ -5574,7 +5643,7 @@ UnicodeTrie = (function() {
 
 module.exports = UnicodeTrie;
 
-},{"tiny-inflate":74}],74:[function(require,module,exports){
+},{"tiny-inflate":76}],76:[function(require,module,exports){
 var TINF_OK = 0;
 var TINF_DATA_ERROR = -3;
 
@@ -5951,7 +6020,7 @@ length_base[28] = 258;
 
 module.exports = tinf_uncompress;
 
-},{}],75:[function(require,module,exports){
+},{}],77:[function(require,module,exports){
 // Generated by CoffeeScript 1.7.1
 (function() {
   var AI, AL, B2, BA, BB, BK, CB, CJ, CL, CM, CP, CR, EX, GL, H2, H3, HL, HY, ID, IN, IS, JL, JT, JV, LF, NL, NS, NU, OP, PO, PR, QU, RI, SA, SG, SP, SY, WJ, XX, ZW;
@@ -6038,7 +6107,7 @@ module.exports = tinf_uncompress;
 
 }).call(this);
 
-},{}],76:[function(require,module,exports){
+},{}],78:[function(require,module,exports){
 // Generated by CoffeeScript 1.7.1
 (function() {
   var AI, AL, BA, BK, CB, CI_BRK, CJ, CP_BRK, CR, DI_BRK, ID, IN_BRK, LF, LineBreaker, NL, NS, PR_BRK, SA, SG, SP, UnicodeTrie, WJ, XX, base64, characterClasses, classTrie, data, fs, pairTable, _ref, _ref1;
@@ -6201,7 +6270,7 @@ module.exports = tinf_uncompress;
 
 }).call(this);
 
-},{"./classes":75,"./pairs":77,"base64-js":72,"unicode-trie":73}],77:[function(require,module,exports){
+},{"./classes":77,"./pairs":79,"base64-js":74,"unicode-trie":75}],79:[function(require,module,exports){
 // Generated by CoffeeScript 1.7.1
 (function() {
   var CI_BRK, CP_BRK, DI_BRK, IN_BRK, PR_BRK;
@@ -6220,7 +6289,7 @@ module.exports = tinf_uncompress;
 
 }).call(this);
 
-},{}],78:[function(require,module,exports){
+},{}],80:[function(require,module,exports){
 //     uuid.js
 //
 //     Copyright (c) 2010-2012 Robert Kieffer
@@ -6469,7 +6538,7 @@ module.exports = tinf_uncompress;
   }
 }).call(this);
 
-},{}],79:[function(require,module,exports){
+},{}],81:[function(require,module,exports){
 var Struct = require('structjs')
 
 var Entry = module.exports = new Struct({
@@ -6509,7 +6578,7 @@ function easySearchable(numTables) {
   return result
 }
 
-},{"structjs":92}],80:[function(require,module,exports){
+},{"structjs":94}],82:[function(require,module,exports){
 var Subset = module.exports = function(font, opts) {
   this.font    = font.clone()
   this.opts    = opts || {}
@@ -6623,7 +6692,7 @@ Subset.prototype.embed = function() {
 Subset.prototype.save = function() {
   return this.font.save()
 }
-},{}],81:[function(require,module,exports){
+},{}],83:[function(require,module,exports){
 var Struct = require('structjs')
 
 var Table = new Struct({
@@ -6785,7 +6854,7 @@ Cmap.prototype.embed = function(cmap) {
     maxGlyphID: nextId + 1
   }
 }
-},{"structjs":92}],82:[function(require,module,exports){
+},{"structjs":94}],84:[function(require,module,exports){
 var Struct = require('structjs')
 
 module.exports = function(loca) {
@@ -6924,7 +6993,7 @@ Glyph.prototype.embed = function(mapping) {
     self.view.setUint16(self.offsets[i], mapping[id])
   })
 }
-},{"structjs":92}],83:[function(require,module,exports){
+},{"structjs":94}],85:[function(require,module,exports){
 var Struct = require('structjs')
 module.exports = new Struct({
   version:            Struct.Int32,
@@ -6947,7 +7016,7 @@ module.exports = new Struct({
   indexToLocFormat:   Struct.Int16,
   glyphDataFormat:    Struct.Int16
 })
-},{"structjs":92}],84:[function(require,module,exports){
+},{"structjs":94}],86:[function(require,module,exports){
 var Struct = require('structjs')
 
 var Hhea = module.exports = new Struct({
@@ -6973,7 +7042,7 @@ var Hhea = module.exports = new Struct({
 Hhea.prototype.embed = function(ids) {
   this.numOfLongHorMetrics = ids.length
 }
-},{"structjs":92}],85:[function(require,module,exports){
+},{"structjs":94}],87:[function(require,module,exports){
 var Struct = require('structjs')
 
 var AdvanceWidth = new Struct({
@@ -7024,7 +7093,7 @@ module.exports = function(numOfLongHorMetrics, numGlyphs) {
 }
 
 
-},{"structjs":92}],86:[function(require,module,exports){
+},{"structjs":94}],88:[function(require,module,exports){
 var Struct = require('structjs')
 module.exports = function(indexToLocFormat, numGlyphs) {
   var Loca
@@ -7066,7 +7135,7 @@ module.exports = function(indexToLocFormat, numGlyphs) {
   
   return Loca
 }
-},{"structjs":92}],87:[function(require,module,exports){
+},{"structjs":94}],89:[function(require,module,exports){
 var Struct = require('structjs')
 
 var Maxp = module.exports = new Struct({
@@ -7090,7 +7159,7 @@ var Maxp = module.exports = new Struct({
 Maxp.prototype.embed = function(ids) {
   this.numGlyphs = ids.length
 }
-},{"structjs":92}],88:[function(require,module,exports){
+},{"structjs":94}],90:[function(require,module,exports){
 var Struct = require('structjs')
 
 var Record = new Struct({
@@ -7153,7 +7222,7 @@ Name.prototype.embed = function(charMap, trimNames) {
     }
   }
 }
-},{"structjs":92}],89:[function(require,module,exports){
+},{"structjs":94}],91:[function(require,module,exports){
 var Struct = require('structjs')
 module.exports = (new Struct({
   version:             Struct.Uint16,
@@ -7200,7 +7269,7 @@ module.exports = (new Struct({
 })
 
 
-},{"structjs":92}],90:[function(require,module,exports){
+},{"structjs":94}],92:[function(require,module,exports){
 var Struct = require('structjs')
 
 var Post = module.exports = new Struct({
@@ -7215,7 +7284,7 @@ var Post = module.exports = new Struct({
   minMemType1:        Struct.Uint32,
   maxMemType1:        Struct.Uint32
 })
-},{"structjs":92}],91:[function(require,module,exports){
+},{"structjs":94}],93:[function(require,module,exports){
 var Directory = require('./directory')
   , Subset = require('./subset')
 
@@ -7428,7 +7497,7 @@ function toArrayBuffer(buffer) {
   }
   return ab;
 }
-},{"./directory":79,"./subset":80,"./table/cmap":81,"./table/glyf":82,"./table/head":83,"./table/hhea":84,"./table/hmtx":85,"./table/loca":86,"./table/maxp":87,"./table/name":88,"./table/os2":89,"./table/post":90}],92:[function(require,module,exports){
+},{"./directory":81,"./subset":82,"./table/cmap":83,"./table/glyf":84,"./table/head":85,"./table/hhea":86,"./table/hmtx":87,"./table/loca":88,"./table/maxp":89,"./table/name":90,"./table/os2":91,"./table/post":92}],94:[function(require,module,exports){
 var StructNumber    = require('./types/number')
   , StructString    = require('./types/string')
   , StructHash      = require('./types/hash')
@@ -7657,7 +7726,7 @@ function cloneValue(val) {
     return val
   }
 }
-},{"./types/array":93,"./types/hash":94,"./types/number":95,"./types/reference":96,"./types/storage":97,"./types/string":98,"./utils":99}],93:[function(require,module,exports){
+},{"./types/array":95,"./types/hash":96,"./types/number":97,"./types/reference":98,"./types/storage":99,"./types/string":100,"./utils":101}],95:[function(require,module,exports){
 var utils = require('../utils')
   , StructReference = require('./reference')
 
@@ -7724,7 +7793,7 @@ StructArray.prototype.setLength = function(value, parent) {
   } 
   else this._length = value
 }
-},{"../utils":99,"./reference":96}],94:[function(require,module,exports){
+},{"../utils":101,"./reference":98}],96:[function(require,module,exports){
 var utils = require('../utils')
   , StructReference = require('./reference')
 
@@ -7777,7 +7846,7 @@ StructHash.prototype.setLength = function(value, parent) {
   else this._length = value
 }
 
-},{"../utils":99,"./reference":96}],95:[function(require,module,exports){
+},{"../utils":101,"./reference":98}],97:[function(require,module,exports){
 var utils = require('../utils')
 
 var StructNumber = module.exports = function(read, write, length) {
@@ -7817,11 +7886,11 @@ StructNumber.prototype.sizeFor = function() {
 }
 
 utils.methodsFor(StructNumber.prototype, '_offset', 'offsetFor', 'setOffset')
-},{"../utils":99}],96:[function(require,module,exports){
+},{"../utils":101}],98:[function(require,module,exports){
 var StructReference = module.exports = function(prop) {
   this.prop = prop
 }
-},{}],97:[function(require,module,exports){
+},{}],99:[function(require,module,exports){
 var utils = require('../utils')
   , StructReference = require('./reference')
   , StructArray     = require('./array')
@@ -7899,7 +7968,7 @@ StructStorage.prototype.sizeFor = function(parent, writing) {
 }
 
 utils.methodsFor(StructStorage.prototype, '_offset', 'offsetFor', 'setOffset')
-},{"../utils":99,"./array":93,"./reference":96}],98:[function(require,module,exports){
+},{"../utils":101,"./array":95,"./reference":98}],100:[function(require,module,exports){
 var utils = require('../utils')
   , StructReference = require('./reference')
 
@@ -7955,7 +8024,7 @@ StructString.prototype.setLength = function(value, parent) {
 
 utils.methodsFor(StructString.prototype, '_offset',  'offsetFor', 'setOffset')
 
-},{"../utils":99,"./reference":96}],99:[function(require,module,exports){
+},{"../utils":101,"./reference":98}],101:[function(require,module,exports){
 var StructReference = require('./types/reference')
 
 exports.methodsFor = function(obj, prop, get, set) {
@@ -7989,7 +8058,7 @@ exports.options = function(opts) {
     this._length  = opts
   }
 }
-},{"./types/reference":96}],100:[function(require,module,exports){
+},{"./types/reference":98}],102:[function(require,module,exports){
 (function (root) {
    "use strict";
 
@@ -8426,7 +8495,7 @@ UChar.udata={
    }
 }(this));
 
-},{}],101:[function(require,module,exports){
+},{}],103:[function(require,module,exports){
 module.exports={
   "name": "pdfjs",
   "author": {
@@ -8470,6 +8539,6 @@ module.exports={
   }
 }
 
-},{}]},{},[17])(17)
+},{}]},{},[18])(18)
 });
 //# sourceMappingURL=pdfjs.js.map
