@@ -29,7 +29,7 @@
     "browserify": "^11.1",
     "exorcist": "^0.4.0",
     "glob": "^5.0",
-    "tap": "^1.0"
+    "tap": "2.0.0"
   },
   "bugs": "https://github.com/rkusa/pdfjs/issues",
   "repository": {
