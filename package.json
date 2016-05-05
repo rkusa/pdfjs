@@ -12,6 +12,7 @@
   "bugs": "https://github.com/rkusa/pdfjs/issues",
   "main": "lib/",
   "dependencies": {
+    "node-uuid": "^1.4.7",
     "opentype.js": "^0.6.2"
   },
   "devDependencies": {},
