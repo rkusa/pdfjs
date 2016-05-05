@@ -15,7 +15,10 @@
     "node-uuid": "^1.4.7",
     "opentype.js": "^0.6.2"
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "babel-plugin-syntax-async-functions": "^6.8.0",
+    "babel-plugin-transform-async-to-generator": "^6.8.0"
+  },
   "repository": {
     "type": "git",
     "url": "git://github.com/rkusa/pdfjs.git"
