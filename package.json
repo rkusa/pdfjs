@@ -12,8 +12,10 @@
   "bugs": "https://github.com/rkusa/pdfjs/issues",
   "main": "lib/",
   "dependencies": {
+    "linebreak": "^0.3.0",
     "node-uuid": "^1.4.7",
-    "opentype.js": "^0.6.2"
+    "opentype.js": "^0.6.2",
+    "unorm": "^1.4.1"
   },
   "devDependencies": {
     "babel-plugin-syntax-async-functions": "^6.8.0",
