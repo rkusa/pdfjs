@@ -1,4 +1,4 @@
-![pdfjs](https://raw.githubusercontent.com/rkusa/pdfjs/master/logo/pdfjs.png)
+![pdfjs](https://cdn.rawgit.com/rkusa/pdfjs/master/logo.svg)
 
 A Portable Document Format (PDF) generation library targeting both the server- and client-side.
 
