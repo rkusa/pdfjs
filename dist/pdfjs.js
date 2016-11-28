@@ -185,7 +185,7 @@ Document.prototype.render = function() {
 
 var TTFFont = require('ttfjs')
 var utils   = require('../../pdf/utils')
-var uuid    = require('node-uuid')
+var uuid    = require('uuid')
 
 var Font = module.exports = function(src) {
   this.uuid = uuid.v4()
