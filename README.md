@@ -8,15 +8,21 @@ A Portable Document Format (PDF) generation library targeting both the server- a
 
 [Documentation](docs)
 
-## 1.0.0 Breaking Changes
-
-pdfjs 1.0.0-alpha.1 (still in development; expected to be buggy) contains a rewritten layout engine (layout engine of pdfjs `<=0.5` reached its limits), i.e., both API and layout behavior has changed completely. Install with:
-
 ```bash
-npm install pdfjs@1.0.0-alpha.1
+npm install rkusa/pdfjs@2.x
 ```
 
+## 2.0.0 Breaking Changes
+
+Version `2.0.0` is again a re-write. I learned a lot through previous implementaitons. This version will have streaming layouting with smart content chunking, which allows for having a small memory footprint even when creating a PDF document with thousands of pages. This time, I will most certainly settle with this implementation.
+
+- Uses `async/await`, i.e., run node with `--harmony-async-await` flag or use a transpiler like babel
+
+----------------
+
 ### Features
+
+_(this section is outdated and will be updated soon)_
 
 - Text (many formatting options)
 - Images (JPEGs, other **PDFs**)
@@ -27,6 +33,12 @@ npm install pdfjs@1.0.0-alpha.1
 **Missing:** AFM fonts are currently not implemented.
 
 If you are missing a feature, feel free to submit a PR or to ask for it.
+
+### History
+
+- *v2.x* - streaming layouting with smart content chunking
+- *v1.x* - calculate whole document layout upfront
+- *v0.x* - in-memory layouting with rollbacks
 
 ## MIT License
 
