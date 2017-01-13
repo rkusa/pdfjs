@@ -23,6 +23,14 @@ test('initialization', function(t) {
   t.equal(cursor.startY, height - padding)
   t.equal(cursor.bottom, padding)
 
+  const before = () => {}
+  cursor.beforeBreak(before)
+  t.deepEqual(cursor._beforeBreakHandler, [before])
+
+  const after = () => {}
+  cursor.afterBreak(after)
+  t.deepEqual(cursor._afterBreakHandler, [after])
+
   t.end()
 })
 
@@ -44,21 +52,31 @@ test('reset', function(t) {
 
   cursor.enter()
   cursor.x = cursor.y = cursor.startX = cursor.startY = cursor.bottom = cursor.width = -1
+  const fn1 = () => {}
+  cursor.beforeBreak(fn1)
+  cursor.afterBreak(fn1)
   t.equal(cursor.x, -1)
   t.equal(cursor.y, -1)
   t.equal(cursor.startX, -1)
   t.equal(cursor.startY, -1)
   t.equal(cursor.bottom, -1)
   t.equal(cursor.width, -1)
+  t.deepEqual(cursor._beforeBreakHandler, [fn1])
+  t.deepEqual(cursor._afterBreakHandler, [fn1])
 
   cursor.enter()
   cursor.x = cursor.y = cursor.startX = cursor.startY = cursor.bottom = cursor.width = -2
+  const fn2 = () => {}
+  cursor.beforeBreak(fn2)
+  cursor.afterBreak(fn2)
   t.equal(cursor.x, -2)
   t.equal(cursor.y, -2)
   t.equal(cursor.startX, -2)
   t.equal(cursor.startY, -2)
   t.equal(cursor.bottom, -2)
   t.equal(cursor.width, -2)
+  t.deepEqual(cursor._beforeBreakHandler, [fn2, fn1])
+  t.deepEqual(cursor._afterBreakHandler, [fn2, fn1])
 
   cursor.leave()
   t.equal(cursor.x, -1)
@@ -67,6 +85,8 @@ test('reset', function(t) {
   t.equal(cursor.startY, -1)
   t.equal(cursor.bottom, -1)
   t.equal(cursor.width, -1)
+  t.deepEqual(cursor._beforeBreakHandler, [fn1])
+  t.deepEqual(cursor._afterBreakHandler, [fn1])
 
   const cursorBefore = createCursor()
   cursor.leave()
@@ -76,6 +96,8 @@ test('reset', function(t) {
   t.equal(cursor.startY, cursorBefore.startY)
   t.equal(cursor.bottom, cursorBefore.bottom)
   t.equal(cursor.width, cursorBefore.width)
+  t.deepEqual(cursor._beforeBreakHandler, [])
+  t.deepEqual(cursor._afterBreakHandler, [])
 
   t.end()
 })
