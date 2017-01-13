@@ -11,13 +11,18 @@
   "homepage": "https://github.com/rkusa/pdfjs",
   "bugs": "https://github.com/rkusa/pdfjs/issues",
   "main": "lib/",
+  "scripts": {
+    "test": "node --harmony-async-await test/cursor.js"
+  },
   "dependencies": {
     "linebreak": "^0.3.0",
     "node-uuid": "^1.4.7",
     "opentype.js": "^0.6.2",
     "unorm": "^1.4.1"
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "tape": "^4.6.3"
+  },
   "repository": {
     "type": "git",
     "url": "git://github.com/rkusa/pdfjs.git"
