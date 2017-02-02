@@ -2,10 +2,13 @@ const fs = require('fs')
 const path = require('path')
 
 // thanks to https://github.com/prawnpdf/prawn
-WIN_ANSI_CHARACTERS = fs.readFileSync(
+const CODE_TO_NAME = fs.readFileSync(
   path.join(__dirname, 'winansi_characters.txt'),
   'utf8'
 ).split(/\s+/)
+
+const NAME_TO_CODE = {}
+CODE_TO_NAME.forEach((v, k) => NAME_TO_CODE[v] = k)
 
 const files = fs.readdirSync(__dirname)
 for (const filename of files) {
@@ -17,6 +20,7 @@ for (const filename of files) {
 
   const properties = {}
   const glyphWidths = {}
+  const kerning = {}
 
   const lines = data.split('\r\n')
   for (let i = 0; i < lines.length; ++i) {
@@ -42,8 +46,25 @@ for (const filename of files) {
       break
 
     case 'startKernPairs':
-      lines.splice(i + 1, parseInt(val))
-      // ignore kern pairs
+      const pairs = lines.splice(i + 1, parseInt(val))
+
+      for (const pair of pairs) {
+        // KPX o comma -40
+        const values = pair.split(' ')
+        const left = NAME_TO_CODE[values[1]]
+        const right = NAME_TO_CODE[values[2]]
+
+        if (left === undefined || right === undefined) {
+          continue
+        }
+
+        if (!kerning[left]) {
+          kerning[left] = {}
+        }
+
+        kerning[left][right] = parseFloat(values[3], 10)
+      }
+
       break
 
     // number
@@ -51,7 +72,7 @@ for (const filename of files) {
     case 'xHeight':
     case 'ascender':
     case 'descender':
-    case 'underlineThickness':
+    // case 'underlineThickness':
     case 'italicAngle':
       properties[key] = parseFloat(val, 10)
       break
@@ -73,14 +94,16 @@ for (const filename of files) {
 
     // ignore other properties
     default:
-      console.log('property', key, 'ignored')
+      // console.log('property', key, 'ignored')
       break
     }
   }
 
+  properties.kerning = kerning
+
   const widths = new Array(256)
   for (let i = 0; i < 256; ++i) {
-    widths[i] = glyphWidths[WIN_ANSI_CHARACTERS[i]]
+    widths[i] = glyphWidths[CODE_TO_NAME[i]]
   }
 
   properties.widths = widths
@@ -92,14 +115,5 @@ for (const filename of files) {
   )
   // console.log(widths)
   // console.log(properties)
+  // console.log(kerning)
 }
-
-/*
-fs.readFile(path.join(__dirname, 'Helvetica.afm'), 'utf8', function(err, data) {
-  if (err) {
-    throw err
-  }
-
-
-})
-*/
