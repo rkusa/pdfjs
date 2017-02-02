@@ -7,10 +7,13 @@ WIN_ANSI_CHARACTERS = fs.readFileSync(
   'utf8'
 ).split(/\s+/)
 
-fs.readFile(path.join(__dirname, 'Helvetica.afm'), 'utf8', function(err, data) {
-  if (err) {
-    throw err
+const files = fs.readdirSync(__dirname)
+for (const filename of files) {
+  if (path.extname(filename) !== '.afm') {
+    continue
   }
+
+  const data = fs.readFileSync(path.join(__dirname, filename), 'utf8')
 
   const properties = {}
   const glyphWidths = {}
@@ -23,11 +26,11 @@ fs.readFile(path.join(__dirname, 'Helvetica.afm'), 'utf8', function(err, data) {
       continue
     }
 
-    const key = match[1]
+    const key = match[1][0].toLowerCase() + match[1].slice(1)
     const val = match[2]
 
     switch (key) {
-    case 'StartCharMetrics':
+    case 'startCharMetrics':
       const metrics = lines.splice(i + 1, parseInt(val))
 
       metrics.forEach(function(metric) {
@@ -38,38 +41,39 @@ fs.readFile(path.join(__dirname, 'Helvetica.afm'), 'utf8', function(err, data) {
 
       break
 
-    case 'StartKernPairs':
+    case 'startKernPairs':
       lines.splice(i + 1, parseInt(val))
       // ignore kern pairs
       break
 
     // number
-    case 'CapHeight':
-    case 'XHeight':
-    case 'Ascender':
-    case 'Descender':
-    case 'UnderlineThickness':
-    case 'ItalicAngle':
+    case 'capHeight':
+    case 'xHeight':
+    case 'ascender':
+    case 'descender':
+    case 'underlineThickness':
+    case 'italicAngle':
       properties[key] = parseFloat(val, 10)
       break
 
     // number array
-    case 'FontBBox':
+    case 'fontBBox':
       properties[key] = val.split(/\s+/g).map(function(v) {
         return parseFloat(v, 10)
       })
       break
 
     // string
-    case 'FontName':
-    case 'FullName':
-    case 'FamilyName':
-    case 'CharacterSet':
+    case 'fontName':
+    case 'fullName':
+    case 'familyName':
+    case 'characterSet':
       properties[key] = val
       break
 
     // ignore other properties
     default:
+      console.log('property', key, 'ignored')
       break
     }
   }
@@ -81,16 +85,21 @@ fs.readFile(path.join(__dirname, 'Helvetica.afm'), 'utf8', function(err, data) {
 
   properties.widths = widths
 
-  fs.writeFile(
-    path.join(__dirname, '../', 'helvetica.json'),
+  fs.writeFileSync(
+    path.join(__dirname, '../', path.basename(filename, '.afm') + '.json'),
     JSON.stringify(properties),
-    { encoding: 'utf8' },
-    function(err) {
-      if (err) {
-        throw err
-      }
-    }
+    { encoding: 'utf8' }
   )
   // console.log(widths)
   // console.log(properties)
+}
+
+/*
+fs.readFile(path.join(__dirname, 'Helvetica.afm'), 'utf8', function(err, data) {
+  if (err) {
+    throw err
+  }
+
+
 })
+*/
