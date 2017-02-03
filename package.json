@@ -12,7 +12,7 @@
   "bugs": "https://github.com/rkusa/pdfjs/issues",
   "main": "lib/",
   "scripts": {
-    "test": "node --harmony-async-await test/cursor.js"
+    "test": "node --harmony-async-await test/index.js test/pdfs/**/*.js"
   },
   "dependencies": {
     "linebreak": "^0.3.0",
