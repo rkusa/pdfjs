@@ -13,7 +13,7 @@ node --harmony-async-await test/index.js test/pdfs/text/*.js
 Additional PDF validation could be done using [preflight](https://pdfbox.apache.org/download.cgi):
 
 ```bash
-java -classpath ./preflight-app-2.0.0.jar org.apache.pdfbox.preflight.Validator_A1b ./test.pdf
+java -classpath ./preflight-app-2.0.4.jar org.apache.pdfbox.preflight.Validator_A1b ./test.pdf
 ```
 
 Use all results as future expectations:
