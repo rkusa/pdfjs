@@ -18,6 +18,8 @@ if (args.length) {
 }
 
 function run(files, force) {
+  const f = fixtures.create()
+
   files.forEach(function(scriptPath) {
     const dirname  = path.dirname(scriptPath)
     const basename = path.basename(scriptPath, '.js')
@@ -32,10 +34,9 @@ function run(files, force) {
 
     const script = require(path.join('../', scriptPath))
 
-    const f = fixtures.create()
 
     const doc = new pdf.Document({
-      font:      new pdf.Font(require('../font/Helvetica.json')),
+      font:      f.font.afm.regular,
       padding:   10
     })
 
@@ -55,9 +56,12 @@ function run(files, force) {
       })
 
       w.on('close', () => {
-        console.log(resultPath)
-        const result  = fs.readFileSync(resultPath, 'binary')
-        const expectation  = fs.readFileSync(expectationPath, 'binary')
+        try {
+          var result = fs.readFileSync(resultPath, 'binary')
+          var expectation = fs.readFileSync(expectationPath, 'binary')
+        } catch (err) {
+          t.error(err)
+        }
 
         t.ok(result === expectation, basename)
         t.end()

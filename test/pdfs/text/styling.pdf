@@ -9,23 +9,41 @@ stream
 /CS1 CS
 /CS1 cs
 BT
-1.000 0.000 0.000 1.000 10.000 821.721 Tm
+1.000 0.000 0.000 1.000 10.000 813.396 Tm
 /F3 11.000 Tf
 0.000 0.000 0.000 sc
-(Hello World) Tj
+(Regular ) Tj
+/F4 11.000 Tf
+0.000 0.000 0.000 sc
+(Bold ) Tj
+/F3 11.000 Tf
+0.000 0.000 0.000 sc
+(Regular ) Tj
+/F3 20.000 Tf
+0.000 0.000 0.000 sc
+(Big ) Tj
+/F4 20.000 Tf
+0.000 0.000 0.000 sc
+(BigBold ) Tj
+/F3 11.000 Tf
+1.000 0.000 0.000 sc
+(Red ) Tj
+/F3 11.000 Tf
+0.000 0.000 0.000 sc
+(Regular) Tj
 ET
 endstream
 endobj
 
 6 0 obj
-115
+394
 endobj
 
 4 0 obj
 [5 0 R]
 endobj
 
-7 0 obj
+8 0 obj
 <<
 	/Type /Page
 	/Parent 2 0 R
@@ -36,6 +54,7 @@ endobj
 		/ProcSet [/PDF /Text /ImageB /ImageC /ImageI]
 		/Font <<
 			/F3 1 0 R
+			/F4 7 0 R
 		>>
 		/XObject <<
 		>>
@@ -48,7 +67,7 @@ endobj
 <<
 	/Type /Pages
 	/MediaBox [0 0 595.296 841.896]
-	/Kids [7 0 R]
+	/Kids [8 0 R]
 	/Count 1
 >>
 endobj
@@ -66,7 +85,7 @@ endstream
 
 endobj
 
-8 0 obj
+9 0 obj
 <<
 	/Type /FontDescriptor
 	/FontName /Helvetica
@@ -86,11 +105,35 @@ endobj
 	/Subtype /Type1
 	/BaseFont /Helvetica
 	/Encoding /WinAnsiEncoding
-	/FontDescriptor 8 0 R
+	/FontDescriptor 9 0 R
 >>
 endobj
 
-9 0 obj
+10 0 obj
+<<
+	/Type /FontDescriptor
+	/FontName /Helvetica-Bold
+	/FontBBox [-170 -228 1003 962 null]
+	/ItalicAngle 0
+	/Ascent 718
+	/Descent -207
+	/XHeight 532
+	/CapHeight 718
+	/StemV 0
+>>
+endobj
+
+7 0 obj
+<<
+	/Type /Font
+	/Subtype /Type1
+	/BaseFont /Helvetica-Bold
+	/Encoding /WinAnsiEncoding
+	/FontDescriptor 10 0 R
+>>
+endobj
+
+11 0 obj
 <<
 	/Type /Catalog
 	/Pages 2 0 R
@@ -98,21 +141,23 @@ endobj
 endobj
 
 xref
-0 10
+0 12
 0000000000 65535 f 
-0000004280 00000 n 
-0000000460 00000 n 
-0000000554 00000 n 
-0000000206 00000 n 
+0000004572 00000 n 
+0000000752 00000 n 
+0000000846 00000 n 
+0000000485 00000 n 
 0000000016 00000 n 
-0000000186 00000 n 
-0000000230 00000 n 
-0000004092 00000 n 
-0000004405 00000 n 
+0000000465 00000 n 
+0000004891 00000 n 
+0000000509 00000 n 
+0000004384 00000 n 
+0000004697 00000 n 
+0000005022 00000 n 
 trailer
 <<
-	/Size 10
-	/Root 9 0 R
+	/Size 12
+	/Root 11 0 R
 	/ID [<00150013> <00150013>]
 	/Info <<
 		/Producer (pdfjs tests \(github.com/rkusa/pdfjs\))
@@ -120,5 +165,5 @@ trailer
 	>>
 >>
 startxref
-4457
+5075
 %%EOF

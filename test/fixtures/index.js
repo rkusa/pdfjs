@@ -14,6 +14,10 @@ exports.create = function() {
       opensans: {
         regular: new pdf.Font(openSansRegular),
         bold:    new pdf.Font(openSansBold)
+      },
+      afm: {
+        regular: new pdf.Font(require('../../font/Helvetica.json')),
+        bold: new pdf.Font(require('../../font/Helvetica-Bold.json')),
       }
     },
     image: {
