@@ -17,6 +17,18 @@ if (args.length) {
   })
 }
 
+// mock current time
+const _Date = Date
+Date = class extends _Date {
+  constructor(year, month, day, hour, minute, second) {
+    if (arguments.length === 0) {
+      return new _Date(2015, 1, 19, 22, 33, 26)
+    } else {
+      return new _Date(year, month, day, hour, minute, second)
+    }
+  }
+}
+
 function run(files, force) {
   const f = fixtures.create()
 
