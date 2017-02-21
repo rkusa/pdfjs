@@ -5,12 +5,15 @@ module.exports = function(doc, {lorem}) {
 
   doc.text('---------------------')
 
+  const table = doc.table({ widths: [200, 200] })
+
   // should be moved to the next page retrospectively
-  let row, cell
-  row = doc.startRow()
-    row.cell(lorem.short, { backgroundColor: 0xeeeeee, padding: 10, fontSize: 20, width: 200 })
-    row.cell(lorem.short, { backgroundColor: 0xbbbbbb, padding: 10, fontSize: 20, width: 200 })
+  const row = table.row()
+  row.cell(lorem.short, { backgroundColor: 0xeeeeee, padding: 10, fontSize: 20 })
+  row.cell(lorem.short, { backgroundColor: 0xbbbbbb, padding: 10, fontSize: 20 })
   row.end()
+
+  table.end()
 
   doc.text(lorem.short, { fontSize: 20 })
   doc.text(lorem.short, { fontSize: 20 })
