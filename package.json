@@ -16,9 +16,9 @@
   },
   "dependencies": {
     "linebreak": "^0.3.0",
-    "node-uuid": "^1.4.7",
     "opentype.js": "^0.6.2",
-    "unorm": "^1.4.1"
+    "unorm": "^1.4.1",
+    "uuid": "^3.0.1"
   },
   "devDependencies": {
     "tape": "^4.6.3"
