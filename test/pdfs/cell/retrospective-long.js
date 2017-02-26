@@ -4,11 +4,10 @@ module.exports = function(doc, {lorem}) {
   }
 
   // should be moved to the next page retrospectively
-  const cell = doc.startCell({ backgroundColor: 0xeeeeee, padding: 20 })
+  const cell = doc.cell({ backgroundColor: 0xeeeeee, padding: 20 })
   for (let i = 0; i < 4; ++i) {
     cell.text(lorem.short, { fontSize: 20 })
   }
-  cell.end()
 
   doc.text(lorem.short, { fontSize: 20 })
 }

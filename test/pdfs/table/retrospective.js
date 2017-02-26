@@ -11,9 +11,6 @@ module.exports = function(doc, {lorem}) {
   const row = table.row()
   row.cell(lorem.short, { backgroundColor: 0xeeeeee, padding: 10, fontSize: 20 })
   row.cell(lorem.short, { backgroundColor: 0xbbbbbb, padding: 10, fontSize: 20 })
-  row.end()
-
-  table.end()
 
   doc.text(lorem.short, { fontSize: 20 })
   doc.text(lorem.short, { fontSize: 20 })

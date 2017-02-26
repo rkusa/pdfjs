@@ -1,5 +1,5 @@
 module.exports = function(doc, fixtures) {
-  const text = doc.startText()
+  const text = doc.text()
   text.add('Regular')
       .add('Bold', { font: fixtures.font.afm.bold })
       .add('Regular', { font: fixtures.font.afm.regular })
@@ -11,5 +11,4 @@ module.exports = function(doc, fixtures) {
       .add('\nRegular')
       .add('\nBigger', { fontSize: 40 })
       .add('\nRegular')
-      .end()
 }
