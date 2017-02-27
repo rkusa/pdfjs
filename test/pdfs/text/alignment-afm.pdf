@@ -144,7 +144,7 @@ endobj
 <<
 	/Type /FontDescriptor
 	/FontName /Helvetica
-	/FontBBox [-166 -225 1000 931 null]
+	/FontBBox [-166 -225 1000 931]
 	/ItalicAngle 0
 	/Ascent 718
 	/Descent -207
@@ -178,11 +178,11 @@ xref
 0000004962 00000 n 
 0000000016 00000 n 
 0000004593 00000 n 
-0000008688 00000 n 
+0000008683 00000 n 
 0000004614 00000 n 
 0000004638 00000 n 
 0000008500 00000 n 
-0000008813 00000 n 
+0000008808 00000 n 
 trailer
 <<
 	/Size 10
@@ -194,5 +194,5 @@ trailer
 	>>
 >>
 startxref
-8865
+8860
 %%EOF
