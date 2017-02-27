@@ -79,9 +79,9 @@ for (const filename of files) {
 
     // number array
     case 'fontBBox':
-      properties[key] = val.split(/\s+/g).map(function(v) {
-        return parseFloat(v, 10)
-      })
+      properties[key] = val.split(/\s+/g)
+        .filter(v => v !== '')
+        .map(v => parseFloat(v, 10))
       break
 
     // string
