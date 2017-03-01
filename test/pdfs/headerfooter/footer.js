@@ -3,9 +3,7 @@ module.exports = function(doc, {lorem, image}) {
   footer.text('text')
 
   const cell = footer.cell({ padding: 20, backgroundColor: 0xdddddd })
-
   cell.text('TESTING')
-
   cell.image(image.pdf)
 
   doc.text('Hello')
