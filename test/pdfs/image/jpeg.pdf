@@ -21,11 +21,11 @@ BT
 12.452 TL
 T*
 (magna aliquyam erat, sed diam voluptua.) Tj
+ET
 q
 256.000 0.000 0.000 70.000 10.000 736.992 cm
 /X1.0 Do
 Q
-ET
 q
 128.000 0.000 0.000 35.000 10.000 701.992 cm
 /X1.0 Do
@@ -56,10 +56,6 @@ endobj
 endobj
 
 7 0 obj
-[3 0 R]
-endobj
-
-8 0 obj
 <<
 	/Type /Page
 	/Parent 1 0 R
@@ -75,7 +71,7 @@ endobj
 			/X1.0 5 0 R
 		>>
 	>>
-	/Contents 7 0 R
+	/Contents [3 0 R]
 >>
 endobj
 
@@ -83,7 +79,7 @@ endobj
 <<
 	/Type /Pages
 	/MediaBox [0 0 595.296 841.896]
-	/Kids [8 0 R]
+	/Kids [7 0 R]
 	/Count 1
 >>
 endobj
@@ -101,7 +97,7 @@ endstream
 
 endobj
 
-9 0 obj
+8 0 obj
 <<
 	/Type /FontDescriptor
 	/FontName /Helvetica
@@ -121,7 +117,7 @@ endobj
 	/Subtype /Type1
 	/BaseFont /Helvetica
 	/Encoding /WinAnsiEncoding
-	/FontDescriptor 9 0 R
+	/FontDescriptor 8 0 R
 >>
 endobj
 
@@ -142,7 +138,7 @@ ffd8ffe000104a46494600010101004800480000ffe100c84578696600004d4d002a000000080007
 endstream
 endobj
 
-10 0 obj
+9 0 obj
 <<
 	/Type /Catalog
 	/Pages 1 0 R
@@ -150,22 +146,21 @@ endobj
 endobj
 
 xref
-0 11
+0 10
 0000000000 65535 f 
-0000001210 00000 n 
-0000001304 00000 n 
+0000001188 00000 n 
+0000001282 00000 n 
 0000000016 00000 n 
 0000000921 00000 n 
-0000005150 00000 n 
-0000005025 00000 n 
+0000005128 00000 n 
+0000005003 00000 n 
 0000000941 00000 n 
-0000000965 00000 n 
-0000004842 00000 n 
-0000043092 00000 n 
+0000004820 00000 n 
+0000043070 00000 n 
 trailer
 <<
-	/Size 11
-	/Root 10 0 R
+	/Size 10
+	/Root 9 0 R
 	/ID [<00150013> <00150013>]
 	/Info <<
 		/Producer (pdfjs tests \(github.com/rkusa/pdfjs\))
@@ -173,5 +168,5 @@ trailer
 	>>
 >>
 startxref
-43145
+43122
 %%EOF

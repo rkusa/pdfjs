@@ -47,10 +47,6 @@ endobj
 endobj
 
 7 0 obj
-[3 0 R]
-endobj
-
-8 0 obj
 <<
 	/Type /Page
 	/Parent 1 0 R
@@ -66,7 +62,7 @@ endobj
 		/XObject <<
 		>>
 	>>
-	/Contents 7 0 R
+	/Contents [3 0 R]
 >>
 endobj
 
@@ -74,7 +70,7 @@ endobj
 <<
 	/Type /Pages
 	/MediaBox [0 0 595.296 841.896]
-	/Kids [8 0 R]
+	/Kids [7 0 R]
 	/Count 1
 >>
 endobj
@@ -92,7 +88,7 @@ endstream
 
 endobj
 
-9 0 obj
+8 0 obj
 <<
 	/Type /FontDescriptor
 	/FontName /Helvetica
@@ -112,11 +108,11 @@ endobj
 	/Subtype /Type1
 	/BaseFont /Helvetica
 	/Encoding /WinAnsiEncoding
-	/FontDescriptor 9 0 R
+	/FontDescriptor 8 0 R
 >>
 endobj
 
-10 0 obj
+9 0 obj
 <<
 	/Type /FontDescriptor
 	/FontName /Helvetica-Bold
@@ -136,11 +132,11 @@ endobj
 	/Subtype /Type1
 	/BaseFont /Helvetica-Bold
 	/Encoding /WinAnsiEncoding
-	/FontDescriptor 10 0 R
+	/FontDescriptor 9 0 R
 >>
 endobj
 
-11 0 obj
+10 0 obj
 <<
 	/Type /Catalog
 	/Pages 1 0 R
@@ -148,23 +144,22 @@ endobj
 endobj
 
 xref
-0 12
+0 11
 0000000000 65535 f 
-0000000769 00000 n 
-0000000863 00000 n 
+0000000747 00000 n 
+0000000841 00000 n 
 0000000016 00000 n 
 0000000482 00000 n 
-0000004584 00000 n 
-0000004898 00000 n 
+0000004562 00000 n 
+0000004875 00000 n 
 0000000502 00000 n 
-0000000526 00000 n 
-0000004401 00000 n 
-0000004709 00000 n 
-0000005029 00000 n 
+0000004379 00000 n 
+0000004687 00000 n 
+0000005005 00000 n 
 trailer
 <<
-	/Size 12
-	/Root 11 0 R
+	/Size 11
+	/Root 10 0 R
 	/ID [<00150013> <00150013>]
 	/Info <<
 		/Producer (pdfjs tests \(github.com/rkusa/pdfjs\))
@@ -172,5 +167,5 @@ trailer
 	>>
 >>
 startxref
-5082
+5058
 %%EOF
