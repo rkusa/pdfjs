@@ -1,5 +1,5 @@
 module.exports = function(doc, {lorem}) {
-  var cell = doc.cell({
+  const cell = doc.cell({
     backgroundColor: 0xeeeeee,
     width: 200,
     padding: 0,
