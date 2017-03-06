@@ -1,7 +1,7 @@
 module.exports = function(doc, { lorem })  {
   doc.text(lorem.shorter, { fontSize: 20 })
 
-  const table = doc.table({ widths: [200, 200, 200] })
+  const table = doc.table({ widths: [200, 200] })
   const row = table.row()
 
   const cell1 = row.cell({ padding: 20, backgroundColor: 0xbbbbbb })

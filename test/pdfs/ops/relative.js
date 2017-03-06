@@ -4,7 +4,6 @@ module.exports = function(doc, {lorem}) {
   // relative
   doc.op(1, 0, 0, 'sc')
   doc.op((x, y) => {
-    console.log(x, y)
     const height = 40
     return [x, y - height, x + 60, height, 're']
   })
