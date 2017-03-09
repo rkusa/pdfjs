@@ -32,6 +32,7 @@ exports.create = function() {
     },
     document: {
       test: new pdf.ExternalDocument(fs.readFileSync(path.join(__dirname, 'document/test.pdf'))),
+      pdfjsCreated: new pdf.ExternalDocument(fs.readFileSync(path.join(__dirname, 'document/pdfjs-created.pdf'))),
     }
   }
 }
