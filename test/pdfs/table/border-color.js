@@ -1,6 +1,5 @@
 module.exports = function(doc, { lorem })  {
   const table = doc.table({
-    backgroundColor: 0xeeeeee,
     widths: [256, 256],
     borderWidth: 10,
     borderColor: 0xe74c3c,

@@ -2,7 +2,6 @@ module.exports = function(doc, { lorem })  {
   doc.text(lorem.short, { fontSize: 20 })
 
   const table = doc.table({
-    backgroundColor: 0xeeeeee,
     widths: [256, 256],
     padding: 0,
     borderWidth: 10,

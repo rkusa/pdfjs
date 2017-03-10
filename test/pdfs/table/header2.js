@@ -2,7 +2,6 @@ module.exports = function(doc, { lorem })  {
   doc.text('Foo').br().br().br().br().br().br().br().br().br()
 
   const table = doc.table({
-    backgroundColor: 0xeeeeee,
     widths: [null, null],
     borderWidth: 1,
   })
