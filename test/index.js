@@ -48,8 +48,9 @@ function run(files, force) {
 
 
     const doc = new pdf.Document({
-      font:      f.font.afm.regular,
-      padding:   10
+      font:       f.font.afm.regular,
+      padding:    10,
+      lineHeight: 1,
     })
 
     script(doc, f)
