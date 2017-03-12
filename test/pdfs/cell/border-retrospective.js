@@ -3,7 +3,7 @@ module.exports = function(doc, {lorem}) {
     doc.text(lorem.short, { fontSize: 20 })
   }
 
-  doc.text('--------------------------')
+  doc.text('--------------------------', { fontSize: 20 })
 
   // should be moved to the next page retrospectively
   const cell = doc.cell({ backgroundColor: 0xeeeeee, padding: 0, borderWidth: 1 })
