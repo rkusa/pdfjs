@@ -46,10 +46,9 @@ function run(files, force) {
 
     const script = require(path.join('../', scriptPath))
 
-
     const doc = new pdf.Document({
       font:       f.font.afm.regular,
-      padding:    10,
+      padding:    script.padding >= 0 ? script.padding : 10,
       lineHeight: 1,
     })
 
