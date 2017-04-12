@@ -4,33 +4,28 @@ A Portable Document Format (PDF) generation library targeting both the server- a
 
 [![NPM][npm]](https://npmjs.org/package/pdfjs)
 [![Dependency Status][deps]](https://david-dm.org/rkusa/pdfjs)
-[![Build Status][drone]](https://ci.rkusa.st/rkusa/pdfjs)
+[![Build Status][travis]](https://travis-ci.org/rkusa/pdfjs)
 
 [Documentation](docs)
 
 ```bash
-npm install rkusa/pdfjs@2.x
+npm install rkusa/pdfjs@2.0.0-alpha.1
 ```
 
 ## 2.0.0 Breaking Changes
 
-Version `2.0.0` is again a re-write. I learned a lot through previous implementaitons. This version will have streaming layouting with smart content chunking, which allows for having a small memory footprint even when creating a PDF document with thousands of pages. This time, I will most certainly settle with this implementation.
-
-- Uses `async/await`, i.e., run node with `--harmony-async-await` flag or use a transpiler like babel
+Version `2.0.0` is a re-write. I tried completely different approaches of the last years. Finally, this version has streaming layouting with smart content chunking, which allows for having a small memory footprint even when creating a PDF document with thousands of pages. I highly expect to settle with this implementation.
 
 ----------------
 
 ### Features
 
-_(this section is outdated and will be updated soon)_
-
-- Text (many formatting options)
+- Text (with common formatting options)
 - Images (JPEGs, other **PDFs**)
-- Tables (fixed layout, header row, before page break rows)
+- Tables (fixed layout, header row)
 - Header & Footer
-- TTF Font embedding (as CID fonts, i.e., support for fonts with large character sets)
-
-**Missing:** AFM fonts are currently not implemented.
+- AFM fonts && OTF font embedding (as CID fonts, i.e., support for fonts with large character sets)
+- Add existing PDFs (merge them or add them as page templates)
 
 If you are missing a feature, feel free to submit a PR or to ask for it.
 
@@ -44,6 +39,6 @@ If you are missing a feature, feel free to submit a PR or to ask for it.
 
 [MIT](LICENSE)
 
-[npm]: http://img.shields.io/npm/v/pdfjs.svg?style=flat-square
-[deps]: http://img.shields.io/david/rkusa/pdfjs.svg?style=flat-square
-[drone]: http://ci.rkusa.st/api/badges/rkusa/pdfjs/status.svg?style=flat-square
+[npm]: https://img.shields.io/npm/v/pdfjs.svg?style=flat-square
+[deps]: https://img.shields.io/david/rkusa/pdfjs.svg?style=flat-square
+[travis]: https://img.shields.io/travis/rkusa/pdfjs/master.svg?style=flat-square

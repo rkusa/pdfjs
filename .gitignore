@@ -1,8 +1,7 @@
 # dotfiles
 .*
-!.drone.yml
-!.eslintrc
 !.gitignore
+!.travis.yml
 
 # dependencies
 node_modules
