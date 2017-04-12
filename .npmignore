@@ -2,3 +2,5 @@ docs
 test
 logo.svg
 .*
+yarn.lock
+test.*

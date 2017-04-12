@@ -14,7 +14,7 @@ npm install rkusa/pdfjs@2.0.0-alpha.1
 
 ## 2.0.0 Breaking Changes
 
-Version `2.0.0` is a re-write. I tried completely different approaches of the last years. Finally, this version has streaming layouting with smart content chunking, which allows for having a small memory footprint even when creating a PDF document with thousands of pages. I highly expect to settle with this implementation.
+Version `2.0.0` is a re-write. The implementation is expected to settle with the current approach of streaming layouting with smart content chunking, which allows for having a small memory footprint even when creating a PDF document with thousands of pages.
 
 ----------------
 
