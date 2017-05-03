@@ -15,7 +15,7 @@
     "test": "node --harmony-async-await test/index.js test/pdfs/**/*.js"
   },
   "dependencies": {
-    "linebreak": "^0.3.0",
+    "linebreak": "rkusa/linebreak",
     "opentype.js": "^0.6.2",
     "unorm": "^1.4.1",
     "uuid": "^3.0.1"
