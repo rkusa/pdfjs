@@ -1,0 +1,21 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+  <title>pdfjs playground</title>
+</head>
+<body>
+  <iframe id="preview" width="380" height="650" frameborder="0"></iframe>
+
+  <script type="text/javascript" src="bundle.js"></script>
+  <script>
+  const doc = new pdf.Document({ font: fonts.Helvetica })
+  doc.text('Hello World')
+  render(doc)
+    .then(function(dataURL) { document.getElementById('preview').src = dataURL })
+    .catch(console.error)
+  </script>
+</body>
+</html>
