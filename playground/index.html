@@ -1,21 +1,48 @@
 <!doctype html>
-<html lang="en">
+
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
 
   <title>pdfjs playground</title>
 </head>
-<body>
-  <iframe id="preview" width="380" height="650" frameborder="0"></iframe>
 
-  <script type="text/javascript" src="bundle.js"></script>
-  <script>
-  const doc = new pdf.Document({ font: fonts.Helvetica })
-  doc.text('Hello World')
-  render(doc)
-    .then(function(dataURL) { document.getElementById('preview').src = dataURL })
-    .catch(console.error)
-  </script>
-</body>
-</html>
+<iframe id="preview" width="380" height="650" frameborder="0"></iframe>
+
+<div id="container" style="width:800px;height:600px;border:1px solid grey">
+const doc = new pdf.Document({ font: fonts.Helvetica })
+doc.text('Hello World')
+</div>
+
+<script type="text/javascript" src="bundle.js"></script>
+<script src="node_modules/monaco-editor/min/vs/loader.js"></script>
+<script>
+  require.config({ paths: { 'vs': 'node_modules/monaco-editor/min/vs' }})
+  require(['vs/editor/editor.main'], function() {
+    var container = document.getElementById('container')
+    var initialValue = container.textContent
+    container.textContent = ''
+    var editor = monaco.editor.create(container, {
+      value: initialValue,
+      language: 'javascript',
+      theme: 'vs-dark'
+    })
+    var debounce
+    function rerender() {
+      debounce = undefined
+      var body = editor.getValue() + '\nreturn doc'
+      var fn = new Function("pdf", "fonts", body)
+      var doc = fn(window.pdf, window.fonts);
+      render(doc)
+        .then(function(dataURL) { document.getElementById('preview').src = dataURL })
+        .catch(console.error)
+    }
+    editor.onDidChangeModelContent(function() {
+      if (debounce) {
+        clearTimeout(debounce)
+      }
+      debounce = setTimeout(rerender, 1000)
+    })
+    rerender()
+  })
+</script>
