@@ -11,11 +11,11 @@ Adds text to the text fragment.
 
 **Options:**
 
-Same as [doc.text([text], [opts])](document.md#texttext-opts)
+Same as [doc.text([text], [opts])](fragment.md#texttext-opts)
 
 ### .append(text, [opts])
 
-Same as [text.add(text, [opts])](#addtext-opts), but directly appends the text, i.e., adds the text without a space.
+Same as [text.add(text, [opts])](fragment.md#texttext-opts), but directly appends the text, i.e., adds the text without a space.
 
 ### .br()
 

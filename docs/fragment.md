@@ -16,6 +16,7 @@ Add some text to the document. Returns a [Text object](text.md).
 - **color** (default: black) - the font color as hex number (e.g. 0x000000)
 - **lineHeight** (default: 1.15) - the line height
 - **textAlign** / **alignment** (default: 'left') - the text alignment (possible options: left, right, center, justify)
+- **link** - a URI the text should link to
 
 **Example:**
 
