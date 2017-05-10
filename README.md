@@ -16,6 +16,8 @@ npm install pdfjs@2.0.0-alpha.1
 
 Version `2.0.0` is a re-write. The implementation is expected to settle with the current approach of streaming layouting with smart content chunking, which allows for having a small memory footprint even when creating a PDF document with thousands of pages.
 
+`2.0.0` requires Node >= 7. If you get an error on `require('pdfjs')` you are probably using an older Node.js version, which can be fixed by updating Node.js or by running pdfjs through a transpiler like babel.
+
 ----------------
 
 ### Features
