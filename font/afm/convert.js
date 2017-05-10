@@ -72,8 +72,9 @@ for (const filename of files) {
     case 'xHeight':
     case 'ascender':
     case 'descender':
-    // case 'underlineThickness':
     case 'italicAngle':
+    case 'underlinePosition':
+    case 'underlineThickness':
       properties[key] = parseFloat(val, 10)
       break
 
