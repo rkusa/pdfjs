@@ -1,0 +1,16 @@
+
+#editor, #preview {
+  position: fixed;
+  width: 50%;
+  top: 0;
+  bottom: 0;
+}
+
+#editor {
+  left: 0;
+}
+
+#preview {
+  right: 0;
+  height: 100%;
+}
