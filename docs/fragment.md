@@ -17,6 +17,7 @@ Add some text to the document. Returns a [Text object](text.md).
 - **lineHeight** (default: 1.15) - the line height
 - **textAlign** / **alignment** (default: 'left') - the text alignment (possible options: left, right, center, justify)
 - **underline** - whether to underline the text
+- **strikethrough** - whether to strikethrough the text
 - **link** - a URI the text should link to
 
 **Example:**
