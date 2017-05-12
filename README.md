@@ -29,6 +29,8 @@ Version `2.0.0` is a re-write. The implementation is expected to settle with the
 - AFM fonts && OTF font embedding (as CID fonts, i.e., support for fonts with large character sets)
 - Add existing PDFs (merge them or add them as page templates)
 
+A lot of examples can be found in the [test folder](https://github.com/rkusa/pdfjs/tree/master/test/pdfs).
+
 If you are missing a feature, feel free to submit a PR or to ask for it.
 
 ### History
