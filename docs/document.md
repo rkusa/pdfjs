@@ -90,3 +90,22 @@ Must be called to finish writing the PDF document.
 await doc.end()
 ```
 
+### .asBuffer([callback])
+
+Can be used to render the document as a buffer. Returns a `Promise`; the usage of `callback` is optional.
+
+```
+doc.asBuffer().then(data => fs.writeFileSync('test.pdf', data, { encoding: 'binary' }))
+```
+
+
+```
+doc.asBuffer((err, data) => {
+  if (err) {
+    console.error(err)
+  } else {
+    fs.writeFileSync('test.pdf', data, { encoding: 'binary' })
+  }
+})
+```
+
