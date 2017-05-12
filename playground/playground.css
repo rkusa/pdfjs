@@ -1,3 +1,7 @@
+body {
+  font-family: -apple-system, system-ui, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  font-size: 100%;
+}
 
 #editor, #preview {
   position: fixed;
@@ -13,4 +17,29 @@
 #preview {
   right: 0;
   height: 100%;
+}
+
+.hidden {
+  display: none;
+}
+
+#error {
+  position: fixed;
+  height: 100px;
+  width: 50%;
+  right: 0;
+  top: 0;
+  background-color: #d0394f;
+  padding: 20px;
+  box-sizing: border-box;
+  color: white;
+  max-height: 200px;
+  overflow: hidden;
+  transform: translateY(-200px);
+  will-change: transform;
+  transition: transform .5s;
+}
+
+#error.open {
+  transform: translateY(0);
 }
