@@ -6,7 +6,7 @@ A Portable Document Format (PDF) generation library targeting both the server- a
 [![Dependency Status][deps]](https://david-dm.org/rkusa/pdfjs)
 [![Build Status][travis]](https://travis-ci.org/rkusa/pdfjs)
 
-[Documentation](docs)
+[Documentation](docs) | [Playground](http://pdfjs.rkusa.st/)
 
 ```bash
 npm install pdfjs@2.0.0-alpha.1
