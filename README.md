@@ -9,7 +9,7 @@ A Portable Document Format (PDF) generation library targeting both the server- a
 [Documentation](docs) | [Playground](http://pdfjs.rkusa.st/)
 
 ```bash
-npm install pdfjs@2.0.0-alpha.1
+npm install pdfjs@2.0.0-alpha.3
 ```
 
 ## 2.0.0 Breaking Changes
