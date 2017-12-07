@@ -21,6 +21,17 @@ Creates a new [PDF document](document.md).
 - **fontSize** (default: 11) - the font size
 - **color** (default: black) - the font color as hex number (e.g. 0x000000)
 - **lineHeight** (default: 1.15) - the line height
+- **properties** - document properties - see below
+
+**Properties:**
+
+- **title** (string) - the document's title
+- **author** (string) - the name of the person who created the document
+- **subject** (string) - the subject of the document
+- **keywords** (string) - keywords associated with the document
+- **creator** (string) - if the document was converted to PDF from another format, the name of the conforming product that created the original document from which it was converted
+- **producer** (string, default: pdfjs v1.3 (github.com/rkusa/pdfjs)) -  if the document was converted to PDF from another format, the name of the conforming product that converted it to PDF
+- **creationDate** (date, default: `new Date()`) - the date and time the document was created
 
 **Example:**
 
