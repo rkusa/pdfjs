@@ -46,13 +46,16 @@ function run(files, force) {
 
     const script = require(path.join('../', scriptPath))
 
-    const doc = new pdf.Document({
+    let doc = new pdf.Document({
       font:       f.font.afm.regular,
       padding:    script.padding >= 0 ? script.padding : 10,
       lineHeight: 1,
     })
 
-    script(doc, f)
+    const newDoc = script(doc, f)
+    if (newDoc) {
+      doc = newDoc
+    }
 
     const relativePath = path.relative(path.join(__dirname, 'pdfs'), dirname)
     test(path.join(relativePath, basename), function (t) {
