@@ -15,8 +15,9 @@
     "test": "node test/index.js test/pdfs/**/*.js"
   },
   "dependencies": {
-    "linebreak": "rkusa/linebreak",
-    "opentype.js": "^0.6.2",
+    "@rkusa/linebreak": "^1.0.0",
+    "opentype.js": "^0.7.3",
+    "pako": "^1.0.6",
     "unorm": "^1.4.1",
     "uuid": "^3.0.1"
   },
