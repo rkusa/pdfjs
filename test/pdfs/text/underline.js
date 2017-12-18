@@ -43,4 +43,11 @@ module.exports = function(doc, { lorem, font }) {
     text.add('foo', { underline: true })
     text.add('bar', { underline: true, color: 0xff0000 })
   }
+
+  { // append
+    doc.text()
+       .add('fo', { underline: true })
+       .append('ob')
+       .append('ar', { underline: true })
+  }
 }
