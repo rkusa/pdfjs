@@ -37,4 +37,10 @@ module.exports = function(doc, { lorem, font }) {
     text.add('aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa', { underline: true })
     text.add('foobar')
   }
+
+  { // color change
+    const text = doc.text()
+    text.add('foo', { underline: true })
+    text.add('bar', { underline: true, color: 0xff0000 })
+  }
 }

@@ -37,4 +37,10 @@ module.exports = function(doc, { lorem, font }) {
     text.add('aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa', { strikethrough: true })
     text.add('foobar')
   }
+
+  { // color change
+    const text = doc.text()
+    text.add('foo', { strikethrough: true })
+    text.add('bar', { strikethrough: true, color: 0xff0000 })
+  }
 }
