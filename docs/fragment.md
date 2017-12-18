@@ -19,6 +19,8 @@ Add some text to the document. Returns a [Text object](text.md).
 - **underline** - whether to underline the text
 - **strikethrough** - whether to strikethrough the text
 - **link** - a URI the text should link to
+- **destination** - a name for a destination which could be used for document-local links
+- **goTo** - the name of the document-local destination the text should link to
 
 **Example:**
 
@@ -107,6 +109,9 @@ Add an image to the document.
 - **y** (default: undefined) - y (y starts at the bottom of the document) coordinate of where to render the image
 - **wrap** (default: false) - whether to wrap text or not
 - **align** (default: 'left') - horizontal alignment of the image (left, center or right)
+- **link** - a URI the image should link to
+- **destination** - a name for a destination which could be used for document-local links
+- **goTo** - the name of the document-local destination the image should link to
 
 **Example:**
 
@@ -134,4 +139,16 @@ doc.op((x, y) => {
   return [x, y - height, x + 60, height, 're']
 })
 doc.op('f')
+```
+
+### .destination(name)
+
+Add a named destination to the document and the current position.
+
+**Example:**
+
+```js
+doc.text('goto', { goTo: 'here' })
+doc.pageBreak()
+doc.destination('here')
 ```
