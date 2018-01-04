@@ -32,6 +32,7 @@ Creates a new [PDF document](document.md).
 - **creator** (string) - if the document was converted to PDF from another format, the name of the conforming product that created the original document from which it was converted
 - **producer** (string, default: pdfjs v1.3 (github.com/rkusa/pdfjs)) -  if the document was converted to PDF from another format, the name of the conforming product that converted it to PDF
 - **creationDate** (date, default: `new Date()`) - the date and time the document was created
+- **modDate** (date) - the date and time the document was most recently modified
 
 **Example:**
 
