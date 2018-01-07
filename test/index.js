@@ -9,7 +9,7 @@ process.env.TZ = 'Europe/Berlin'
 
 const args = process.argv.slice(2)
 if (args.length) {
-  run(args, true)
+  run(args.map((a) => path.join(__dirname, a)), true)
 } else {
   glob(path.join(__dirname, 'pdfs/**/*.js'), function (err, files) {
     if (err) throw err
@@ -44,7 +44,7 @@ function run(files, force) {
     const expectationPath = path.join(dirname, basename + '.pdf')
     const resultPath      = path.join(dirname, basename + '.result.pdf')
 
-    const script = require(path.join('../', scriptPath))
+    const script = require(scriptPath)
 
     let doc = new pdf.Document({
       font:       f.font.afm.regular,
