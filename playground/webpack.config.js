@@ -6,6 +6,8 @@ module.exports = {
 
   target: 'web',
 
+  mode: 'production',
+
   output: {
     path: __dirname,
     filename: 'bundle.js',
@@ -16,20 +18,21 @@ module.exports = {
       {
         test: /\.js$/,
         exclude: /node_modules/,
-        loader: 'babel-loader',
-        query: {
-          presets: ['babel-preset-latest'].map(require.resolve)
+        use: {
+          loader: 'babel-loader',
+          options: {
+            presets: [[path.resolve("./node_modules/babel-preset-env"), {
+                          "targets": {
+                            "browsers": "ie 10, ios 9, safari 7, edge 13, chrome 54, firefox 49"
+                          }
+                        }]]
+          }
         }
-      },
-      {
-        test: /\.json$/,
-        exclude: /node_modules/,
-        loader: 'json-loader'
       }
     ]
   },
 
-  plugins: [
-    new webpack.optimize.UglifyJsPlugin()
-  ]
+  optimization: {
+    minimize: true
+  }
 }

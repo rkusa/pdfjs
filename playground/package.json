@@ -5,15 +5,15 @@
     "build": "webpack --progress --colors --config webpack.config.js"
   },
   "devDependencies": {
-    "babel-core": "^6.24.1",
-    "babel-loader": "^7.0.0",
-    "babel-polyfill": "^6.23.0",
-    "babel-preset-latest": "^6.24.1",
-    "json-loader": "^0.5.4",
-    "webpack": "^2.4.1"
+    "babel-core": "^6.24",
+    "babel-loader": "^7.0",
+    "babel-polyfill": "^6.23",
+    "babel-preset-env": "^1.6",
+    "webpack": "^4.2",
+    "webpack-cli": "^2.0.12"
   },
   "dependencies": {
-    "monaco-editor": "^0.8.3",
-    "whatwg-fetch": "^2.0.3"
+    "monaco-editor": "^0.11",
+    "whatwg-fetch": "^2.0"
   }
 }
