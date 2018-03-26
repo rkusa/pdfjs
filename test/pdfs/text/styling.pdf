@@ -13,37 +13,37 @@ BT
 18.500 TL
 /F1 11.000 Tf
 0.000 0.000 0.000 sc
-(Regular ) Tj
+[(Regular) -278.000] TJ
 /F2 11.000 Tf
-(Bold ) Tj
+[(Bold) -278.000] TJ
 /F1 11.000 Tf
-(Regular ) Tj
+[(Regular) -278.000] TJ
 /F1 20.000 Tf
-(Big ) Tj
+[(Big) -278.000] TJ
 /F2 20.000 Tf
-(BigBold ) Tj
+[(BigBold) -278.000] TJ
 /F1 11.000 Tf
 1.000 0.000 0.000 sc
-(Red ) Tj
+[(Red) -278.000] TJ
 0.000 0.000 0.000 sc
-(Regular) Tj
+[(Regular)] TJ
 14.315 TL
 T*
-(Regular) Tj
+[(Regular)] TJ
 39.277 TL
 T*
 /F1 40.000 Tf
-(Bigger) Tj
+[(Bigger)] TJ
 18.455 TL
 T*
 /F1 11.000 Tf
-(Regular) Tj
+[(Regular)] TJ
 ET
 endstream
 endobj
 
 4 0 obj
-411
+479
 endobj
 
 7 0 obj
@@ -116,14 +116,14 @@ endobj
 xref
 0 9
 0000000000 65535 f 
-0000000747 00000 n 
-0000000841 00000 n 
+0000000815 00000 n 
+0000000909 00000 n 
 0000000016 00000 n 
-0000000482 00000 n 
-0000004381 00000 n 
-0000004483 00000 n 
-0000000502 00000 n 
-0000004590 00000 n 
+0000000550 00000 n 
+0000004449 00000 n 
+0000004551 00000 n 
+0000000570 00000 n 
+0000004658 00000 n 
 trailer
 <<
 	/Size 9
@@ -135,5 +135,5 @@ trailer
 	>>
 >>
 startxref
-4642
+4710
 %%EOF
