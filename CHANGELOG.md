@@ -1,5 +1,9 @@
 # Changelog
 
+## 2.0.0-alpha.6
+
+- fix kerning for OTF fonts #84
+
 ## 2.0.0-alpha.5
 
 - implement font kerning (with a [minor limitation](https://github.com/rkusa/pdfjs/issues/82#issuecomment-376072547))
