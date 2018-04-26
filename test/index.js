@@ -9,7 +9,7 @@ process.env.TZ = 'Europe/Berlin'
 
 const args = process.argv.slice(2)
 if (args.length) {
-  run(args.map((a) => path.join(__dirname, a)), true)
+  run(args.map((a) => path.join(__dirname, '../', a)), true)
 } else {
   glob(path.join(__dirname, 'pdfs/**/*.js'), function (err, files) {
     if (err) throw err
