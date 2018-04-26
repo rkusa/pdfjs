@@ -54,9 +54,9 @@ footer.text("This is a footer");
 
 doc
     .asBuffer()
-    .then(data => writeFileSync("test.pdf", data, { encoding: "binary" }));
+    .then((data:Buffer) => writeFileSync("test.pdf", data, { encoding: "binary" }));
 
-doc.asBuffer((err, data) => {
+doc.asBuffer((err:Error, data:Buffer) => {
     if (err) {
         console.error(err);
     } else {
@@ -101,7 +101,7 @@ const footer1 = doc.footer();
 footer1.pageNumber({ textAlign: "center" });
 
 const header1 = doc.header();
-header1.pageNumber((curr, total) => `${curr} / ${total}`);
+header1.pageNumber((curr:number, total:number) => `${curr} / ${total}`);
 
 const table2 = doc.table({
     widths: [200, 200]
@@ -158,7 +158,7 @@ header3
     });
 
 docPlayground.footer().pageNumber(
-    function(curr, total) {
+    function(curr:number, total:number) {
         return curr + " / " + total;
     },
     { textAlign: "center" }
@@ -192,7 +192,7 @@ docPlayground
 
 var table5 = docPlayground.table({
     widths: [1.5 * pdf.cm, 1.5 * pdf.cm, null, 2 * pdf.cm, 2.5 * pdf.cm],
-    borderHorizontalWidths: function(i) {
+    borderHorizontalWidths: function(i:number) {
         return i < 2 ? 1 : 0.1;
     },
     padding: 5
