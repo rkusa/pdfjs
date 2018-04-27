@@ -44,31 +44,39 @@ function run(files, force) {
     const expectationPath = path.join(dirname, basename + '.pdf')
     const resultPath      = path.join(dirname, basename + '.result.pdf')
 
-    const script = require(scriptPath)
-
-    let doc = new pdf.Document({
-      font:       f.font.afm.regular,
-      padding:    script.padding >= 0 ? script.padding : 10,
-      lineHeight: 1,
-    })
-
-    const newDoc = script(doc, f)
-    if (newDoc) {
-      doc = newDoc
-    }
-
     const relativePath = path.relative(path.join(__dirname, 'pdfs'), dirname)
-    test(path.join(relativePath, basename), function (t) {
-      doc.info.id = '42'
-      doc.info.creationDate = new Date(2015, 1, 19, 22, 33, 26)
-      doc.info.producer = 'pdfjs tests (github.com/rkusa/pdfjs)'
+    test(path.join(relativePath, basename), async function (t) {
+      const script = require(scriptPath)
+
+      let doc = new pdf.Document({
+        font: f.font.afm.regular,
+        padding: script.padding >= 0 ? script.padding : 10,
+        lineHeight: 1
+      })
+      setDocInfo(doc);
+
+      const testResult = await script(doc, f)
 
       const w = fs.createWriteStream(resultPath)
-      doc.pipe(w)
 
-      doc.end().catch(err => {
-        t.error(err)
-      })
+      if (testResult instanceof Buffer) {
+        // save buffer
+        w.write(testResult)
+        w.close()
+      } else {
+
+        if (testResult) {
+          doc = testResult
+          setDocInfo(doc)
+        }
+
+        // save doc
+        doc.pipe(w)
+
+        doc.end().catch(err => {
+          t.error(err)
+        })
+      }
 
       w.on('close', () => {
         try {
@@ -83,4 +91,10 @@ function run(files, force) {
       })
     })
   })
+}
+
+function setDocInfo(doc) {
+  doc.info.id = '42'
+  doc.info.creationDate = new Date(2015, 1, 19, 22, 33, 26)
+  doc.info.producer = 'pdfjs tests (github.com/rkusa/pdfjs)'
 }
