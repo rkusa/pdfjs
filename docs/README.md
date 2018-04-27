@@ -106,6 +106,8 @@ doc.image(img)
 
 Creates a new external PDF document that can be merged into the document or that can be added to the document as a page template.
 
+**Note:** Please keep in mind that due to the complexity of the PDF specification and slightly different implementations of it, there is no guarantee that `pdfjs` successfully parses every available PDF document. It is recommended to wrap the usage of `ExternDocument` into a try/catch statement. If you encounter an error while parsing a PDF document or if you encounter a PDF document that is not parsed correctly, feel free to open an issue.
+
 **Arguments:**
 
 - **src** - a buffer of the PDF source
