@@ -10,12 +10,12 @@ let doc = new pdf.Document({
   font:       f.font.afm.regular,
   padding:    10,
   lineHeight: 1,
-  info: {
-    id: '42',
+  properties: {
     creationDate: new Date(2015, 1, 19, 22, 33, 26),
     producer: 'pdfjs tests (github.com/rkusa/pdfjs)'
   }
 })
+doc.info.id = '42'
 
 doc.text(f.lorem.short)
 
@@ -37,8 +37,8 @@ doc.asBuffer().then(data => {
         t.error(err)
       }
 
-      t.ok(result === expectation, basename)
-      t.end()
+      tape.ok(result === expectation, 'asBuffer')
+      tape.end()
     })
   });
 });
