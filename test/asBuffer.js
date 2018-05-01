@@ -1,4 +1,5 @@
 const test = require('tape')
+const path = require('path')
 const fixtures = require('./fixtures')
 const pdf = require('../lib')
 
