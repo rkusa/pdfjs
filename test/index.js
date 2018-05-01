@@ -13,13 +13,13 @@ if (args.length) {
     require('./asBuffer')
   } else {
     run(args.map((a) => path.join(__dirname, '../', a)), true)
-    require('./asBuffer')
   }
 } else {
   glob(path.join(__dirname, 'pdfs/**/*.js'), function (err, files) {
     if (err) throw err
     run(files)
   })
+  require('./asBuffer')
 }
 
 // mock current time
