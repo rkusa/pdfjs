@@ -37,7 +37,7 @@ doc.asBuffer().then(data => {
         t.error(err)
       }
 
-      tape.ok(result === expectation, 'asBuffer')
+      tape.ok(result.replace(/\r/g,"") === expectation.replace(/\r/g,""), 'asBuffer')
       tape.end()
     })
   });

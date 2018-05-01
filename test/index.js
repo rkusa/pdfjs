@@ -82,7 +82,7 @@ function run(files, force) {
           t.error(err)
         }
 
-        t.ok(result === expectation, basename)
+        t.ok(result.replace(/\r/g,"") === expectation.replace(/\r/g,""), basename)
         t.end()
       })
     })
