@@ -12,7 +12,8 @@
   "bugs": "https://github.com/rkusa/pdfjs/issues",
   "main": "lib/",
   "scripts": {
-    "test": "node test/index.js"
+    "test": "node test/index.js",
+    "test:types": "tsc --project ./types"
   },
   "dependencies": {
     "@rkusa/linebreak": "^1.0.0",
@@ -22,7 +23,9 @@
     "uuid": "^3.0.1"
   },
   "devDependencies": {
-    "tape": "^4.6.3"
+    "@types/node": "^9.6.6",
+    "tape": "^4.6.3",
+    "typescript": "^2.8.3"
   },
   "repository": {
     "type": "git",
@@ -30,5 +33,6 @@
   },
   "engines": {
     "node": ">=7"
-  }
+  },
+  "types": "./types/main.d.ts"
 }
