@@ -19,7 +19,6 @@ if (args.length) {
     if (err) throw err
     run(files)
   })
-  require('./asBuffer')
 }
 
 // mock current time
