@@ -167,7 +167,7 @@ docPlayground.footer().pageNumber(
 let cell2 = docPlayground.cell({ paddingBottom: 0.5 * pdf.cm });
 cell2.text("Features:", { fontSize: 16, font: helveticaBoldFont });
 cell2
-    .text({ fontSize: 14/*, lineSpacing: 1.35 */}) // lineSpacing not supported for now? See https://github.com/rkusa/pdfjs/issues/90
+    .text({ fontSize: 14, lineHeight: 1.35 })
     .add("-")
     .add("different", { color: 0xf8dc3f })
     .add("font", { font: timesRomanFont })

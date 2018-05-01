@@ -12,7 +12,8 @@
   "bugs": "https://github.com/rkusa/pdfjs/issues",
   "main": "lib/",
   "scripts": {
-    "test": "node test/index.js",
+    "test": "npm run test:pdfs && npm run test:types",
+    "test:pdfs": "node test/index.js",
     "test:types": "tsc --project ./types"
   },
   "dependencies": {
