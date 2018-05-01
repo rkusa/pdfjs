@@ -9,9 +9,9 @@ let doc = new pdf.Document({
   padding:    10,
   lineHeight: 1,
   info: {
-    id = '42',
-    creationDate = new Date(2015, 1, 19, 22, 33, 26),
-    producer = 'pdfjs tests (github.com/rkusa/pdfjs)'
+    id: '42',
+    creationDate: new Date(2015, 1, 19, 22, 33, 26),
+    producer: 'pdfjs tests (github.com/rkusa/pdfjs)'
   }
 })
 
@@ -22,19 +22,21 @@ const resultPath = path.join(__dirname, 'asBuffer.result.pdf')
 const w = fs.createWriteStream(resultPath)
 
 // save buffer
-w.write(await doc.asBuffer())
-w.close()
+doc.asBuffer().then(data => {
+  w.write(data)
+  w.close()
 
-test('asBuffer', tape => {
-  w.on('close', () => {
-    try {
-      var result = fs.readFileSync(resultPath, 'binary')
-      var expectation = fs.readFileSync(expectationPath, 'binary')
-    } catch (err) {
-      t.error(err)
-    }
+  test('asBuffer', tape => {
+    w.on('close', () => {
+      try {
+        var result = fs.readFileSync(resultPath, 'binary')
+        var expectation = fs.readFileSync(expectationPath, 'binary')
+      } catch (err) {
+        t.error(err)
+      }
 
-    t.ok(result === expectation, basename)
-    t.end()
-  })
+      t.ok(result === expectation, basename)
+      t.end()
+    })
+  });
 });
