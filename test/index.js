@@ -3,19 +3,15 @@ const path = require('path')
 const fs   = require('fs')
 const test = require('tape')
 const fixtures = require('./fixtures')
-const pdf    = require('../lib')
+const pdf = require('../lib')
 
 process.env.TZ = 'Europe/Berlin'
 
 const args = process.argv.slice(2)
 if (args.length) {
-  if (args[0] == 'asBuffer') {
-    require('./asBuffer')
-  } else {
-    run(args.map((a) => path.join(__dirname, '../', a)), true)
-  }
+  run(args.map((a) => path.join(__dirname, '../', a)), true)
 } else {
-  glob(path.join(__dirname, 'pdfs/**/*.js'), function (err, files) {
+  glob(path.join(__dirname, '{pdfs,others}/**/*.js'), function (err, files) {
     if (err) throw err
     run(files)
   })
@@ -36,15 +32,22 @@ Date = class extends _Date {
 function run(files, force) {
   const f = fixtures.create()
 
-  files.forEach(function(scriptPath) {
-    const dirname  = path.dirname(scriptPath)
-    const basename = path.basename(scriptPath, '.js')
+  for (const scriptPath of files) {
+    const relativePath = path.relative(__dirname, scriptPath)
+    const dirname      = path.dirname(scriptPath)
+    const basename     = path.basename(scriptPath, '.js')
 
     // ignore tests starting with _ and named `test`
     if (!force && (basename[0] === '_' || basename === 'test')) {
-      return
+      continue
     }
 
+    if (relativePath.startsWith('others/')) {
+      require(scriptPath)
+      continue
+    }
+
+    const pdfsPath        = path.relative(path.join(__dirname, 'pdfs'), dirname)
     const expectationPath = path.join(dirname, basename + '.pdf')
     const resultPath      = path.join(dirname, basename + '.result.pdf')
 
@@ -61,8 +64,7 @@ function run(files, force) {
       doc = newDoc
     }
 
-    const relativePath = path.relative(path.join(__dirname, 'pdfs'), dirname)
-    test(path.join(relativePath, basename), function (t) {
+    test(path.join(pdfsPath, basename), function (t) {
       doc.info.id = '42'
       doc.info.creationDate = new Date(2015, 1, 19, 22, 33, 26)
       doc.info.producer = 'pdfjs tests (github.com/rkusa/pdfjs)'
@@ -82,9 +84,9 @@ function run(files, force) {
           t.error(err)
         }
 
-        t.ok(result.replace(/\r/g,"") === expectation.replace(/\r/g,""), basename)
+        t.ok(result === expectation, basename)
         t.end()
       })
     })
-  })
+  }
 }
