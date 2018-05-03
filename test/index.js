@@ -42,7 +42,7 @@ function run(files, force) {
       continue
     }
 
-    if (relativePath.startsWith('others/')) {
+    if (relativePath.startsWith('others')) {
       require(scriptPath)
       continue
     }
