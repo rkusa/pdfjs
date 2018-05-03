@@ -16,10 +16,10 @@ exports.create = function() {
         bold:    new pdf.Font(openSansBold)
       },
       afm: {
-        regular: new pdf.Font(require('../../font/Helvetica.json')),
-        bold: new pdf.Font(require('../../font/Helvetica-Bold.json')),
-        monoRegular: new pdf.Font(require('../../font/Courier.json')),
-        monoBold: new pdf.Font(require('../../font/Courier-Bold.json')),
+        regular: require('../../font/Helvetica'),
+        bold: require('../../font/Helvetica-Bold'),
+        monoRegular: require('../../font/Courier'),
+        monoBold: require('../../font/Courier-Bold'),
       }
     },
     image: {

@@ -3,15 +3,9 @@ import * as fs from "fs"
 import * as path from "path"
 
 
-const helveticaFont: pdf.Font = new pdf.Font(
-    require("pdfjs/font/Helvetica.json")
-);
-const helveticaBoldFont: pdf.Font = new pdf.Font(
-    require("pdfjs/font/Helvetica-Bold.json")
-);
-const timesRomanFont: pdf.Font = new pdf.Font(
-    require("pdfjs/font/TimesRoman.json")
-);
+const helveticaFont: pdf.Font = require("pdfjs/font/Helvetica");
+const helveticaBoldFont: pdf.Font = require("pdfjs/font/Helvetica-Bold");
+const timesRomanFont: pdf.Font = require("pdfjs/font/TimesRoman");
 
 const src: Buffer = readFileSync("tor-logo.jpg");
 const logo: pdf.Image = new pdf.Image(src);
@@ -21,7 +15,7 @@ let doc: pdf.Document;
 // from docs
 // ReadMe
 doc = new pdf.Document({
-    font: new pdf.Font(require("pdfjs/font/helvetica.json")),
+    font: require("pdfjs/font/helvetica"),
     padding: 10
 });
 doc.pipe(createWriteStream("output.pdf"));
@@ -31,8 +25,6 @@ doc.pipe(createWriteStream("output.pdf"));
 async () => {
     await doc.end();
 };
-
-new pdf.Font(require("pdfjs/font/Helvetica.json"));
 
 new pdf.Font(readFileSync("./opensans/regular.ttf"));
 
@@ -242,10 +234,10 @@ const f = {
             bold: new pdf.Font(openSansBold)
         },
         afm: {
-            regular: new pdf.Font(require('../../font/Helvetica.json')),
-            bold: new pdf.Font(require('../../font/Helvetica-Bold.json')),
-            monoRegular: new pdf.Font(require('../../font/Courier.json')),
-            monoBold: new pdf.Font(require('../../font/Courier-Bold.json')),
+            regular: require('../../font/Helvetica'),
+            bold: require('../../font/Helvetica-Bold'),
+            monoRegular: require('../../font/Courier'),
+            monoBold: require('../../font/Courier-Bold'),
         }
     },
     image: {

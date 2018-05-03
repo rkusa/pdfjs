@@ -13,21 +13,8 @@ declare module "pdfjs" {
          * TFont objects can be used multiple times.
          * @param arg the font data, as either Buffer or ArrayBuffer of an OTF font or a JSON object descriping an AFM font
          */
-        constructor(arg: Buffer | ArrayBuffer | FontDescription);
+        constructor(arg: Buffer | ArrayBuffer);
     }
-
-    export type FontDescription = {
-        fontName: string;
-        fullName: string;
-        familyName: string;
-        italicAngle: number;
-        characterSet: string;
-        fontBBox: number[];
-        underlinePosition: number;
-        underlineThickness: number;
-        kerning: any;
-        widths: (number | null)[];
-    };
 
     export const mm: number;
     export const cm: number;

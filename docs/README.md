@@ -38,7 +38,7 @@ Creates a new [PDF document](document.md).
 
 ```js
 const doc = new pdf.Document({
-  font:    new pdf.Font(require('pdfjs/font/helvetica.json')),
+  font:    require('pdfjs/font/Helvetica'),
   padding: 10
 })
 doc.pipe(fs.createWriteStream('output.pdf'))
@@ -52,38 +52,43 @@ For an explanation of the units and different paper sizes have a look at the [un
 
 ### new pdf.Font(arg)
 
-Creates a new AFM font pr OTF font object that can be used with PDF documents. TFont objects can be used multiple times.
+Creates a new OTF font object that can be used with PDF documents. Font objects can be used multiple times.
 
 **Arguments:**
 
-- **arg** - the font data, as either Buffer or ArrayBuffer of an OTF font or a JSON object descriping an AFM font
+- **arg** - the font data, as either Buffer or ArrayBuffer of an OTF font
+
+```js
+new pdf.Font(fs.readFileSync('./opensans/regular.ttf'))
+```
+
+### AFM fonts
+
+AFM fonts are default fonts understood by every PDF reader. It is therefore not necessary to embed
+additional font data.
 
 **Available AFM fonts:**
 
-- `pdfjs/font/Courier.json`
-- `pdfjs/font/Courier-Bold.json`
-- `pdfjs/font/Courier-BoldOblique.json`
-- `pdfjs/font/Courier-Oblique.json`
-- `pdfjs/font/Helvetica.json`
-- `pdfjs/font/Helvetica-Bold.json`
-- `pdfjs/font/Helvetica-BoldOblique.json`
-- `pdfjs/font/Helvetica-Oblique.json`
-- `pdfjs/font/Symbol.json`
-- `pdfjs/font/Times.json`
-- `pdfjs/font/Times-Bold.json`
-- `pdfjs/font/Times-BoldItalic.json`
-- `pdfjs/font/Times-Italic.json`
-- `pdfjs/font/Times-Roman.json`
-- `pdfjs/font/ZapfDingbats.json`
+- `pdfjs/font/Courier`
+- `pdfjs/font/Courier-Bold`
+- `pdfjs/font/Courier-BoldOblique`
+- `pdfjs/font/Courier-Oblique`
+- `pdfjs/font/Helvetica`
+- `pdfjs/font/Helvetica-Bold`
+- `pdfjs/font/Helvetica-BoldOblique`
+- `pdfjs/font/Helvetica-Oblique`
+- `pdfjs/font/Symbol`
+- `pdfjs/font/Times`
+- `pdfjs/font/Times-Bold`
+- `pdfjs/font/Times-BoldItalic`
+- `pdfjs/font/Times-Italic`
+- `pdfjs/font/Times-Roman`
+- `pdfjs/font/ZapfDingbats`
 
 **Examples:**
 
 ```js
-new pdf.Font(require('pdfjs/font/Helvetica.json'))
-```
-
-```js
-new pdf.Font(fs.readFileSync('./opensans/regular.ttf'))
+require('pdfjs/font/Helvetica')
 ```
 
 ### new pdf.Image(src)

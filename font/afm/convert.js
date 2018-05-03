@@ -109,11 +109,21 @@ for (const filename of files) {
 
   properties.widths = widths
 
+  const basename = path.basename(filename, '.afm')
+
   fs.writeFileSync(
-    path.join(__dirname, '../', path.basename(filename, '.afm') + '.json'),
+    path.join(__dirname, '../', basename + '.json'),
     JSON.stringify(properties),
     { encoding: 'utf8' }
   )
+
+  fs.writeFileSync(
+    path.join(__dirname, '../', basename + '.js'),
+    `const AFMFont = require('../lib/font/afm')\n` +
+    `module.exports = new AFMFont(require('./${basename}.json'))`,
+    { encoding: 'utf8' }
+  )
+
   // console.log(widths)
   // console.log(properties)
   // console.log(kerning)
