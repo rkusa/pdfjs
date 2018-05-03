@@ -61,7 +61,7 @@ declare module "pdfjs" {
          * Creates a new PDF document
          * @param opts document options
          */
-        constructor(opts: DocumentOptions);
+        constructor(opts?: DocumentOptions);
 
         /**
          * Get document's properties

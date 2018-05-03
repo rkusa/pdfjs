@@ -14,6 +14,7 @@ let doc: pdf.Document;
 
 // from docs
 // ReadMe
+doc = new pdf.Document()
 doc = new pdf.Document({
     font: require("pdfjs/font/helvetica"),
     padding: 10
