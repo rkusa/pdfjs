@@ -12,9 +12,10 @@
   "bugs": "https://github.com/rkusa/pdfjs/issues",
   "main": "lib/",
   "scripts": {
-    "test": "npm run test:pdfs && npm run test:types",
+    "test": "npm run test:pdfs && npm run test:sandalones && npm run test:types",
     "test:pdfs": "node test/index.js",
-    "test:types": "tsc --project ./types"
+    "test:types": "tsc --project ./types",
+    "test:sandalones": "node test/asBuffer.js"
   },
   "dependencies": {
     "@rkusa/linebreak": "^1.0.0",

@@ -9,7 +9,11 @@ process.env.TZ = 'Europe/Berlin'
 
 const args = process.argv.slice(2)
 if (args.length) {
-  run(args.map((a) => path.join(__dirname, '../', a)), true)
+  if (args[0] == 'asBuffer') {
+    require('./asBuffer')
+  } else {
+    run(args.map((a) => path.join(__dirname, '../', a)), true)
+  }
 } else {
   glob(path.join(__dirname, 'pdfs/**/*.js'), function (err, files) {
     if (err) throw err
@@ -78,7 +82,7 @@ function run(files, force) {
           t.error(err)
         }
 
-        t.ok(result === expectation, basename)
+        t.ok(result.replace(/\r/g,"") === expectation.replace(/\r/g,""), basename)
         t.end()
       })
     })
