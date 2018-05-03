@@ -9,7 +9,7 @@ A Portable Document Format (PDF) generation library targeting both the server- a
 [Documentation](docs) | [Playground](http://pdfjs.rkusa.st/)
 
 ```bash
-npm install pdfjs@2.0.0-alpha.3
+npm install pdfjs@2.0.0-alpha.7
 ```
 
 ## 2.0.0 Breaking Changes
@@ -35,9 +35,7 @@ If you are missing a feature, feel free to submit a PR or to ask for it.
 
 ### History
 
-- *v2.x* - streaming layouting with smart content chunking
-- *v1.x* - calculate whole document layout upfront
-- *v0.x* - in-memory layouting with rollbacks
+See [CHANGELOG](https://github.com/rkusa/pdfjs/blob/master/CHANGELOG.md).
 
 ## MIT License
 
