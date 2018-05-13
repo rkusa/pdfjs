@@ -1,28 +1,21 @@
 %PDF-1.6
 %ÿÿÿÿ
 
-4 0 obj
+19 0 obj
 <<
-	/Length 5 0 R
+	/Length 20 0 R
 >>
 stream
 /CS1 CS
 /CS1 cs
-BT
-1.000 0.000 0.000 1.000 10.000 821.721 Tm
-10.175 TL
-/F1 11.000 Tf
-0.000 0.000 0.000 sc
-[(goto)] TJ
-ET
 endstream
 endobj
 
-5 0 obj
-120
+20 0 obj
+15
 endobj
 
-7 0 obj
+21 0 obj
 <<
 	/Type /Page
 	/Parent 1 0 R
@@ -32,28 +25,89 @@ endobj
 		>>
 		/ProcSet [/PDF /Text /ImageB /ImageC /ImageI]
 		/Font <<
-			/F1 6 0 R
 		>>
 		/XObject <<
 		>>
 	>>
-	/Annots [<<
-		/Type /Annot
-		/Subtype /Link
-		/Rect [10 821.721 31.406 831.896]
-		/Border [0 0 0]
-		/A <<
-			/S /GoTo
-			/D (here)
-		>>
-	>>]
-	/Contents [4 0 R]
+	/Contents [19 0 R]
 >>
 endobj
 
-8 0 obj
+22 0 obj
 <<
-	/Length 9 0 R
+	/Length 23 0 R
+>>
+stream
+/CS1 CS
+/CS1 cs
+BT
+1.000 0.000 0.000 1.000 10.000 821.721 Tm
+10.175 TL
+/F1 11.000 Tf
+0.000 0.000 0.000 sc
+[(T) 120.000 (e) 30.000 (xt)] TJ
+ET
+endstream
+endobj
+
+23 0 obj
+141
+endobj
+
+25 0 obj
+<<
+	/Type /Page
+	/Parent 1 0 R
+	/Resources <<
+		/ColorSpace <<
+			/CS1 [/ICCBased 3 0 R]
+		>>
+		/ProcSet [/PDF /Text /ImageB /ImageC /ImageI]
+		/Font <<
+			/F1 24 0 R
+		>>
+		/XObject <<
+		>>
+	>>
+	/Contents [22 0 R]
+>>
+endobj
+
+26 0 obj
+<<
+	/Length 27 0 R
+>>
+stream
+/CS1 CS
+/CS1 cs
+endstream
+endobj
+
+27 0 obj
+15
+endobj
+
+28 0 obj
+<<
+	/Type /Page
+	/Parent 1 0 R
+	/Resources <<
+		/ColorSpace <<
+			/CS1 [/ICCBased 3 0 R]
+		>>
+		/ProcSet [/PDF /Text /ImageB /ImageC /ImageI]
+		/Font <<
+		>>
+		/XObject <<
+		>>
+	>>
+	/Contents [26 0 R]
+>>
+endobj
+
+29 0 obj
+<<
+	/Length 30 0 R
 >>
 stream
 /CS1 CS
@@ -65,11 +119,11 @@ Q
 endstream
 endobj
 
-9 0 obj
+30 0 obj
 73
 endobj
 
-11 0 obj
+32 0 obj
 <<
 	/Type /Page
 	/Parent 1 0 R
@@ -81,10 +135,10 @@ endobj
 		/Font <<
 		>>
 		/XObject <<
-			/X1.0 10 0 R
+			/X1.0 31 0 R
 		>>
 	>>
-	/Contents [8 0 R]
+	/Contents [29 0 R]
 >>
 endobj
 
@@ -92,8 +146,8 @@ endobj
 <<
 	/Type /Pages
 	/MediaBox [0 0 595.296 841.896]
-	/Kids [7 0 R 11 0 R]
-	/Count 2
+	/Kids [21 0 R 25 0 R 28 0 R 32 0 R]
+	/Count 4
 >>
 endobj
 
@@ -110,7 +164,7 @@ endstream
 
 endobj
 
-6 0 obj
+24 0 obj
 <<
 	/Type /Font
 	/Subtype /Type1
@@ -119,7 +173,7 @@ endobj
 >>
 endobj
 
-10 0 obj
+31 0 obj
 <<
 	/Type /XObject
 	/Subtype /Image
@@ -136,43 +190,272 @@ ffd8ffe000104a46494600010101004800480000ffe100c84578696600004d4d002a000000080007
 endstream
 endobj
 
-12 0 obj
+33 0 obj
 <<
 	/Dests <<
-		/Names [(here) [11 0 R /XYZ 10 831.896 null]]
-		/Limits [(here) (here)]
+		/Names [(Doc) [28 0 R /XYZ 10 831.896 null] (Image) [32 0 R /XYZ 10 831.896 null] (Text) [25 0 R /XYZ 10 821.721 null]]
+		/Limits [(Doc) (Text)]
 	>>
+>>
+endobj
+
+2 0 obj
+<<
+	/Type /Outlines
+	/First 4 0 R
+	/Last 18 0 R
+	/Count -15
+>>
+endobj
+
+4 0 obj
+<<
+	/Title (1. An outline)
+	/Parent 2 0 R
+	/A <<
+		/S /GoTo
+		/D (Text)
+	>>
+	/Next 5 0 R
+>>
+endobj
+
+5 0 obj
+<<
+	/Title (2. Works with any kind of dest)
+	/Parent 2 0 R
+	/A <<
+		/S /GoTo
+		/D (Doc)
+	>>
+	/Prev 4 0 R
+	/First 6 0 R
+	/Last 8 0 R
+	/Count -3
+	/Next 9 0 R
+>>
+endobj
+
+6 0 obj
+<<
+	/Title (2.1. Image)
+	/Parent 5 0 R
+	/A <<
+		/S /GoTo
+		/D (Image)
+	>>
+	/Next 7 0 R
+>>
+endobj
+
+7 0 obj
+<<
+	/Title (2.2. Text)
+	/Parent 5 0 R
+	/A <<
+		/S /GoTo
+		/D (Text)
+	>>
+	/Prev 6 0 R
+	/Next 8 0 R
+>>
+endobj
+
+8 0 obj
+<<
+	/Title (2.3. Doc)
+	/Parent 5 0 R
+	/A <<
+		/S /GoTo
+		/D (Doc)
+	>>
+	/Prev 7 0 R
+>>
+endobj
+
+9 0 obj
+<<
+	/Title (3. Can be deeply nested)
+	/Parent 2 0 R
+	/A <<
+		/S /GoTo
+		/D (Text)
+	>>
+	/Prev 5 0 R
+	/First 10 0 R
+	/Last 10 0 R
+	/Count -2
+	/Next 12 0 R
+>>
+endobj
+
+10 0 obj
+<<
+	/Title (3.1 Level 1)
+	/Parent 9 0 R
+	/A <<
+		/S /GoTo
+		/D (Image)
+	>>
+	/First 11 0 R
+	/Last 11 0 R
+	/Count -1
+>>
+endobj
+
+11 0 obj
+<<
+	/Title (3.1.1 Level 2)
+	/Parent 10 0 R
+	/A <<
+		/S /GoTo
+		/D (Text)
+	>>
+>>
+endobj
+
+12 0 obj
+<<
+	/Title (4. Empty/Unknown destinations)
+	/Parent 2 0 R
+	/A <<
+		/S /GoTo
+		/D ()
+	>>
+	/Prev 9 0 R
+	/First 13 0 R
+	/Last 14 0 R
+	/Count -2
+	/Next 15 0 R
 >>
 endobj
 
 13 0 obj
 <<
+	/Title (4.1. Can have children)
+	/Parent 12 0 R
+	/A <<
+		/S /GoTo
+		/D (Unknown)
+	>>
+	/Next 14 0 R
+>>
+endobj
+
+14 0 obj
+<<
+	/Title (4.2. But are not reactive)
+	/Parent 12 0 R
+	/A <<
+		/S /GoTo
+		/D (Unknown)
+	>>
+	/Prev 13 0 R
+>>
+endobj
+
+15 0 obj
+<<
+	/Title (5. Undeclared parents)
+	/Parent 2 0 R
+	/A <<
+		/S /GoTo
+		/D (Image)
+	>>
+	/Prev 12 0 R
+	/First 16 0 R
+	/Last 16 0 R
+	/Count -1
+	/Next 17 0 R
+>>
+endobj
+
+16 0 obj
+<<
+	/Title (5.1. Can have children)
+	/Parent 15 0 R
+	/A <<
+		/S /GoTo
+		/D (Image)
+	>>
+>>
+endobj
+
+17 0 obj
+<<
+	/Title (6. An outline with an undefined parent is added to the root)
+	/Parent 2 0 R
+	/A <<
+		/S /GoTo
+		/D (Text)
+	>>
+	/Prev 15 0 R
+	/Next 18 0 R
+>>
+endobj
+
+18 0 obj
+<<
+	/Title (7. So is an outline with an empty parent)
+	/Parent 2 0 R
+	/A <<
+		/S /GoTo
+		/D (Doc)
+	>>
+	/Prev 17 0 R
+>>
+endobj
+
+34 0 obj
+<<
 	/Type /Catalog
 	/Pages 1 0 R
-	/Names 12 0 R
+	/Names 33 0 R
+	/Outlines 2 0 R
 >>
 endobj
 
 xref
-0 2
+0 35
 0000000000 65535 f 
-0000000968 00000 n 
-3 11
-0000001069 00000 n 
+0000001483 00000 n 
+0000043370 00000 n 
+0000001599 00000 n 
+0000043449 00000 n 
+0000043557 00000 n 
+0000043732 00000 n 
+0000043838 00000 n 
+0000043955 00000 n 
+0000044057 00000 n 
+0000044229 00000 n 
+0000044364 00000 n 
+0000044461 00000 n 
+0000044636 00000 n 
+0000044759 00000 n 
+0000044885 00000 n 
+0000045058 00000 n 
+0000045165 00000 n 
+0000045335 00000 n 
 0000000016 00000 n 
-0000000191 00000 n 
-0000004609 00000 n 
-0000000211 00000 n 
-0000000585 00000 n 
-0000000713 00000 n 
-0000004711 00000 n 
-0000000732 00000 n 
-0000042654 00000 n 
-0000042766 00000 n 
+0000000088 00000 n 
+0000000108 00000 n 
+0000000329 00000 n 
+0000000527 00000 n 
+0000005139 00000 n 
+0000000548 00000 n 
+0000000783 00000 n 
+0000000855 00000 n 
+0000000875 00000 n 
+0000001096 00000 n 
+0000001226 00000 n 
+0000005242 00000 n 
+0000001246 00000 n 
+0000043185 00000 n 
+0000045471 00000 n 
 trailer
 <<
-	/Size 14
-	/Root 13 0 R
+	/Size 35
+	/Root 34 0 R
 	/ID [<00150013> <00150013>]
 	/Info <<
 		/Producer (pdfjs tests \(github.com/rkusa/pdfjs\))
@@ -180,5 +463,5 @@ trailer
 	>>
 >>
 startxref
-42834
+45556
 %%EOF

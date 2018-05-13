@@ -1,9 +1,9 @@
 %PDF-1.6
 %ÿÿÿÿ
 
-3 0 obj
+4 0 obj
 <<
-	/Length 4 0 R
+	/Length 5 0 R
 >>
 stream
 /CS1 CS
@@ -15,23 +15,23 @@ Q
 endstream
 endobj
 
-4 0 obj
+5 0 obj
 73
 endobj
 
-6 0 obj
+7 0 obj
 <<
 	/Type /Page
 	/Parent 1 0 R
 	/Resources <<
 		/ColorSpace <<
-			/CS1 [/ICCBased 2 0 R]
+			/CS1 [/ICCBased 3 0 R]
 		>>
 		/ProcSet [/PDF /Text /ImageB /ImageC /ImageI]
 		/Font <<
 		>>
 		/XObject <<
-			/X1.0 5 0 R
+			/X1.0 6 0 R
 		>>
 	>>
 	/Annots [<<
@@ -45,7 +45,7 @@ endobj
 			/URI (https://github.com/rkusa/pdfjs)
 		>>
 	>>]
-	/Contents [3 0 R]
+	/Contents [4 0 R]
 >>
 endobj
 
@@ -53,12 +53,12 @@ endobj
 <<
 	/Type /Pages
 	/MediaBox [0 0 595.296 841.896]
-	/Kids [6 0 R]
+	/Kids [7 0 R]
 	/Count 1
 >>
 endobj
 
-2 0 obj
+3 0 obj
 <<
 	/Length 3432
 	/N 3
@@ -71,7 +71,7 @@ endstream
 
 endobj
 
-5 0 obj
+6 0 obj
 <<
 	/Type /XObject
 	/Subtype /Image
@@ -88,7 +88,7 @@ ffd8ffe000104a46494600010101004800480000ffe100c84578696600004d4d002a000000080007
 endstream
 endobj
 
-7 0 obj
+8 0 obj
 <<
 	/Type /Catalog
 	/Pages 1 0 R
@@ -96,9 +96,10 @@ endobj
 endobj
 
 xref
-0 8
+0 2
 0000000000 65535 f 
 0000000580 00000 n 
+3 6
 0000000674 00000 n 
 0000000016 00000 n 
 0000000144 00000 n 
@@ -107,8 +108,8 @@ xref
 0000042156 00000 n 
 trailer
 <<
-	/Size 8
-	/Root 7 0 R
+	/Size 9
+	/Root 8 0 R
 	/ID [<00150013> <00150013>]
 	/Info <<
 		/Producer (pdfjs tests \(github.com/rkusa/pdfjs\))
