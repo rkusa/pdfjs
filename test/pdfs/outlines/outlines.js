@@ -1,5 +1,5 @@
 module.exports = function(doc, {image, lorem}) {  
-  // Various destinations to 
+  // Initialise the document with destination samples
   doc.pageBreak()
   doc.text('Text', { destination: 'Text' })
   doc.pageBreak()
