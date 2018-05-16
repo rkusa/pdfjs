@@ -121,7 +121,7 @@ declare module "pdfjs" {
          * @param external The external document to merge
          */
         setTemplate(external: ExternalDocument): void;
-    }
+}
 
     export class Fragment {
         end(): void; // TODO
@@ -187,6 +187,14 @@ declare module "pdfjs" {
          * @param name name of the destination
          */
         destination(name: string): void;
+
+        /**
+         * Add an outline to the document outlines of this document
+         * @param title The title of the outline that should be added
+         * @param destination The name of the destination that the outline to be added points to
+         * @param parent The title of the parent outline of the outline that should be added
+         */
+        outline(title?: string, destination?: string, parent?: string): void;
     }
 
     export class Row {
