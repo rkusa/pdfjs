@@ -21,7 +21,7 @@ endobj
 	/Parent 1 0 R
 	/Resources <<
 		/ColorSpace <<
-			/CS1 [/ICCBased 3 0 R]
+			/CS1 [/ICCBased 2 0 R]
 		>>
 		/ProcSet [/PDF /Text /ImageB /ImageC /ImageI]
 		/Font <<
@@ -60,7 +60,7 @@ endobj
 	/Parent 1 0 R
 	/Resources <<
 		/ColorSpace <<
-			/CS1 [/ICCBased 3 0 R]
+			/CS1 [/ICCBased 2 0 R]
 		>>
 		/ProcSet [/PDF /Text /ImageB /ImageC /ImageI]
 		/Font <<
@@ -93,7 +93,7 @@ endobj
 	/Parent 1 0 R
 	/Resources <<
 		/ColorSpace <<
-			/CS1 [/ICCBased 3 0 R]
+			/CS1 [/ICCBased 2 0 R]
 		>>
 		/ProcSet [/PDF /Text /ImageB /ImageC /ImageI]
 		/Font <<
@@ -129,7 +129,7 @@ endobj
 	/Parent 1 0 R
 	/Resources <<
 		/ColorSpace <<
-			/CS1 [/ICCBased 3 0 R]
+			/CS1 [/ICCBased 2 0 R]
 		>>
 		/ProcSet [/PDF /Text /ImageB /ImageC /ImageI]
 		/Font <<
@@ -151,7 +151,7 @@ endobj
 >>
 endobj
 
-3 0 obj
+2 0 obj
 <<
 	/Length 3432
 	/N 3
@@ -199,7 +199,7 @@ endobj
 >>
 endobj
 
-2 0 obj
+3 0 obj
 <<
 	/Type /Outlines
 	/First 4 0 R
@@ -211,7 +211,7 @@ endobj
 4 0 obj
 <<
 	/Title (1. An outline)
-	/Parent 2 0 R
+	/Parent 3 0 R
 	/A <<
 		/S /GoTo
 		/D (Text)
@@ -223,7 +223,7 @@ endobj
 5 0 obj
 <<
 	/Title (2. Works with any kind of dest)
-	/Parent 2 0 R
+	/Parent 3 0 R
 	/A <<
 		/S /GoTo
 		/D (Doc)
@@ -276,7 +276,7 @@ endobj
 9 0 obj
 <<
 	/Title (3. Can be deeply nested)
-	/Parent 2 0 R
+	/Parent 3 0 R
 	/A <<
 		/S /GoTo
 		/D (Text)
@@ -317,7 +317,7 @@ endobj
 12 0 obj
 <<
 	/Title (4. Empty/Unknown destinations)
-	/Parent 2 0 R
+	/Parent 3 0 R
 	/A <<
 		/S /GoTo
 		/D ()
@@ -357,7 +357,7 @@ endobj
 15 0 obj
 <<
 	/Title (5. Undeclared parents)
-	/Parent 2 0 R
+	/Parent 3 0 R
 	/A <<
 		/S /GoTo
 		/D (Image)
@@ -384,7 +384,7 @@ endobj
 17 0 obj
 <<
 	/Title (6. An outline with an undefined parent is added to the root)
-	/Parent 2 0 R
+	/Parent 3 0 R
 	/A <<
 		/S /GoTo
 		/D (Text)
@@ -397,7 +397,7 @@ endobj
 18 0 obj
 <<
 	/Title (7. So is an outline with an empty parent)
-	/Parent 2 0 R
+	/Parent 3 0 R
 	/A <<
 		/S /GoTo
 		/D (Doc)
@@ -411,7 +411,7 @@ endobj
 	/Type /Catalog
 	/Pages 1 0 R
 	/Names 33 0 R
-	/Outlines 2 0 R
+	/Outlines 3 0 R
 >>
 endobj
 
@@ -419,8 +419,8 @@ xref
 0 35
 0000000000 65535 f 
 0000001483 00000 n 
-0000043370 00000 n 
 0000001599 00000 n 
+0000043370 00000 n 
 0000043449 00000 n 
 0000043557 00000 n 
 0000043732 00000 n 

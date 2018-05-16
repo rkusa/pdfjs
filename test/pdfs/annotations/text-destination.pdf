@@ -1,9 +1,9 @@
 %PDF-1.6
 %ÿÿÿÿ
 
-4 0 obj
+3 0 obj
 <<
-	/Length 5 0 R
+	/Length 4 0 R
 >>
 stream
 /CS1 CS
@@ -25,21 +25,21 @@ ET
 endstream
 endobj
 
-5 0 obj
+4 0 obj
 251
 endobj
 
-7 0 obj
+6 0 obj
 <<
 	/Type /Page
 	/Parent 1 0 R
 	/Resources <<
 		/ColorSpace <<
-			/CS1 [/ICCBased 3 0 R]
+			/CS1 [/ICCBased 2 0 R]
 		>>
 		/ProcSet [/PDF /Text /ImageB /ImageC /ImageI]
 		/Font <<
-			/F1 6 0 R
+			/F1 5 0 R
 		>>
 		/XObject <<
 		>>
@@ -63,13 +63,13 @@ endobj
 			/D (A)
 		>>
 	>>]
-	/Contents [4 0 R]
+	/Contents [3 0 R]
 >>
 endobj
 
-8 0 obj
+7 0 obj
 <<
-	/Length 9 0 R
+	/Length 8 0 R
 >>
 stream
 /CS1 CS
@@ -84,32 +84,32 @@ ET
 endstream
 endobj
 
-9 0 obj
+8 0 obj
 117
 endobj
 
-10 0 obj
+9 0 obj
 <<
 	/Type /Page
 	/Parent 1 0 R
 	/Resources <<
 		/ColorSpace <<
-			/CS1 [/ICCBased 3 0 R]
+			/CS1 [/ICCBased 2 0 R]
 		>>
 		/ProcSet [/PDF /Text /ImageB /ImageC /ImageI]
 		/Font <<
-			/F1 6 0 R
+			/F1 5 0 R
 		>>
 		/XObject <<
 		>>
 	>>
-	/Contents [8 0 R]
+	/Contents [7 0 R]
 >>
 endobj
 
-11 0 obj
+10 0 obj
 <<
-	/Length 12 0 R
+	/Length 11 0 R
 >>
 stream
 /CS1 CS
@@ -124,26 +124,26 @@ ET
 endstream
 endobj
 
-12 0 obj
+11 0 obj
 117
 endobj
 
-13 0 obj
+12 0 obj
 <<
 	/Type /Page
 	/Parent 1 0 R
 	/Resources <<
 		/ColorSpace <<
-			/CS1 [/ICCBased 3 0 R]
+			/CS1 [/ICCBased 2 0 R]
 		>>
 		/ProcSet [/PDF /Text /ImageB /ImageC /ImageI]
 		/Font <<
-			/F1 6 0 R
+			/F1 5 0 R
 		>>
 		/XObject <<
 		>>
 	>>
-	/Contents [11 0 R]
+	/Contents [10 0 R]
 >>
 endobj
 
@@ -151,12 +151,12 @@ endobj
 <<
 	/Type /Pages
 	/MediaBox [0 0 595.296 841.896]
-	/Kids [7 0 R 10 0 R 13 0 R]
+	/Kids [6 0 R 9 0 R 12 0 R]
 	/Count 3
 >>
 endobj
 
-3 0 obj
+2 0 obj
 <<
 	/Length 3432
 	/N 3
@@ -169,7 +169,7 @@ endstream
 
 endobj
 
-6 0 obj
+5 0 obj
 <<
 	/Type /Font
 	/Subtype /Type1
@@ -178,45 +178,44 @@ endobj
 >>
 endobj
 
-14 0 obj
+13 0 obj
 <<
 	/Dests <<
-		/Names [(A) [10 0 R /XYZ 10 821.721 null] (B) [13 0 R /XYZ 10 821.721 null]]
+		/Names [(A) [9 0 R /XYZ 10 821.721 null] (B) [12 0 R /XYZ 10 821.721 null]]
 		/Limits [(A) (B)]
 	>>
 >>
 endobj
 
-15 0 obj
+14 0 obj
 <<
 	/Type /Catalog
 	/Pages 1 0 R
-	/Names 14 0 R
+	/Names 13 0 R
 >>
 endobj
 
 xref
-0 2
+0 15
 0000000000 65535 f 
-0000001695 00000 n 
-3 13
-0000001803 00000 n 
+0000001694 00000 n 
+0000001801 00000 n 
 0000000016 00000 n 
 0000000322 00000 n 
-0000005343 00000 n 
+0000005341 00000 n 
 0000000342 00000 n 
 0000000841 00000 n 
 0000001013 00000 n 
 0000001033 00000 n 
-0000001266 00000 n 
-0000001440 00000 n 
-0000001461 00000 n 
-0000005445 00000 n 
-0000005582 00000 n 
+0000001265 00000 n 
+0000001439 00000 n 
+0000001460 00000 n 
+0000005443 00000 n 
+0000005579 00000 n 
 trailer
 <<
-	/Size 16
-	/Root 15 0 R
+	/Size 15
+	/Root 14 0 R
 	/ID [<00150013> <00150013>]
 	/Info <<
 		/Producer (pdfjs tests \(github.com/rkusa/pdfjs\))
@@ -224,5 +223,5 @@ trailer
 	>>
 >>
 startxref
-5650
+5647
 %%EOF

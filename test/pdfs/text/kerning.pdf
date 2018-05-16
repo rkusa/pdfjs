@@ -1,9 +1,9 @@
 %PDF-1.6
 %ÿÿÿÿ
 
-4 0 obj
+3 0 obj
 <<
-	/Length 5 0 R
+	/Length 4 0 R
 >>
 stream
 /CS1 CS
@@ -135,27 +135,27 @@ ET
 endstream
 endobj
 
-5 0 obj
+4 0 obj
 10377
 endobj
 
-8 0 obj
+7 0 obj
 <<
 	/Type /Page
 	/Parent 1 0 R
 	/Resources <<
 		/ColorSpace <<
-			/CS1 [/ICCBased 3 0 R]
+			/CS1 [/ICCBased 2 0 R]
 		>>
 		/ProcSet [/PDF /Text /ImageB /ImageC /ImageI]
 		/Font <<
-			/F1 6 0 R
-			/F2 7 0 R
+			/F1 5 0 R
+			/F2 6 0 R
 		>>
 		/XObject <<
 		>>
 	>>
-	/Contents [4 0 R]
+	/Contents [3 0 R]
 >>
 endobj
 
@@ -163,12 +163,12 @@ endobj
 <<
 	/Type /Pages
 	/MediaBox [0 0 595.296 841.896]
-	/Kids [8 0 R]
+	/Kids [7 0 R]
 	/Count 1
 >>
 endobj
 
-3 0 obj
+2 0 obj
 <<
 	/Length 3432
 	/N 3
@@ -181,7 +181,7 @@ endstream
 
 endobj
 
-6 0 obj
+5 0 obj
 <<
 	/Type /Font
 	/Subtype /Type1
@@ -190,7 +190,7 @@ endobj
 >>
 endobj
 
-9 0 obj
+8 0 obj
 <<
 	/Subtype /OpenType
 	/Length 14185
@@ -202,7 +202,7 @@ stream
 endstream
 endobj
 
-10 0 obj
+9 0 obj
 <<
 	/Type /FontDescriptor
 	/FontName /PDFJS+Open#32Sans
@@ -214,11 +214,11 @@ endobj
 	/CapHeight 713.8671875
 	/XHeight 535.15625
 	/StemV 0
-	/FontFile3 9 0 R
+	/FontFile3 8 0 R
 >>
 endobj
 
-11 0 obj
+10 0 obj
 <<
 	/Type /Font
 	/Subtype /CIDFontType0
@@ -230,12 +230,12 @@ endobj
 		/Registry (Adobe)
 		/Supplement 0
 	>>
-	/FontDescriptor 10 0 R
+	/FontDescriptor 9 0 R
 	/W [1 [260] 2 [633] 3 [595] 4 [448] 5 [519] 6 [604] 7 [408] 8 [561] 9 [930] 10 [253] 11 [613] 12 [477] 13 [614] 14 [613] 15 [253] 16 [353] 17 [556] 18 [245] 19 [476] 20 [614] 21 [548] 22 [504] 23 [501] 24 [613] 25 [613] 26 [266] 27 [253] 28 [549] 29 [525]]
 >>
 endobj
 
-12 0 obj
+11 0 obj
 <<
 	/Length 699
 >>
@@ -291,18 +291,18 @@ end
 endstream
 endobj
 
-7 0 obj
+6 0 obj
 <<
 	/Type /Font
 	/Subtype /Type0
 	/BaseFont /OpenSans
 	/Encoding /Identity-H
-	/DescendantFonts [11 0 R]
-	/ToUnicode 12 0 R
+	/DescendantFonts [10 0 R]
+	/ToUnicode 11 0 R
 >>
 endobj
 
-13 0 obj
+12 0 obj
 <<
 	/Type /Catalog
 	/Pages 1 0 R
@@ -310,25 +310,24 @@ endobj
 endobj
 
 xref
-0 2
+0 13
 0000000000 65535 f 
 0000010715 00000 n 
-3 11
 0000010809 00000 n 
 0000000016 00000 n 
 0000010448 00000 n 
 0000014349 00000 n 
-0000030268 00000 n 
+0000030266 00000 n 
 0000010470 00000 n 
 0000014451 00000 n 
 0000028751 00000 n 
-0000029036 00000 n 
-0000029515 00000 n 
-0000030410 00000 n 
+0000029035 00000 n 
+0000029513 00000 n 
+0000030408 00000 n 
 trailer
 <<
-	/Size 14
-	/Root 13 0 R
+	/Size 13
+	/Root 12 0 R
 	/ID [<00150013> <00150013>]
 	/Info <<
 		/Producer (pdfjs tests \(github.com/rkusa/pdfjs\))
@@ -336,5 +335,5 @@ trailer
 	>>
 >>
 startxref
-30463
+30461
 %%EOF

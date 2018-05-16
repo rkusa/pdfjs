@@ -1,9 +1,9 @@
 %PDF-1.6
 %ÿÿÿÿ
 
-4 0 obj
+3 0 obj
 <<
-	/Length 5 0 R
+	/Length 4 0 R
 >>
 stream
 /CS1 CS
@@ -18,21 +18,21 @@ ET
 endstream
 endobj
 
-5 0 obj
+4 0 obj
 120
 endobj
 
-7 0 obj
+6 0 obj
 <<
 	/Type /Page
 	/Parent 1 0 R
 	/Resources <<
 		/ColorSpace <<
-			/CS1 [/ICCBased 3 0 R]
+			/CS1 [/ICCBased 2 0 R]
 		>>
 		/ProcSet [/PDF /Text /ImageB /ImageC /ImageI]
 		/Font <<
-			/F1 6 0 R
+			/F1 5 0 R
 		>>
 		/XObject <<
 		>>
@@ -47,13 +47,13 @@ endobj
 			/D (here)
 		>>
 	>>]
-	/Contents [4 0 R]
+	/Contents [3 0 R]
 >>
 endobj
 
-8 0 obj
+7 0 obj
 <<
-	/Length 9 0 R
+	/Length 8 0 R
 >>
 stream
 /CS1 CS
@@ -65,26 +65,26 @@ Q
 endstream
 endobj
 
-9 0 obj
+8 0 obj
 73
 endobj
 
-11 0 obj
+10 0 obj
 <<
 	/Type /Page
 	/Parent 1 0 R
 	/Resources <<
 		/ColorSpace <<
-			/CS1 [/ICCBased 3 0 R]
+			/CS1 [/ICCBased 2 0 R]
 		>>
 		/ProcSet [/PDF /Text /ImageB /ImageC /ImageI]
 		/Font <<
 		>>
 		/XObject <<
-			/X1.0 10 0 R
+			/X1.0 9 0 R
 		>>
 	>>
-	/Contents [8 0 R]
+	/Contents [7 0 R]
 >>
 endobj
 
@@ -92,12 +92,12 @@ endobj
 <<
 	/Type /Pages
 	/MediaBox [0 0 595.296 841.896]
-	/Kids [7 0 R 11 0 R]
+	/Kids [6 0 R 10 0 R]
 	/Count 2
 >>
 endobj
 
-3 0 obj
+2 0 obj
 <<
 	/Length 3432
 	/N 3
@@ -110,7 +110,7 @@ endstream
 
 endobj
 
-6 0 obj
+5 0 obj
 <<
 	/Type /Font
 	/Subtype /Type1
@@ -119,7 +119,7 @@ endobj
 >>
 endobj
 
-10 0 obj
+9 0 obj
 <<
 	/Type /XObject
 	/Subtype /Image
@@ -136,43 +136,42 @@ ffd8ffe000104a46494600010101004800480000ffe100c84578696600004d4d002a000000080007
 endstream
 endobj
 
-12 0 obj
+11 0 obj
 <<
 	/Dests <<
-		/Names [(here) [11 0 R /XYZ 10 831.896 null]]
+		/Names [(here) [10 0 R /XYZ 10 831.896 null]]
 		/Limits [(here) (here)]
 	>>
 >>
 endobj
 
-13 0 obj
+12 0 obj
 <<
 	/Type /Catalog
 	/Pages 1 0 R
-	/Names 12 0 R
+	/Names 11 0 R
 >>
 endobj
 
 xref
-0 2
+0 13
 0000000000 65535 f 
-0000000968 00000 n 
-3 11
-0000001069 00000 n 
+0000000967 00000 n 
+0000001068 00000 n 
 0000000016 00000 n 
 0000000191 00000 n 
-0000004609 00000 n 
+0000004608 00000 n 
 0000000211 00000 n 
 0000000585 00000 n 
 0000000713 00000 n 
-0000004711 00000 n 
+0000004710 00000 n 
 0000000732 00000 n 
-0000042654 00000 n 
-0000042766 00000 n 
+0000042652 00000 n 
+0000042764 00000 n 
 trailer
 <<
-	/Size 14
-	/Root 13 0 R
+	/Size 13
+	/Root 12 0 R
 	/ID [<00150013> <00150013>]
 	/Info <<
 		/Producer (pdfjs tests \(github.com/rkusa/pdfjs\))
@@ -180,5 +179,5 @@ trailer
 	>>
 >>
 startxref
-42834
+42832
 %%EOF
