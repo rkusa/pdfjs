@@ -8,6 +8,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ### Added
 - Document outline support
 
+### Removed
+- creating AFM fonts from JSON (`new Font(require('pdfjs/font/Helvetica.json'))` - instead, load the font directly: `require('pdfjs/font/Helvetica')`)
+
 ## [2.0.0-alpha.7] - 2018-05-03
 ### Deprecated
 - creating AFM fonts is deprecated `new Font(require('pdfjs/font/Helvetica.json'))`, instead load instances directly `require('pdfjs/font/Helvetica')`
