@@ -1448,10 +1448,10 @@ cell = doc.cell({ padding: 10, width: 50, backgroundColor: 0xeeeeee })
 cell.text('abcdefghijklmnopqrstuvw abcd')
 
 { // Outlines
-    doc.outline('1. An outline', 'Text')  
-    
+    doc.outline('1. An outline', 'Text')
+
     // Outlines can be set to any kind of destinations
-    doc.outline('2. Works with any kind of dest', 'Doc')  
+    doc.outline('2. Works with any kind of dest', 'Doc')
     doc.outline('2.1. Image', 'Image', '2. Works with any kind of dest')
     doc.outline('2.2. Text', 'Text', '2. Works with any kind of dest')
     doc.outline('2.3. Doc', 'Doc', '2. Works with any kind of dest')
@@ -1472,12 +1472,6 @@ cell.text('abcdefghijklmnopqrstuvw abcd')
     // An outline with an empty or undefined parent is attached to the root
     doc.outline('6. An outline with an undefined parent is added to the root', 'Text')
     doc.outline('7. So is an outline with an empty parent', 'Doc', '')
-
-    // An outline with undefined title and/or destination is skipped
-    doc.outline()
-    doc.outline('')
-    doc.outline('Is not added to the outlines')
-    doc.outline(undefined, 'somewhere')  
 }
 
 // from real usage
