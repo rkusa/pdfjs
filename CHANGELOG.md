@@ -4,6 +4,10 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
+## [Unreleased]
+### Fixed
+- Fixed OTF font browser usage (`new Font(src)` now properly accepts both Node.js Buffer and ArrayBuffer as input)
+
 ## [2.0.0-alpha.8] - 2018-05-13
 ### Added
 - Document outline support
