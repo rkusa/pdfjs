@@ -36,7 +36,10 @@ cell.text({ fontSize: 14, lineHeight: 1.35 })
   .add('options', { fontSize: 9 })
   cell.text('- Images (JPEGs, other PDFs)')
 cell.text('- Tables (fixed layout, header row)')
-cell.text('- AFM fonts && OTF font embedding (as CID fonts, i.e., support for fonts with large character sets)')
+cell.text('- AFM fonts and')
+cell.text('- OTF font embedding (as CID fonts, i.e., support for fonts with large character sets)', {
+  font: fonts.OpenSans
+})
 cell.text('- Add existing PDFs (merge them or add them as page templates)')
 
 doc.cell({ paddingBottom: 0.5*pdf.cm }).text()

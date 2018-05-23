@@ -2,20 +2,20 @@ const pdf = require('../')
 require('whatwg-fetch')
 
 const fonts = {
-  CourierBold: new pdf.Font(require('../font/Courier-Bold.json')),
-  CourierBoldOblique: new pdf.Font(require('../font/Courier-BoldOblique.json')),
-  CourierOblique: new pdf.Font(require('../font/Courier-Oblique.json')),
-  Courier: new pdf.Font(require('../font/Courier.json')),
-  HelveticaBold: new pdf.Font(require('../font/Helvetica-Bold.json')),
-  HelveticaBoldOblique: new pdf.Font(require('../font/Helvetica-BoldOblique.json')),
-  HelveticaOblique: new pdf.Font(require('../font/Helvetica-Oblique.json')),
-  Helvetica: new pdf.Font(require('../font/Helvetica.json')),
-  Symbol: new pdf.Font(require('../font/Symbol.json')),
-  TimesBold: new pdf.Font(require('../font/Times-Bold.json')),
-  TimesBoldItalic: new pdf.Font(require('../font/Times-BoldItalic.json')),
-  TimesItalic: new pdf.Font(require('../font/Times-Italic.json')),
-  TimesRoman: new pdf.Font(require('../font/Times-Roman.json')),
-  ZapfDingbats: new pdf.Font(require('../font/ZapfDingbats.json')),
+  CourierBold: require('../font/Courier-Bold.js'),
+  CourierBoldOblique: require('../font/Courier-BoldOblique.js'),
+  CourierOblique: require('../font/Courier-Oblique.js'),
+  Courier: require('../font/Courier.js'),
+  HelveticaBold: require('../font/Helvetica-Bold.js'),
+  HelveticaBoldOblique: require('../font/Helvetica-BoldOblique.js'),
+  HelveticaOblique: require('../font/Helvetica-Oblique.js'),
+  Helvetica: require('../font/Helvetica.js'),
+  Symbol: require('../font/Symbol.js'),
+  TimesBold: require('../font/Times-Bold.js'),
+  TimesBoldItalic: require('../font/Times-BoldItalic.js'),
+  TimesItalic: require('../font/Times-Italic.js'),
+  TimesRoman: require('../font/Times-Roman.js'),
+  ZapfDingbats: require('../font/ZapfDingbats.js'),
 }
 
 function render(doc) {
@@ -26,7 +26,9 @@ function render(doc) {
     })
 }
 
-function init(logo) {
+function init(logo, opensans) {
+  fonts.OpenSans = opensans
+
   var container = document.getElementById('editor')
   var initialValue = container.textContent
   container.textContent = ''
@@ -77,7 +79,14 @@ function init(logo) {
 }
 
 window.main = function() {
-  fetch('/logo.pdf')
-    .then(res => res.arrayBuffer())
-    .then(ab => init(new pdf.Image(ab)))
+  const fixtrues = [
+    fetch('/logo.pdf'),
+    fetch('/opensans.ttf'),
+  ]
+  Promise.all(fixtrues)
+    .then(res => Promise.all(res.map(r => r.arrayBuffer())))
+    .then(res => init(
+      new pdf.Image(res[0]),
+      new pdf.Font(res[1]),
+    ))
 }
