@@ -1,9 +1,9 @@
 %PDF-1.6
 %ÿÿÿÿ
 
-19 0 obj
+24 0 obj
 <<
-	/Length 20 0 R
+	/Length 25 0 R
 >>
 stream
 /CS1 CS
@@ -11,11 +11,11 @@ stream
 endstream
 endobj
 
-20 0 obj
+25 0 obj
 15
 endobj
 
-21 0 obj
+26 0 obj
 <<
 	/Type /Page
 	/Parent 1 0 R
@@ -29,13 +29,13 @@ endobj
 		/XObject <<
 		>>
 	>>
-	/Contents [19 0 R]
+	/Contents [24 0 R]
 >>
 endobj
 
-22 0 obj
+27 0 obj
 <<
-	/Length 23 0 R
+	/Length 28 0 R
 >>
 stream
 /CS1 CS
@@ -50,11 +50,11 @@ ET
 endstream
 endobj
 
-23 0 obj
+28 0 obj
 141
 endobj
 
-25 0 obj
+30 0 obj
 <<
 	/Type /Page
 	/Parent 1 0 R
@@ -64,18 +64,18 @@ endobj
 		>>
 		/ProcSet [/PDF /Text /ImageB /ImageC /ImageI]
 		/Font <<
-			/F1 24 0 R
+			/F1 29 0 R
 		>>
 		/XObject <<
 		>>
 	>>
-	/Contents [22 0 R]
+	/Contents [27 0 R]
 >>
 endobj
 
-26 0 obj
+31 0 obj
 <<
-	/Length 27 0 R
+	/Length 32 0 R
 >>
 stream
 /CS1 CS
@@ -83,11 +83,11 @@ stream
 endstream
 endobj
 
-27 0 obj
+32 0 obj
 15
 endobj
 
-28 0 obj
+33 0 obj
 <<
 	/Type /Page
 	/Parent 1 0 R
@@ -101,13 +101,13 @@ endobj
 		/XObject <<
 		>>
 	>>
-	/Contents [26 0 R]
+	/Contents [31 0 R]
 >>
 endobj
 
-29 0 obj
+34 0 obj
 <<
-	/Length 30 0 R
+	/Length 35 0 R
 >>
 stream
 /CS1 CS
@@ -119,11 +119,11 @@ Q
 endstream
 endobj
 
-30 0 obj
+35 0 obj
 73
 endobj
 
-32 0 obj
+37 0 obj
 <<
 	/Type /Page
 	/Parent 1 0 R
@@ -135,10 +135,10 @@ endobj
 		/Font <<
 		>>
 		/XObject <<
-			/X1.0 31 0 R
+			/X1.0 36 0 R
 		>>
 	>>
-	/Contents [29 0 R]
+	/Contents [34 0 R]
 >>
 endobj
 
@@ -146,7 +146,7 @@ endobj
 <<
 	/Type /Pages
 	/MediaBox [0 0 595.296 841.896]
-	/Kids [21 0 R 25 0 R 28 0 R 32 0 R]
+	/Kids [26 0 R 30 0 R 33 0 R 37 0 R]
 	/Count 4
 >>
 endobj
@@ -164,7 +164,7 @@ endstream
 
 endobj
 
-24 0 obj
+29 0 obj
 <<
 	/Type /Font
 	/Subtype /Type1
@@ -173,7 +173,7 @@ endobj
 >>
 endobj
 
-31 0 obj
+36 0 obj
 <<
 	/Type /XObject
 	/Subtype /Image
@@ -190,10 +190,10 @@ ffd8ffe000104a46494600010101004800480000ffe100c84578696600004d4d002a000000080007
 endstream
 endobj
 
-33 0 obj
+38 0 obj
 <<
 	/Dests <<
-		/Names [(Doc) [28 0 R /XYZ 10 831.896 null] (Image) [32 0 R /XYZ 10 831.896 null] (Text) [25 0 R /XYZ 10 821.721 null]]
+		/Names [(Doc) [33 0 R /XYZ 10 831.896 null] (Image) [37 0 R /XYZ 10 831.896 null] (Text) [30 0 R /XYZ 10 821.721 null]]
 		/Limits [(Doc) (Text)]
 	>>
 >>
@@ -203,8 +203,8 @@ endobj
 <<
 	/Type /Outlines
 	/First 4 0 R
-	/Last 18 0 R
-	/Count -15
+	/Last 19 0 R
+	/Count -20
 >>
 endobj
 
@@ -403,20 +403,88 @@ endobj
 		/D (Doc)
 	>>
 	/Prev 17 0 R
+	/Next 19 0 R
 >>
 endobj
 
-34 0 obj
+19 0 obj
+<<
+	/Title (8. Outlines can have the same name \(siblings\))
+	/Parent 3 0 R
+	/A <<
+		/S /GoTo
+		/D (Image)
+	>>
+	/Prev 18 0 R
+	/First 20 0 R
+	/Last 21 0 R
+	/Count -4
+>>
+endobj
+
+20 0 obj
+<<
+	/Title (Sibling)
+	/Parent 19 0 R
+	/A <<
+		/S /GoTo
+		/D (Text)
+	>>
+	/Next 21 0 R
+	/First 22 0 R
+	/Last 22 0 R
+	/Count -1
+>>
+endobj
+
+21 0 obj
+<<
+	/Title (Sibling)
+	/Parent 19 0 R
+	/A <<
+		/S /GoTo
+		/D (Doc)
+	>>
+	/Prev 20 0 R
+	/First 23 0 R
+	/Last 23 0 R
+	/Count -1
+>>
+endobj
+
+22 0 obj
+<<
+	/Title (Has a specific child)
+	/Parent 20 0 R
+	/A <<
+		/S /GoTo
+		/D (Image)
+	>>
+>>
+endobj
+
+23 0 obj
+<<
+	/Title (Has his own child)
+	/Parent 21 0 R
+	/A <<
+		/S /GoTo
+		/D (Text)
+	>>
+>>
+endobj
+
+39 0 obj
 <<
 	/Type /Catalog
 	/Pages 1 0 R
-	/Names 33 0 R
+	/Names 38 0 R
 	/Outlines 3 0 R
 >>
 endobj
 
 xref
-0 35
+0 40
 0000000000 65535 f 
 0000001483 00000 n 
 0000001599 00000 n 
@@ -436,6 +504,11 @@ xref
 0000045058 00000 n 
 0000045165 00000 n 
 0000045335 00000 n 
+0000045485 00000 n 
+0000045670 00000 n 
+0000045815 00000 n 
+0000045959 00000 n 
+0000046064 00000 n 
 0000000016 00000 n 
 0000000088 00000 n 
 0000000108 00000 n 
@@ -451,11 +524,11 @@ xref
 0000005242 00000 n 
 0000001246 00000 n 
 0000043185 00000 n 
-0000045471 00000 n 
+0000046165 00000 n 
 trailer
 <<
-	/Size 35
-	/Root 34 0 R
+	/Size 40
+	/Root 39 0 R
 	/ID [<00150013> <00150013>]
 	/Info <<
 		/Producer (pdfjs tests \(github.com/rkusa/pdfjs\))
@@ -463,5 +536,5 @@ trailer
 	>>
 >>
 startxref
-45556
+46250
 %%EOF

@@ -34,6 +34,14 @@ module.exports = function(doc, {image, lorem}) {
   doc.outline('6. An outline with an undefined parent is added to the root', 'Text')
   doc.outline('7. So is an outline with an empty parent', 'Doc', '')
 
+  // Outlines can have the same name.
+  // Provide their respective id if you want to add 
+  doc.outline('8. Outlines can have the same name (siblings)', 'Image')
+  const firstSibling = doc.outline('Sibling', 'Text', '8. Outlines can have the same name (siblings)')
+  const secondSibling = doc.outline('Sibling', 'Doc', '8. Outlines can have the same name (siblings)')
+  doc.outline('Has a specific child', 'Image', firstSibling)
+  doc.outline('Has his own child', 'Text', secondSibling)
+
   // An outline with undefined title and/or destination is skipped
   doc.outline()
   doc.outline('')
