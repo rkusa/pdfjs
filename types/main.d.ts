@@ -128,7 +128,7 @@ declare module "pdfjs" {
          * @param destination The name of the destination that the outline to be added points to
          * @param parent The title of the parent outline of the outline that should be added
          */
-        outline(title: string, destination: string, parent?: string): void;
+        outline(title: string, destination: string, parent?: any): void;
     }
 
     export class Fragment {
