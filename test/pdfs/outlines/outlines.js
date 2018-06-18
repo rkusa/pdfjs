@@ -35,7 +35,7 @@ module.exports = function(doc, {image, lorem}) {
   doc.outline('7. So is an outline with an empty parent', 'Doc', '')
 
   // Outlines can have the same name.
-  // Provide their respective id if you want to add 
+  // Provide their respective id instead of their name if you want to add children to them
   doc.outline('8. Outlines can have the same name (siblings)', 'Image')
   const firstSibling = doc.outline('Sibling', 'Text', '8. Outlines can have the same name (siblings)')
   const secondSibling = doc.outline('Sibling', 'Doc', '8. Outlines can have the same name (siblings)')
