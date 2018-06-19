@@ -2,7 +2,7 @@
   "name": "pdfjs-playground",
   "private": "true",
   "scripts": {
-    "build": "webpack --progress --colors --config webpack.config.js"
+    "build": "webpack --config webpack.config.js"
   },
   "devDependencies": {
     "babel-core": "^6.24",

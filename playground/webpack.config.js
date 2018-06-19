@@ -9,7 +9,7 @@ module.exports = {
   mode: 'production',
 
   output: {
-    path: __dirname,
+    path: path.join(__dirname, 'public'),
     filename: 'bundle.js',
   },
 
