@@ -8,6 +8,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ### Fixed
 - Fixed OTF font browser usage (`new Font(src)` now properly accepts both Node.js Buffer and ArrayBuffer as input)
 
+### Changed
+- The outline method now accepts an outline ID (number) as a valid input for the parent parameter
+
 ## [2.0.0-alpha.8] - 2018-05-13
 ### Added
 - Document outline support
