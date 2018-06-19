@@ -5,11 +5,13 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
-### Fixed
-- Fixed OTF font browser usage (`new Font(src)` now properly accepts both Node.js Buffer and ArrayBuffer as input)
 
+## [2.0.0] - 2018-06-19
 ### Changed
 - The outline method now accepts an outline ID (number) as a valid input for the parent parameter
+
+### Fixed
+- Fixed OTF font browser usage (`new Font(src)` now properly accepts both Node.js Buffer and ArrayBuffer as input)
 
 ## [2.0.0-alpha.8] - 2018-05-13
 ### Added
