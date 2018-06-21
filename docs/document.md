@@ -86,6 +86,8 @@ doc.pipe(fs.createWriteStream('output.pdf'))
 
 Must be called to finish writing the PDF document.
 
+**Note:** Make sure something is reading from the document, otherwise this will not finish.
+
 ```
 await doc.end()
 ```
@@ -93,6 +95,8 @@ await doc.end()
 ### .asBuffer([callback])
 
 Can be used to render the document as a buffer. Returns a `Promise`; the usage of `callback` is optional.
+
+Note: When using `.asBuffer()`, do not call `.end()` (neither before nor after `asBuffer`).
 
 ```
 doc.asBuffer().then(data => fs.writeFileSync('test.pdf', data, { encoding: 'binary' }))
