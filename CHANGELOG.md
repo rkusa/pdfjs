@@ -6,6 +6,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+### Fixed
+- Vertical table border in combinaton with colspan #100
+
 ## [2.0.0] - 2018-06-19
 ### Changed
 - The outline method now accepts an outline ID (number) as a valid input for the parent parameter
