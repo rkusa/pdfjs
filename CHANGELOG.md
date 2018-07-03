@@ -6,7 +6,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 ### Changed
-- When providing less cells than a row has columns, instead of throwing, autofill the row with empty cells
+- When providing less cells than a row has columns, instead of throwing, autofill the row with empty cells #101
 
 ### Fixed
 - Vertical table border in combinaton with colspan #100

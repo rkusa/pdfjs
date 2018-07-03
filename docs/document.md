@@ -24,7 +24,7 @@ const footer = doc.footer()
 footer.text('This is a footer')
 ```
 
-### .addPagesOff(external)
+### .addPagesOf(external)
 
 Add all pages of an external PDF into this document (aka merge an external document into this document).
 
@@ -40,7 +40,7 @@ const ext = new pdf.ExternalDocument(src)
 doc.addPagesOf(ext)
 ```
 
-### .addPageOff(page, external)
+### .addPageOf(page, external)
 
 Add one specific page of an external PDF into this document (aka merge an external document into this document).
 
