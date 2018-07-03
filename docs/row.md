@@ -14,7 +14,8 @@ Add a cell to the row. Returns a [Fragment object](fragment.md).
 - **colspan** (default: 1) - how many columns the cell should span
 - **padding**, **paddingTop**, **paddingRight**, **paddingBottom**, **paddingLeft** (default: 0) - the cell padding
 - **backgroundColor** (default: none) - the background color the cell
- 
+- **minHeight** (default: 0) - the minimum height of the cell
+
 **Example:**
 
 ```js

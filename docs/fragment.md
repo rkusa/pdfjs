@@ -42,6 +42,7 @@ Add a cell to the document. Returns a [Fragment object](fragment.md).
 **Options:**
 
 - **width** (default: 100%) - the cell width
+- **minHeight** (default: 0) - the minimum height of the cell
 - **x** (default: undefined) - x coordinate of where to render the cell
 - **y** (default: undefined) - y (y starts at the bottom of the document) coordinate of where to render the cell
 - **padding**, **paddingTop**, **paddingRight**, **paddingBottom**, **paddingLeft** (default: 0) - the cell padding

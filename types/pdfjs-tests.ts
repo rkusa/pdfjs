@@ -191,7 +191,7 @@ var table5 = docPlayground.table({
     padding: 5
 });
 
-var tr2 = table5.header({ font: helveticaBoldFont, borderBottomWidth: 1.5 });
+var tr2 = table5.header({ font: helveticaBoldFont });
 tr2.cell("#");
 tr2.cell("Unit");
 tr2.cell("Subject");

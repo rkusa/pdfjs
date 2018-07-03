@@ -152,13 +152,13 @@ declare module "pdfjs" {
          * @param text A string that should be rendered into the cell
          * @param opts Styling options
          */
-        cell(text?: string, opts?: CellOptions & TextOptions): Cell;
+        cell(text?: string, opts?: FragmentCellOptions & TextOptions): Cell;
 
         /**
          * Add a cell to the row
          * @param opts Styling options
          */
-        cell(opts: CellOptions & TextOptions): Cell;
+        cell(opts: FragmentCellOptions & TextOptions): Cell;
 
         /**
          * Add a table to the document
@@ -203,12 +203,12 @@ declare module "pdfjs" {
          * @param text A string that should be rendered into the cell
          * @param opts Styling options
          */
-        cell(text?: string, opts?: RowOptions & TextOptions): Cell;
+        cell(text?: string, opts?: TableCellOptions & TextOptions): Cell;
         /**
          * Add a cell to the row
          * @param opts Styling options
          */
-        cell(opts: RowOptions & TextOptions): Cell;
+        cell(opts: TableCellOptions & TextOptions): Cell;
     }
 
     export class Table {
@@ -216,12 +216,12 @@ declare module "pdfjs" {
          * Add a table header
          * @param opts
          */
-        header(opts?: RowOptions & TextOptions): Row;
+        header(opts?: TableCellOptions & TextOptions): Row;
         /**
          * Add a table row
          * @param opts
          */
-        row(opts?: RowOptions & TextOptions): Row;
+        row(opts?: TableCellOptions & TextOptions): Row;
     }
 
     export class Text {
@@ -374,12 +374,17 @@ declare module "pdfjs" {
         goTo?: string;
     } & FragmentOptions;
 
-    export type CellOptions = {
+    export type FragmentCellOptions = {
         /**
          * The cell width
          * default: 100%
          */
         width?: number;
+        /**
+         * The cell minimal height
+         * default: 0
+         */
+        minHeight?: number;
         /**
          * x coordinate of where to render the cell
          * default: undefined
@@ -551,20 +556,25 @@ declare module "pdfjs" {
          * default: none
          */
         borderHorizontalColors?: (rowIndex: number) => number;
-    } & FragmentOptions & RowOptions;
+    } & FragmentOptions & TableCellOptions;
 
-    type RowOptions = {
+    type TableCellOptions = {
         /**
-         * The background color the cell
-         * default: none
+         * The cell minimal height
+         * default: 0
          */
-        backgroundColor?: number;
+        minHeight?: number;
         /**
          * How many columns the cell should span
          * default: 1
          */
         colspan?: number;
-    } & CellOptions;
+        /**
+         * The background color the cell
+         * default: none
+         */
+        backgroundColor?: number;
+    } & PaddingOptions;
 
     type DocumentOptions = {
         /**

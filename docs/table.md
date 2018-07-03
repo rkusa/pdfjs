@@ -21,6 +21,10 @@ header.cell('Header Right')
 
 Starts a table row. Returns a [Row Object](row.md).
 
+**Options:**
+
+- **minHeight** (default: 0) - the minimum height of the row
+
 **Example:**
 
 ```js
