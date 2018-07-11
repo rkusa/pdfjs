@@ -3,7 +3,7 @@ const path = require('path')
 const fs   = require('fs')
 const test = require('tape')
 const fixtures = require('./fixtures')
-const pdf = require('../lib')
+const pdf = require('../dist/pdfjs.cjs.js')
 
 process.env.TZ = 'Europe/Berlin'
 

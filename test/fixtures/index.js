@@ -1,6 +1,6 @@
 const fs   = require('fs')
 const path = require('path')
-const pdf  = require('../../lib')
+const pdf  = require('../../')
 
 const openSansRegular = fs.readFileSync(path.join(__dirname, 'font/opensans/regular.ttf'))
 const openSansBold = fs.readFileSync(path.join(__dirname, 'font/opensans/bold.ttf'))
@@ -16,10 +16,10 @@ exports.create = function() {
         bold:    new pdf.Font(openSansBold)
       },
       afm: {
-        regular: require('../../font/Helvetica'),
-        bold: require('../../font/Helvetica-Bold'),
-        monoRegular: require('../../font/Courier'),
-        monoBold: require('../../font/Courier-Bold'),
+        regular: pdf.Helvetica,
+        bold: pdf.HelveticaBold,
+        monoRegular: pdf.Courier,
+        monoBold: pdf.CourierBold,
       }
     },
     image: {

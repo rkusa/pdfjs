@@ -11,3 +11,6 @@ test.*
 
 # playground files
 playground/bundle.js
+
+# build files
+dist

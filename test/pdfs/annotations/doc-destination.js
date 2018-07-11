@@ -1,4 +1,4 @@
-const pdf = require('../../../lib')
+const pdf = require('../../../')
 
 module.exports = function(doc, { lorem, font }) {
   doc.text('goto', { goTo: 'here' })

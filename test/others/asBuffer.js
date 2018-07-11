@@ -2,7 +2,7 @@ const test = require('tape')
 const fs   = require('fs')
 const path = require('path')
 const fixtures = require('../fixtures')
-const pdf = require('../../lib')
+const pdf = require('../../')
 
 const f = fixtures.create();
 
