@@ -10,24 +10,32 @@
   "license": "MIT",
   "homepage": "https://github.com/rkusa/pdfjs",
   "bugs": "https://github.com/rkusa/pdfjs/issues",
-  "main": "lib/",
+  "main": "dist/pdfjs.js",
   "scripts": {
     "test": "npm run test:pdfs && npm run test:types",
     "test:pdfs": "node test/index.js",
-    "test:types": "tsc --project ./types"
+    "test:types": "tsc --project ./types",
+    "build": "webpack --config webpack.js"
   },
   "dependencies": {
     "@rkusa/linebreak": "^1.0.0",
     "opentype.js": "^0.8.0",
     "pako": "^1.0.6",
-    "readable-stream": "^2.3.6",
     "unorm": "^1.4.1",
     "uuid": "^3.0.1"
   },
   "devDependencies": {
+    "@babel/core": "^7.0.0-beta.54",
+    "@babel/preset-env": "^7.0.0-beta.54",
     "@types/node": "^9.6.6",
+    "babel-loader": "^8.0.0-beta.4",
+    "babel-regenerator-runtime": "^6.5.0",
+    "readable-stream": "^2.3.6",
     "tape": "^4.6.3",
-    "typescript": "^2.8.3"
+    "typescript": "^2.8.3",
+    "webpack-cli": "^3.0.8",
+    "webpack": "^4.16.1"
+
   },
   "repository": {
     "type": "git",
