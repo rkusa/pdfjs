@@ -14,7 +14,7 @@
   "module": "lib/index.js",
   "scripts": {
     "build": "rollup -c rollup.config.js",
-    "test": "npm run test:pdfs && npm run test:types",
+    "test": "npm run build && npm run test:pdfs && npm run test:types",
     "test:pdfs": "node test/index.js",
     "test:types": "tsc --project ./types"
   },
@@ -32,7 +32,9 @@
     "rollup-plugin-json": "^3.0.0",
     "rollup-plugin-node-resolve": "^3.3.0",
     "tape": "^4.6.3",
-    "typescript": "^2.8.3"
+    "typescript": "^2.8.3",
+    "webpack": "^4.16.0",
+    "webpack-command": "^0.4.1"
   },
   "repository": {
     "type": "git",
@@ -41,5 +43,6 @@
   "engines": {
     "node": ">=7"
   },
-  "types": "./types/main.d.ts"
+  "types": "./types/main.d.ts",
+  "sideEffects": false
 }
