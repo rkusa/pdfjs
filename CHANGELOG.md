@@ -10,6 +10,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ### Fixed
 - Vertical table border in combinaton with colspan #100
+- Fix cyclic loop when parsing PDFs with TOCs #112
+- Fix to, when adding other PDFs (either as image or whole pages), add objects only once #109
 
 ## [2.0.0] - 2018-06-19
 
