@@ -12,6 +12,11 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Vertical table border in combinaton with colspan #100
 
 ## [2.0.0] - 2018-06-19
+
+Version `2.0.0` is a re-write. The implementation is expected to settle with the current approach of streaming layouting with smart content chunking, which allows for having a small memory footprint even when creating a PDF document with thousands of pages.
+
+`2.0.0` requires Node >= 7. If you get an error on `require('pdfjs')` you are probably using an older Node.js version, which can be fixed by updating Node.js or by running pdfjs through a transpiler like babel.
+
 ### Changed
 - The outline method now accepts an outline ID (number) as a valid input for the parent parameter
 
