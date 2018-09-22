@@ -50,31 +50,26 @@ function run(files, force) {
     const pdfsPath        = path.relative(path.join(__dirname, 'pdfs'), dirname)
     const expectationPath = path.join(dirname, basename + '.pdf')
     const resultPath      = path.join(dirname, basename + '.result.pdf')
-
-    const script = require(scriptPath)
-
-    let doc = new pdf.Document({
-      font:       f.font.afm.regular,
-      padding:    script.padding >= 0 ? script.padding : 10,
-      lineHeight: 1,
-    })
-
-    const newDoc = script(doc, f)
-    if (newDoc) {
-      doc = newDoc
-    }
+    const script          = require(scriptPath)
 
     test(path.join(pdfsPath, basename), function (t) {
+      let doc = new pdf.Document({
+        font:       f.font.afm.regular,
+        padding:    script.padding >= 0 ? script.padding : 10,
+        lineHeight: 1,
+      })
+
+      const newDoc = script(doc, f, t)
+      if (newDoc instanceof pdf.Document) {
+        doc = newDoc
+      }
+
       doc.info.id = '42'
       doc.info.creationDate = new Date(2015, 1, 19, 22, 33, 26)
       doc.info.producer = 'pdfjs tests (github.com/rkusa/pdfjs)'
 
       const w = fs.createWriteStream(resultPath)
       doc.pipe(w)
-
-      doc.end().catch(err => {
-        t.error(err)
-      })
 
       w.on('close', () => {
         try {
@@ -87,6 +82,15 @@ function run(files, force) {
         t.ok(result === expectation, basename)
         t.end()
       })
+
+      const p = newDoc instanceof Promise ? newDoc : Promise.resolve()
+      p
+        .then(() => {
+          doc.end().catch(err => {
+            t.error(err)
+          })
+        })
+        .catch(err => t.error(err))
     })
   }
 }
