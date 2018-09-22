@@ -5,6 +5,8 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
+
+## [2.1.0] - 2018-09-22
 ### Changed
 - When providing less cells than a row has columns, instead of throwing, autofill the row with empty cells #101
 
