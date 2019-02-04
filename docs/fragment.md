@@ -105,7 +105,7 @@ Add an image to the document.
 **Options:**
 
 - **width** (default: auto) - the image width
-- **width** (default: auto) - the image height
+- **height** (default: auto) - the image height
 - **x** (default: undefined) - x coordinate of where to render the image
 - **y** (default: undefined) - y (y starts at the bottom of the document) coordinate of where to render the image
 - **wrap** (default: false) - whether to wrap text or not
