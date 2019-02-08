@@ -1,6 +1,6 @@
 workflow "Continuous Testing" {
   on = "push"
-  resolves = ["GitHub Action for npm"]
+  resolves = ["Tests"]
 }
 
 action "Install Dependencies" {
@@ -8,7 +8,7 @@ action "Install Dependencies" {
   args = "install"
 }
 
-action "GitHub Action for npm" {
+action "Tests" {
   uses = "actions/npm@master"
   args = "test"
   needs = ["Install Dependencies"]
