@@ -5,15 +5,16 @@
     "build": "webpack --config webpack.config.js"
   },
   "devDependencies": {
-    "babel-core": "^6.24",
-    "babel-loader": "^7.0",
-    "babel-polyfill": "^6.23",
-    "babel-preset-env": "^1.6",
-    "webpack": "^4.2",
-    "webpack-cli": "^2.0.12"
+    "@babel/cli": "^7.2.3",
+    "@babel/core": "^7.2.2",
+    "@babel/preset-env": "^7.3.1",
+    "babel-loader": "^8.0.5",
+    "webpack": "^4.29.3",
+    "webpack-cli": "^3.2.3"
   },
   "dependencies": {
-    "monaco-editor": "^0.11",
-    "whatwg-fetch": "^2.0"
+    "@babel/polyfill": "^7.2.5",
+    "monaco-editor": "^0.15.6",
+    "whatwg-fetch": "^3.0.0"
   }
 }

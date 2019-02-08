@@ -1,3 +1,4 @@
+.PHONY: build
 build:
 	npm install
 	rm -rf ./public/vs
