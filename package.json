@@ -10,10 +10,10 @@
   "license": "MIT",
   "homepage": "https://github.com/rkusa/pdfjs",
   "bugs": "https://github.com/rkusa/pdfjs/issues",
-  "main": "dist/pdfjs.cjs.js",
-  "module": "lib/index.js",
+  "main": "pkg/dist-node",
+  "module": "src/index.js",
   "scripts": {
-    "build": "rollup -c rollup.config.js",
+    "build": "pack build",
     "test": "npm run build && npm run test:pdfs && npm run test:types",
     "test:pdfs": "node test/index.js",
     "test:types": "tsc --project ./types"
@@ -21,20 +21,18 @@
   "dependencies": {
     "@rkusa/linebreak": "^1.0.0",
     "opentype.js": "^0.9.0",
-    "pako": "^1.0.6",
+    "pako": "^1.0.8",
     "unorm": "^1.4.1",
     "uuid": "^3.3.2"
   },
   "devDependencies": {
-    "@types/node": "^9.6.23",
-    "rollup": "^0.62.0",
-    "rollup-plugin-commonjs": "^9.1.3",
-    "rollup-plugin-json": "^3.0.0",
-    "rollup-plugin-node-resolve": "^3.3.0",
-    "tape": "^4.6.3",
-    "typescript": "^2.8.3",
-    "webpack": "^4.16.0",
-    "webpack-command": "^0.4.1"
+    "@pika/pack": "^0.3.1",
+    "@pika/plugin-build-node": "^0.3.9",
+    "@pika/plugin-build-web": "^0.3.9",
+    "@pika/plugin-standard-pkg": "^0.3.9",
+    "@types/node": "^9.6.41",
+    "tape": "^4.9.2",
+    "typescript": "^2.8.3"
   },
   "repository": {
     "type": "git",
@@ -44,5 +42,15 @@
     "node": ">=7"
   },
   "types": "./types/main.d.ts",
-  "sideEffects": false
+  "sideEffects": false,
+  "@pika/pack": {
+    "pipeline": [
+      [
+        "@pika/plugin-standard-pkg"
+      ],
+      [
+        "@pika/plugin-build-node"
+      ]
+    ]
+  }
 }

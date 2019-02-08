@@ -3,7 +3,7 @@ const path = require('path')
 const fs   = require('fs')
 const test = require('tape')
 const fixtures = require('./fixtures')
-const pdf = require('../dist/pdfjs.cjs.js')
+const pdf = require('../')
 
 process.env.TZ = 'Europe/Berlin'
 
@@ -74,6 +74,7 @@ function run(files, force) {
 
       doc.end().catch(err => {
         t.error(err)
+        t.end()
       })
 
       w.on('close', () => {

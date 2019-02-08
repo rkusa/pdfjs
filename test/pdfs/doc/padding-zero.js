@@ -1,4 +1,4 @@
-const pdf    = require('../../../lib')
+const pdf    = require('../../../')
 
 module.exports = function(_, { lorem, font }) {
   const doc = new pdf.Document({

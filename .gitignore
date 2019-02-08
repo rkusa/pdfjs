@@ -13,4 +13,4 @@ test.*
 playground/bundle.js
 
 # build files
-dist
+pkg

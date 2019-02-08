@@ -1,6 +1,6 @@
 const fs   = require('fs')
 const path = require('path')
-const pdf  = require('../../')
+const pdf  = require('../../pkg/dist-node')
 
 const openSansRegular = fs.readFileSync(path.join(__dirname, 'font/opensans/regular.ttf'))
 const openSansBold = fs.readFileSync(path.join(__dirname, 'font/opensans/bold.ttf'))
