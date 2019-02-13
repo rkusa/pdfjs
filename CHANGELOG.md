@@ -7,6 +7,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ## [Unreleased]
 ### Fixed
 - Pages from external documents should always be added with their original size #111
+- Fix parsing documents with nested /Pages objects #117
 
 ### Changed
 - `opentype.js` has been updated to `0.11.0`, which has a minor effect on kerning distances
