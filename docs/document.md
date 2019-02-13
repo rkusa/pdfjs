@@ -78,6 +78,8 @@ doc.setTemplate(ext)
 
 Document is a `Readable` stream and can therefore piped into other streams, e.g.:
 
+**Example:**
+
 ```
 doc.pipe(fs.createWriteStream('output.pdf'))
 ```
@@ -88,20 +90,29 @@ Must be called to finish writing the PDF document.
 
 **Note:** Make sure something is reading from the document, otherwise this will not finish.
 
+**Example:**
+
 ```
 await doc.end()
 ```
 
-### .asBuffer([callback])
+### .asBuffer([opts][, callback])
 
 Can be used to render the document as a buffer. Returns a `Promise`; the usage of `callback` is optional.
 
-Note: When using `.asBuffer()`, do not call `.end()` (neither before nor after `asBuffer`).
+**Arguments:**
+
+- **opts**:
+  - **end** (defualt: `true`) - if set to false, the document will not automatically be ended when `asBuffer` is called (rkusa/pdfjs#118)
+- **callback** - called once everything has been written to the buffer
+
+Note: When using `.asBuffer()`, do not call `.end()` (neither before nor after `asBuffer`). Though, if you are calling `.asBuffer({end: false})` you have to call `doc.end()` yourself once you are done.
+
+**Examples:**
 
 ```
 doc.asBuffer().then(data => fs.writeFileSync('test.pdf', data, { encoding: 'binary' }))
 ```
-
 
 ```
 doc.asBuffer((err, data) => {
@@ -113,3 +124,9 @@ doc.asBuffer((err, data) => {
 })
 ```
 
+```
+const buf = doc.asBuffer({end: false})
+// create your document, once done:
+doc.end()
+const data = await buf;
+```

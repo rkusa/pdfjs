@@ -11,6 +11,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ### Changed
 - `opentype.js` has been updated to `0.11.0`, which has a minor effect on kerning distances
 
+### Added
+- `end` option for `doc.asBuffer` #118
+
 ## [2.1.0] - 2018-09-22
 ### Changed
 - When providing less cells than a row has columns, instead of throwing, autofill the row with empty cells #101
