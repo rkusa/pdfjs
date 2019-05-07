@@ -58,13 +58,14 @@ doc.addPageOf(1, ext)
 doc.addPageOf(3, ext)
 ```
 
-### .setTemplate(external)
+### .setTemplate(external, [firstPageOnly])
 
 Use an external document as a page template (i.e. external PDF will be used as a starting point / as a background for all pages).
 
 **Arguments:**
 
 - **external** - a `pdf.ExternalDocument` object
+- **firstPageOnly** (default: false) - whether to only apply the template to the first page
 
 **Example:**
 
