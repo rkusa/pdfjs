@@ -121,7 +121,7 @@ declare module "pdfjs" {
          * @param external The external document to merge
          * @param firstPageOnly default: false, if true the template will only be used for the first page.
          */
-        setTemplate(external: ExternalDocument, firstPageOnly: boolean): void;
+        setTemplate(external: ExternalDocument, firstPageOnly?: boolean): void;
 
         /**
          * Add an outline to the document outlines of this document
