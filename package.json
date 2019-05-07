@@ -1,7 +1,7 @@
 {
   "name": "pdfjs",
   "author": "Markus Ast <npm.m@rkusa.st>",
-  "version": "2.2.0",
+  "version": "2.3.0",
   "description": "A Portable Document Format (PDF) generation library targeting both the server- and client-side.",
   "keywords": [
     "pdf",
@@ -19,15 +19,15 @@
   "dependencies": {
     "@rkusa/linebreak": "^1.0.0",
     "opentype.js": "^0.11.0",
-    "pako": "^1.0.8",
-    "readable-stream": "^3.1.1",
-    "unorm": "^1.4.1",
+    "pako": "^1.0.10",
+    "readable-stream": "^3.3.0",
+    "unorm": "^1.5.0",
     "uuid": "^3.3.2"
   },
   "devDependencies": {
-    "@types/node": "^10.12.23",
-    "tape": "^4.9.2",
-    "typescript": "^3.3.3"
+    "@types/node": "^10.14.6",
+    "tape": "^4.10.1",
+    "typescript": "^3.4.5"
   },
   "repository": {
     "type": "git",
