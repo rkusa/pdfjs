@@ -104,7 +104,7 @@ Can be used to render the document as a buffer. Returns a `Promise`; the usage o
 **Arguments:**
 
 - **opts**:
-  - **end** (defualt: `true`) - if set to false, the document will not automatically be ended when `asBuffer` is called (rkusa/pdfjs#118)
+  - **end** (default: `true`) - if set to false, the document will not automatically be ended when `asBuffer` is called (rkusa/pdfjs#118)
 - **callback** - called once everything has been written to the buffer
 
 Note: When using `.asBuffer()`, do not call `.end()` (neither before nor after `asBuffer`). Though, if you are calling `.asBuffer({end: false})` you have to call `doc.end()` yourself once you are done.
