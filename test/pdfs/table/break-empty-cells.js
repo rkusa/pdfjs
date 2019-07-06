@@ -1,5 +1,5 @@
 module.exports = function(doc, { lorem })  {
-  doc.cell({ y: 28 })
+  doc.cell({ y: 29 })
 
   const table = doc.table({
     widths: [null, null, null, null, null, null, null],
