@@ -1,0 +1,16 @@
+on: push
+name: Continuous Integration
+jobs:
+  ci:
+    name: Continuous Integration
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@master
+    - name: Use Node.js 10.x
+      uses: actions/setup-node@v1
+      with:
+        version: 10.x
+    - name: Install Dependencies and Run Tests
+      run: |
+        npm install
+        npm test
