@@ -11,7 +11,7 @@ declare module "pdfjs" {
         /**
          * Creates a new AFM font pr OTF font object that can be used with PDF documents.
          * TFont objects can be used multiple times.
-         * @param arg the font data, as either Buffer or ArrayBuffer of an OTF font or a JSON object descriping an AFM font
+         * @param arg the font data, as either Buffer or ArrayBuffer of an OTF font or a JSON object describing an AFM font
          */
         constructor(arg: Buffer | ArrayBuffer);
     }
@@ -627,4 +627,76 @@ declare module "pdfjs" {
 
     export type TextAlignment = "left" | "right" | "center" | "justify";
     export type ImageAlignment = "left" | "right" | "center";
+}
+
+declare type Font = import("pdfjs").Font;
+
+declare module "pdfjs/font/Courier-Bold" {
+    const font: Font;
+    export = font;
+}
+
+declare module "pdfjs/font/Courier-BoldOblique" {
+    const font: Font;
+    export = font;
+}
+
+declare module "pdfjs/font/Courier-Oblique" {
+    const font: Font;
+    export = font;
+}
+
+declare module "pdfjs/font/Courier" {
+    const font: Font;
+    export = font;
+}
+
+declare module "pdfjs/font/Helvetica-Bold" {
+    const font: Font;
+    export = font;
+}
+
+declare module "pdfjs/font/Helvetica-BoldOblique" {
+    const font: Font;
+    export = font;
+}
+
+declare module "pdfjs/font/Helvetica-Oblique" {
+    const font: Font;
+    export = font;
+}
+
+declare module "pdfjs/font/Helvetica" {
+    const font: Font;
+    export = font;
+}
+
+declare module "pdfjs/font/Symbol" {
+    const font: Font;
+    export = font;
+}
+
+declare module "pdfjs/font/Times-Bold" {
+    const font: Font;
+    export = font;
+}
+
+declare module "pdfjs/font/Times-BoldItalic" {
+    const font: Font;
+    export = font;
+}
+
+declare module "pdfjs/font/Times-Italic" {
+    const font: Font;
+    export = font;
+}
+
+declare module "pdfjs/font/Times-Roman" {
+    const font: Font;
+    export = font;
+}
+
+declare module "pdfjs/font/ZapfDingbats" {
+    const font: Font;
+    export = font;
 }
