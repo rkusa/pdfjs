@@ -47,9 +47,9 @@ footer.text("This is a footer");
 
 doc
     .asBuffer()
-    .then((data:Buffer) => writeFileSync("test.pdf", data, { encoding: "binary" }));
+    .then((data: Buffer) => writeFileSync("test.pdf", data, { encoding: "binary" }));
 
-doc.asBuffer((err:Error, data:Buffer) => {
+doc.asBuffer((err: Error, data: Buffer) => {
     if (err) {
         console.error(err);
     } else {
@@ -94,7 +94,7 @@ const footer1 = doc.footer();
 footer1.pageNumber({ textAlign: "center" });
 
 const header1 = doc.header();
-header1.pageNumber((curr:number, total:number) => `${curr} / ${total}`);
+header1.pageNumber((curr: number, total: number) => `${curr} / ${total}`);
 
 const table2 = doc.table({
     widths: [200, 200]
@@ -151,7 +151,7 @@ header3
     });
 
 docPlayground.footer().pageNumber(
-    function(curr:number, total:number) {
+    function (curr: number, total: number) {
         return curr + " / " + total;
     },
     { textAlign: "center" }
@@ -185,7 +185,7 @@ docPlayground
 
 var table5 = docPlayground.table({
     widths: [1.5 * pdf.cm, 1.5 * pdf.cm, null, 2 * pdf.cm, 2.5 * pdf.cm],
-    borderHorizontalWidths: function(i:number) {
+    borderHorizontalWidths: function (i: number) {
         return i < 2 ? 1 : 0.1;
     },
     padding: 5
@@ -1534,4 +1534,48 @@ function createWriteStream(destination: string): any {
     return destination;
 }
 
-function writeFileSync(_name: string, _data: Buffer, _opts: any) {}
+function writeFileSync(_name: string, _data: Buffer, _opts: any) { }
+
+/***** Fonts *****/
+
+import * as Courier from "pdfjs/font/Courier";
+doc = new pdf.Document({ font: Courier });
+
+import * as CourierBold from "pdfjs/font/Courier-Bold";
+doc = new pdf.Document({ font: CourierBold });
+
+import * as CourierBoldOblique from "pdfjs/font/Courier-BoldOblique";
+doc = new pdf.Document({ font: CourierBoldOblique });
+
+import * as CourierOblique from "pdfjs/font/Courier-Oblique";
+doc = new pdf.Document({ font: CourierOblique });
+
+import * as Helvetica from "pdfjs/font/Helvetica";
+doc = new pdf.Document({ font: Helvetica });
+
+import * as HelveticaBold from "pdfjs/font/Helvetica-Bold";
+doc = new pdf.Document({ font: HelveticaBold });
+
+import * as HelveticaBoldOblique from "pdfjs/font/Helvetica-BoldOblique";
+doc = new pdf.Document({ font: HelveticaBoldOblique });
+
+import * as HelveticaOblique from "pdfjs/font/Helvetica-Oblique";
+doc = new pdf.Document({ font: HelveticaOblique });
+
+import * as Symbol from "pdfjs/font/Symbol";
+doc = new pdf.Document({ font: Symbol });
+
+import * as TimesBold from "pdfjs/font/Times-Bold";
+doc = new pdf.Document({ font: TimesBold });
+
+import * as TimesBoldItalic from "pdfjs/font/Times-BoldItalic";
+doc = new pdf.Document({ font: TimesBoldItalic });
+
+import * as TimesItalic from "pdfjs/font/Times-Italic";
+doc = new pdf.Document({ font: TimesItalic });
+
+import * as TimesRoman from "pdfjs/font/Times-Roman";
+doc = new pdf.Document({ font: TimesRoman });
+
+import * as ZapfDingbats from "pdfjs/font/ZapfDingbats";
+doc = new pdf.Document({ font: ZapfDingbats });
