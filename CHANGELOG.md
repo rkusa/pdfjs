@@ -7,6 +7,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ## [Unreleased] - 2019-10-11
 ### Fixed
 - fix `text.br()`s not being added if a page break happens right at their position #159
+- fix font opts inheritance when creating a text object from a text object (`.text('...').text('...')`) #175
 
 ## [2.3.2] - 2019-10-09
 ### Fixed
