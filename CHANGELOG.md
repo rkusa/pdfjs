@@ -5,8 +5,11 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
+
+## [2.3.4] - 2020-01-30
 ### Fixed
 - include `ExtGState` and `Shading` resources from external PDFs when adding them as templates
+- fix various table page break issues #191
 
 ## [2.3.3] - 2020-01-07
 ### Fixed
