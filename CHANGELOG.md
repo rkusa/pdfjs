@@ -7,6 +7,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ## [Unreleased]
 ### Fixed
 - fix possible `lexer.isWhiteSpace is not a function` errors when parsing PDFs
+- fix table header position when rendered right after page header #202
 
 ## [2.3.4] - 2020-01-30
 ### Fixed
