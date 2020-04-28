@@ -7,6 +7,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ## [Unreleased]
 ### Fixed
 - allow any whitespace between obj version and rev numbers when parsing PDF (fixes parsing of some PDF)
+- trim whitespace before starting to parse a PDF object (fixes parsing of MS print to PDF documents)
 
 ## [2.3.5] - 2020-03-03
 ### Fixed
