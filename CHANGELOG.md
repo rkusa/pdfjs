@@ -5,6 +5,8 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
+
+## [2.3.6] - 2020-04-28
 ### Fixed
 - allow any whitespace between obj version and rev numbers when parsing PDF (fixes parsing of some PDF)
 - trim whitespace before starting to parse a PDF object (fixes parsing of MS print to PDF documents)
