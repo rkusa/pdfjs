@@ -6,6 +6,11 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [2.3.7] - 2020-05-15
+### Fixed
+- Update PDF parser to accept whitespace before `endstream` keywords
+- Update PDF parser to ignore trailer prev pointers that point to the document beginning (offset = `0`)
+
 ## [2.3.6] - 2020-04-28
 ### Fixed
 - allow any whitespace between obj version and rev numbers when parsing PDF (fixes parsing of some PDF)
