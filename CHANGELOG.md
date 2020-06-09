@@ -5,6 +5,8 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
+
+## [2.3.9] - 2020-06-09
 ### Fixed
 - Fixed `Lexer is not defined` error when parsing a hex string #215
 - Added an error when multiple headers are added to a table #213
