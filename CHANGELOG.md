@@ -6,6 +6,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [2.4.0] - 2020-08-08
+### Changed
+- Corrected how text is encoded to the PDF
+
 ## [2.3.9] - 2020-06-09
 ### Fixed
 - Fixed `Lexer is not defined` error when parsing a hex string #215
