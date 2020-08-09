@@ -6,7 +6,13 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [2.4.1] - 2020-08-08
+### Fixed
+- Reverted the broken change made in `2.4.0` - sorry for that!
+
 ## [2.4.0] - 2020-08-08
+Unpublished.
+
 ### Changed
 - Corrected how text is encoded to the PDF
 
