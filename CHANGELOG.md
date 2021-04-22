@@ -6,6 +6,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [2.4.3] - 2021-04-22
+### Fixed
+- Fixed escape logic of PDF names [#252](https://github.com/rkusa/pdfjs/pull/252)
+
 ## [2.4.2] - 2020-10-23
 ### Fixed
 - Updated PDF parser to ignore comments
