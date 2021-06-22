@@ -7,6 +7,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ## [Unreleased]
 ### Fixed
 - Allow any whitespace in object streams (while parsing PDFs) #253
+- Fix main field for jsDelivr #256
 
 ## [2.4.3] - 2021-04-22
 ### Fixed

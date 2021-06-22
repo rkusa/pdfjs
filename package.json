@@ -10,7 +10,7 @@
   "license": "MIT",
   "homepage": "https://github.com/rkusa/pdfjs",
   "bugs": "https://github.com/rkusa/pdfjs/issues",
-  "main": "lib/",
+  "main": "lib/index.js",
   "scripts": {
     "test": "npm run test:pdfs && npm run test:types",
     "test:pdfs": "node test/index.js",
