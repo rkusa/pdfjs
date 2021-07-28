@@ -116,6 +116,14 @@ declare module "pdfjs" {
          */
         addPageOf(page: number, external: ExternalDocument): void;
 
+                /**
+         * Add a reange of pages from an external PDF into this document (aka merge an external document into this document)
+         * @param external The external document to merge
+         * @param start The number of the first page that should be added
+         * @param end The number of the last page that should be added
+         */
+        addPageRangeOf(external: ExternalDocument, start: Number, end: Number): void;
+
         /**
          * Use an external document as a page template (i.e. external PDF will be used as a starting point / as a background for all pages)
          * @param external The external document to merge
