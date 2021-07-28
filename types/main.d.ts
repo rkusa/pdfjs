@@ -110,6 +110,13 @@ declare module "pdfjs" {
         addPagesOf(external: ExternalDocument): void;
 
         /**
+         * Add specific pages of an external PDF into this document (aka merge an external document into this document)
+         * @param external The external document to merge
+         * @param pages The page numbers that should be added
+         */
+        addSpecificPagesOf(external: ExternalDocument, pages: Array<Number>): void;
+
+        /**
          * Add one specific page of an external PDF into this document (aka merge an external document into this document)
          * @param page The number of the page that should be added
          * @param external The external document to merge
