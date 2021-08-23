@@ -6,6 +6,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [2.5.6] - 2021-08-23
+### Fixed
+- Fixed images not adding page break
+
 ## [2.4.5] - 2021-07-29
 ### Fixed
 - Fixed PDF name parsing to accept empty names (`/`) #260
