@@ -1,5 +1,6 @@
 const pdf = require('../')
 require('whatwg-fetch')
+const monaco = require('monaco-editor');
 
 const fonts = {
   CourierBold: require('../font/Courier-Bold.js'),
@@ -53,7 +54,7 @@ function init(logo, opensans) {
       var doc = fn(pdf, fonts, logo, lorem)
 
       render(doc)
-        .then(function(url) {
+        .then(function (url) {
           errorEl.classList.remove('open')
           previewEl.data = url
         })
@@ -62,14 +63,14 @@ function init(logo, opensans) {
           errorEl.textContent = err.message
           errorEl.classList.add('open')
         })
-    } catch(err) {
+    } catch (err) {
       console.error(err)
       errorEl.textContent = err.message
       errorEl.classList.add('open')
     }
   }
 
-  editor.onDidChangeModelContent(function() {
+  editor.onDidChangeModelContent(function () {
     if (debounce) {
       clearTimeout(debounce)
     }
@@ -78,15 +79,31 @@ function init(logo, opensans) {
   rerender()
 }
 
-window.main = function() {
-  const fixtrues = [
-    fetch('/logo.pdf'),
-    fetch('/opensans.ttf'),
-  ]
-  Promise.all(fixtrues)
-    .then(res => Promise.all(res.map(r => r.arrayBuffer())))
-    .then(res => init(
-      new pdf.Image(res[0]),
-      new pdf.Font(res[1]),
-    ))
-}
+self.MonacoEnvironment = {
+  getWorkerUrl: function (moduleId, label) {
+    if (label === 'json') {
+      return './json.worker.js';
+    }
+    if (label === 'css' || label === 'scss' || label === 'less') {
+      return './css.worker.js';
+    }
+    if (label === 'html' || label === 'handlebars' || label === 'razor') {
+      return './html.worker.js';
+    }
+    if (label === 'typescript' || label === 'javascript') {
+      return './ts.worker.js';
+    }
+    return './editor.worker.js';
+  },
+};
+
+const fixtrues = [
+  fetch('/logo.pdf'),
+  fetch('/opensans.ttf'),
+]
+Promise.all(fixtrues)
+  .then(res => Promise.all(res.map(r => r.arrayBuffer())))
+  .then(res => init(
+    new pdf.Image(res[0]),
+    new pdf.Font(res[1]),
+  ))

@@ -2,19 +2,16 @@
   "name": "pdfjs-playground",
   "private": "true",
   "scripts": {
-    "build": "webpack --config webpack.config.js"
+    "build": "node build.js"
   },
   "devDependencies": {
-    "@babel/cli": "^7.12.1",
-    "@babel/core": "^7.12.3",
-    "@babel/preset-env": "^7.12.1",
-    "babel-loader": "^8.1.0",
-    "webpack": "^4.44.2",
-    "webpack-cli": "^4.1.0"
+    "buffer": "^6.0.3",
+    "esbuild": "^0.13.8",
+    "events": "^3.3.0",
+    "process": "^0.11.10"
   },
   "dependencies": {
-    "@babel/polyfill": "^7.12.1",
-    "monaco-editor": "^0.21.2",
+    "monaco-editor": "^0.29.1",
     "whatwg-fetch": "^3.4.1"
   }
 }

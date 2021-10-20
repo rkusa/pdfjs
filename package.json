@@ -26,6 +26,8 @@
   },
   "devDependencies": {
     "@types/node": "^15.12.4",
+    "buffer": "^6.0.3",
+    "events": "^3.3.0",
     "tape": "^5.0.1",
     "typescript": "^4.0.3"
   },

@@ -1,2 +1,5 @@
-/public/vs
-/public/bundle.js
+/public/*
+!/public/index.html
+!/public/logo.pdf
+!/public/opensans.ttf
+!/public/playground.css
