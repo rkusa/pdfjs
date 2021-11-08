@@ -11,7 +11,7 @@
     "process": "^0.11.10"
   },
   "dependencies": {
-    "monaco-editor": "^0.29.1",
+    "monaco-editor": "^0.30.0",
     "whatwg-fetch": "^3.4.1"
   }
 }
