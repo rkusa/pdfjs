@@ -4,6 +4,8 @@ module.exports = function(doc, { lorem })  {
     borderWidth: 1,
   })
 
+  // The behavior with the headers not appearing on the remaining pages is intentional
+  // See issue #292 https://github.com/rkusa/pdfjs/issues/292
   const header1 = table.header()
   header1.cell('Header Left1', { textAlign: 'center', padding: 30 })
   header1.cell('Header Right1', { textAlign: 'center', padding: 30 })
