@@ -6,10 +6,18 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 ### Fixed
+- Fixed footer position after changing it #283
+- Fixed graphical state not reset hwen using templates (could lead to rotated/translated pages) #287
+
+### Changed
+- Added support for multiple table header rows #293
+
+## [2.4.7]
+### Fixed
 - Fixed error when rendering page headers close to the bottom of the page #213
 - Fixed reading PDF `Filter` property when being of type array #268
 
-## [2.5.6] - 2021-08-23
+## [2.4.6] - 2021-08-23
 ### Fixed
 - Fixed images not adding page break
 
