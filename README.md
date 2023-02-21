@@ -3,10 +3,8 @@
 A Portable Document Format (PDF) generation library targeting both the server- and client-side.
 
 [![NPM][npm]](https://npmjs.org/package/pdfjs)
-[![Dependency Status][deps]](https://david-dm.org/rkusa/pdfjs)
-[![Build Status][travis]](https://travis-ci.org/rkusa/pdfjs)
 
-[Documentation](docs) | [Playground](http://pdfjs.rkusa.st/)
+[Documentation](docs) | [Playground](https://stackblitz.com/edit/js-hkxfhq?file=index.js)
 
 ```bash
 npm install pdfjs
