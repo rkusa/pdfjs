@@ -1593,8 +1593,15 @@ endobj
 >>
 endobj
 
+71 0 obj
+<<
+	/Producer (pdfjs tests \(github.com/rkusa/pdfjs\))
+	/CreationDate (D:20150219223326+01'00')
+>>
+endobj
+
 xref
-0 71
+0 72
 0000000000 65535 f 
 0000030524 00000 n 
 0000030654 00000 n 
@@ -1666,16 +1673,14 @@ xref
 0000030255 00000 n 
 0000030276 00000 n 
 0000034296 00000 n 
+0000034349 00000 n 
 trailer
 <<
-	/Size 71
+	/Size 72
 	/Root 70 0 R
 	/ID [<00150013> <00150013>]
-	/Info <<
-		/Producer (pdfjs tests \(github.com/rkusa/pdfjs\))
-		/CreationDate (D:20150219223326+01'00')
-	>>
+	/Info 71 0 R
 >>
 startxref
-34349
+34465
 %%EOF
