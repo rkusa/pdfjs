@@ -636,7 +636,17 @@ declare module "pdfjs/font/Courier-Bold" {
     export = font;
 }
 
+declare module "pdfjs/font/Courier-Bold.js" {
+    const font: Font;
+    export = font;
+}
+
 declare module "pdfjs/font/Courier-BoldOblique" {
+    const font: Font;
+    export = font;
+}
+
+declare module "pdfjs/font/Courier-BoldOblique.js" {
     const font: Font;
     export = font;
 }
@@ -646,7 +656,17 @@ declare module "pdfjs/font/Courier-Oblique" {
     export = font;
 }
 
+declare module "pdfjs/font/Courier-Oblique.js" {
+    const font: Font;
+    export = font;
+}
+
 declare module "pdfjs/font/Courier" {
+    const font: Font;
+    export = font;
+}
+
+declare module "pdfjs/font/Courier.js" {
     const font: Font;
     export = font;
 }
@@ -656,7 +676,17 @@ declare module "pdfjs/font/Helvetica-Bold" {
     export = font;
 }
 
+declare module "pdfjs/font/Helvetica-Bold.js" {
+    const font: Font;
+    export = font;
+}
+
 declare module "pdfjs/font/Helvetica-BoldOblique" {
+    const font: Font;
+    export = font;
+}
+
+declare module "pdfjs/font/Helvetica-BoldOblique.js" {
     const font: Font;
     export = font;
 }
@@ -666,7 +696,17 @@ declare module "pdfjs/font/Helvetica-Oblique" {
     export = font;
 }
 
+declare module "pdfjs/font/Helvetica-Oblique.js" {
+    const font: Font;
+    export = font;
+}
+
 declare module "pdfjs/font/Helvetica" {
+    const font: Font;
+    export = font;
+}
+
+declare module "pdfjs/font/Helvetica.js" {
     const font: Font;
     export = font;
 }
@@ -676,7 +716,17 @@ declare module "pdfjs/font/Symbol" {
     export = font;
 }
 
+declare module "pdfjs/font/Symbol.js" {
+    const font: Font;
+    export = font;
+}
+
 declare module "pdfjs/font/Times-Bold" {
+    const font: Font;
+    export = font;
+}
+
+declare module "pdfjs/font/Times-Bold.js" {
     const font: Font;
     export = font;
 }
@@ -686,7 +736,17 @@ declare module "pdfjs/font/Times-BoldItalic" {
     export = font;
 }
 
+declare module "pdfjs/font/Times-BoldItalic.js" {
+    const font: Font;
+    export = font;
+}
+
 declare module "pdfjs/font/Times-Italic" {
+    const font: Font;
+    export = font;
+}
+
+declare module "pdfjs/font/Times-Italic.js" {
     const font: Font;
     export = font;
 }
@@ -696,7 +756,17 @@ declare module "pdfjs/font/Times-Roman" {
     export = font;
 }
 
+declare module "pdfjs/font/Times-Roman.js" {
+    const font: Font;
+    export = font;
+}
+
 declare module "pdfjs/font/ZapfDingbats" {
+    const font: Font;
+    export = font;
+}
+
+declare module "pdfjs/font/ZapfDingbats.js" {
     const font: Font;
     export = font;
 }
