@@ -6,6 +6,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 ### Fixed
+- Fixed unhandled promise rejection in `doc.asBuffer()`
+
+## [2.5.0]
+### Fixed
 - Fixed footer position after changing it #283
 - Fixed graphical state not reset hwen using templates (could lead to rotated/translated pages) #287
 - Fixed importing fonts in ESM context (in TS projects) #309
