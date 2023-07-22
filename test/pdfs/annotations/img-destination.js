@@ -1,9 +1,9 @@
-module.exports = function(doc, {image, lorem}) {
-  doc.text('goto', { goTo: 'here' })
+module.exports = function (doc, { image, lorem }) {
+  doc.text("goto", { goTo: "here" });
 
-  doc.pageBreak()
+  doc.pageBreak();
 
   doc.image(image.jpeg, {
-    destination: 'here'
-  })
-}
+    destination: "here",
+  });
+};

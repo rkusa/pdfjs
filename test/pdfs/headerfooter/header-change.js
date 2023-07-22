@@ -1,11 +1,11 @@
-module.exports = function(doc, {lorem, image}) {
-  let header = doc.header()
-  header.text('First')
+module.exports = function (doc, { lorem, image }) {
+  let header = doc.header();
+  header.text("First");
 
-  doc.text('Hello World 1')
+  doc.text("Hello World 1");
 
-  header = doc.header()
-  header.text('Second')
+  header = doc.header();
+  header.text("Second");
 
-  doc.text('Hello World 2')
-}
+  doc.text("Hello World 2");
+};

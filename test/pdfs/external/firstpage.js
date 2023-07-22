@@ -1,7 +1,7 @@
-module.exports = function(doc, {document}) {
-  const external = document.test
+module.exports = function (doc, { document }) {
+  const external = document.test;
 
-  doc.addPageOf(1, external)
+  doc.addPageOf(1, external);
 
-  doc.text('Should be on second page ...')
-}
+  doc.text("Should be on second page ...");
+};

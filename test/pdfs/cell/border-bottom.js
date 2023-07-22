@@ -1,17 +1,22 @@
-module.exports = function(doc) {
-  doc.text('before')
+module.exports = function (doc) {
+  doc.text("before");
 
-  doc.cell('Cell 1', {
-    fontSize: 15, width: 256, padding: 10,
-    borderBottomWidth: 5
-  })
+  doc.cell("Cell 1", {
+    fontSize: 15,
+    width: 256,
+    padding: 10,
+    borderBottomWidth: 5,
+  });
 
-  doc.text('in between')
+  doc.text("in between");
 
-  doc.cell('Cell 2', {
-    fontSize: 15, width: 256, padding: 10,
-    borderBottomWidth: 1, borderBottomColor: 0x2980b9
-  })
+  doc.cell("Cell 2", {
+    fontSize: 15,
+    width: 256,
+    padding: 10,
+    borderBottomWidth: 1,
+    borderBottomColor: 0x2980b9,
+  });
 
-  doc.text('after')
-}
+  doc.text("after");
+};

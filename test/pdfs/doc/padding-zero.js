@@ -1,11 +1,11 @@
-const pdf    = require('../../../lib')
+const pdf = require("../../../lib");
 
-module.exports = function(_, { lorem, font }) {
+module.exports = function (_, { lorem, font }) {
   const doc = new pdf.Document({
-    font:    font.afm.regular,
+    font: font.afm.regular,
     paddingLeft: 0,
     paddingRight: 0,
-  })
-  doc.text(lorem.short)
-  return doc
-}
+  });
+  doc.text(lorem.short);
+  return doc;
+};

@@ -1,4 +1,3 @@
-module.exports = function(doc, fixtures) {
-  doc.text('Hællo, 1000€')
-}
-
+module.exports = function (doc, fixtures) {
+  doc.text("Hællo, 1000€");
+};

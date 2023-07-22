@@ -12,6 +12,7 @@
   "bugs": "https://github.com/rkusa/pdfjs/issues",
   "main": "lib/index.js",
   "scripts": {
+    "fmt": "prettier --write './{lib,test}/**/*.js'",
     "test": "npm run test:pdfs && npm run test:types",
     "test:pdfs": "node test/index.js",
     "test:types": "tsc --project ./types"
@@ -28,6 +29,7 @@
     "@types/node": "^15.12.4",
     "buffer": "^6.0.3",
     "events": "^3.3.0",
+    "prettier": "^3.0.0",
     "tape": "^5.0.1",
     "typescript": "^4.0.3"
   },

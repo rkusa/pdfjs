@@ -1,5 +1,5 @@
-module.exports = function(doc) {
-  doc.cell({ y: 140 })
+module.exports = function (doc) {
+  doc.cell({ y: 140 });
 
   const table = doc.table({
     widths: [100, null],
@@ -29,4 +29,4 @@ module.exports = function(doc) {
   cell.cell(`value - 4`, {
     padding: 10,
   });
-}
+};
