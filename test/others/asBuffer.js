@@ -45,3 +45,22 @@ test("asBuffer", function (t) {
     })
     .catch(t.error);
 });
+
+test("error in pending queue", async function (t) {
+  t.plan(1);
+
+  let doc = new pdf.Document({
+    font: f.font.afm.regular,
+  });
+
+  doc._pending.push(() => {
+    return new Promise(() => {
+      throw new Error("Test Error");
+    });
+  });
+
+  await doc
+    .asBuffer()
+    .then(() => t.fail("asBuffer expected to reject"))
+    .catch(() => t.pass("as Buffer rejected"));
+});

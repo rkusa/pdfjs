@@ -6,6 +6,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [2.5.2]
+### Fixed
+- Fixed unhandled promise rejection in `doc.asBuffer()` - take two
+
 ## [2.5.1]
 ### Fixed
 - Fixed unhandled promise rejection in `doc.asBuffer()`
