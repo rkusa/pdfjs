@@ -4,33 +4,11 @@ A Portable Document Format (PDF) generation library targeting both the server- a
 
 [![NPM][npm]](https://npmjs.org/package/pdfjs)
 
-[Documentation](docs) | [Playground](https://stackblitz.com/edit/js-hkxfhq?file=index.js)
+[Documentation](docs) | [Changelog](https://github.com/rkusa/pdfjs/blob/master/CHANGELOG.md) | [Playground](https://stackblitz.com/edit/js-hkxfhq?file=index.js) | [Examples](https://github.com/rkusa/pdfjs/tree/master/test/pdfs)
 
 ```bash
 npm install pdfjs
 ```
-
-----------------
-
-### Features
-
-- Text (with common formatting options)
-- Images (JPEGs, other **PDFs** ¹)
-- Tables (fixed layout, header row)
-- Header & Footer
-- AFM fonts && OTF font embedding (as CID fonts, i.e., support for fonts with large character sets)
-- Add existing PDFs (merge them or add them as page templates) ¹
-- Document outline
-
-A lot of examples can be found in the [test folder](https://github.com/rkusa/pdfjs/tree/master/test/pdfs).
-
-If you are missing a feature, feel free to submit a PR or to ask for it.
-
-> ¹ Adding other PDFs as images or merging them together is still being considered a beta - proper error handling is adviced
-
-### History
-
-See [CHANGELOG](https://github.com/rkusa/pdfjs/blob/master/CHANGELOG.md).
 
 ## MIT License
 

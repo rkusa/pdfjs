@@ -26,6 +26,8 @@ footer.text('This is a footer')
 
 ### .addPagesOf(external)
 
+Note: please note that merging PDFs is still considered incomplete and has a couple of [outstanding issues](https://github.com/rkusa/pdfjs/issues?q=is%3Aissue+is%3Aopen+label%3Apdf-merge).
+
 Add all pages of an external PDF into this document (aka merge an external document into this document).
 
 **Arguments:**
@@ -41,6 +43,8 @@ doc.addPagesOf(ext)
 ```
 
 ### .addPageOf(page, external)
+
+Note: please note that merging PDFs is still considered incomplete and has a couple of [outstanding issues](https://github.com/rkusa/pdfjs/issues?q=is%3Aissue+is%3Aopen+label%3Apdf-merge).
 
 Add one specific page of an external PDF into this document (aka merge an external document into this document).
 
@@ -59,6 +63,8 @@ doc.addPageOf(3, ext)
 ```
 
 ### .setTemplate(external, [firstPageOnly])
+
+Note: please note that merging PDFs is still considered incomplete and has a couple of [outstanding issues](https://github.com/rkusa/pdfjs/issues?q=is%3Aissue+is%3Aopen+label%3Apdf-merge).
 
 Use an external document as a page template (i.e. external PDF will be used as a starting point / as a background for all pages).
 

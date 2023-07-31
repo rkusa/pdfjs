@@ -97,6 +97,8 @@ row.cell('Cell 2')
 
 Add an image to the document.
 
+Supported formats: JPEGs, other PDFs
+
 **Arguments:**
 
 - **img** - a `pdf.Image` object of the image
