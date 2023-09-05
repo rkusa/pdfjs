@@ -5,6 +5,9 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
+### Fixed
+- Fixed `Name must start with a leading slash` when adding an external document to a `pdfjs` document, and adding that result to another `pdfjs` document again (caused by a `null` object reference due to object streams). Also fixes duplicate objects when adding external documents with
+pages in object streams.
 
 ## [2.5.2]
 ### Fixed
