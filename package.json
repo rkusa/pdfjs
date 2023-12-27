@@ -1,7 +1,7 @@
 {
   "name": "pdfjs",
   "author": "Markus Ast <npm.m@rkusa.st>",
-  "version": "2.5.2",
+  "version": "2.5.3",
   "description": "A Portable Document Format (PDF) generation library targeting both the server- and client-side.",
   "keywords": [
     "pdf",
