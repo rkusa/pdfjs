@@ -10,6 +10,11 @@ A Portable Document Format (PDF) generation library targeting both the server- a
 npm install pdfjs
 ```
 
+## Maintenance Status
+
+On life-support. No new features planned. Only gets fixes if time allows.
+I recommend that you use something else.
+
 ## MIT License
 
 [MIT](LICENSE)
