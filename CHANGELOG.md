@@ -9,6 +9,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Fixed `Name must start with a leading slash` when adding an external document to a `pdfjs` document, and adding that result to another `pdfjs` document again (caused by a `null` object reference due to object streams). Also fixes duplicate objects when adding external documents with
 pages in object streams.
 - Fixed TypeScript type definition of `doc.asBuffer` and `doc.width`/`doc.height`
+- Fixed referencing an undefined variable when throw an invalid font error
 
 ## [2.5.2]
 ### Fixed
