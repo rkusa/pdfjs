@@ -69,6 +69,16 @@ declare module "pdfjs" {
         info: DocumentProperties & { id: string };
 
         /**
+         * The documents width.
+         */
+        width: number;
+
+        /**
+         * The documents height.
+         */
+        height: number;
+
+        /**
          * Document is a Readable stream and can therefore piped into other streams
          * @param dest destination
          * @param opts options
