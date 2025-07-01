@@ -7,6 +7,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ## [Unreleased]
 ### Fixed
 - Fixed one and two digit octals in string literals
+- Added bounds checks to the lexer to prevent potential endless loops when reading PDF #327
 
 ## [2.5.3]
 ### Fixed
